@@ -14,7 +14,13 @@
 
     <nav>
         <ul>
-            <li>placeholder</li>
+            <?php foreach($page_datas as $page_data_key => $page_data_value) { ?>
+                <li <?= (($page_data_value == $current_page_data) ? 'class="active"' : ''); ?>> 
+                    <a href="<?=($page_data_key == '/') ? '.' : ('?page=' . $page_data_key);?>">
+                        <?= $page_data_value['title']; ?>
+                    </a>
+                </li>
+            <?php } ?>
         </ul>
     </nav>
 

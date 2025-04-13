@@ -36,7 +36,7 @@
         <div id=error-content>
             <h1>404</h1>
             <p>A Keresett oldal nem található...</p>
-            <a href="index.php">Vissza a főoldalra</a>
+            <a href=".">Vissza a főoldalra</a>
         </div>
     </div>
 </body>

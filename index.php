@@ -3,8 +3,9 @@ include('config.inc.php');
 
 // retrieve page data by 'page' query param
 if (isset($_GET['page'])) {
-    if (isset($pages[$_GET['page']]) && file_exists($pages[$_GET['page']]['html_template'])) {
-        $current_page_data = $pages[$_GET['page']]; // retrieve requested page data
+    $page_data_key = $_GET['page'];
+    if (isset($page_datas[$page_data_key]) && file_exists($page_datas[$page_data_key]['html_template'])) {
+        $current_page_data = $page_datas[$page_data_key]; // retrieve requested page data
         include('./templates/index.tpl.php');
     }
     else {
@@ -13,7 +14,7 @@ if (isset($_GET['page'])) {
     }
 }
 else {
-    $current_page_data = current($pages); // retrieve main page data on load or current page by internal pointer
+    $current_page_data = current($page_datas); // retrieve main page data on load or current page by internal pointer
     include('./templates/index.tpl.php');
 }
 ?>
