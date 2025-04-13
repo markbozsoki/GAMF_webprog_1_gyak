@@ -29,7 +29,7 @@
     </section>
 
     <footer>
-        <p>placeholder</p>
+        <a href="https://vaszilijedc.hu/" target="_blank">vaszilijedc.hu</a>
     </footer>
 
     <script src="scripts/script.js"></script>
