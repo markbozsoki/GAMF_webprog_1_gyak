@@ -2,11 +2,11 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <title>404 - Az oldal nem található</title>
-	<link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/style.css">
 
-	<style>
+    <style>
         #error-container {
             display: flex;
             flex-direction: column;
