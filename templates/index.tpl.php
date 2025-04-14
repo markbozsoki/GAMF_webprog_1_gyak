@@ -5,10 +5,10 @@
     <meta charset="utf-8">
     <title><?= $current_page_data['title']; ?></title>
 
+    <link rel="stylesheet" href="./styles/style.css">
     <?php if(isset($current_page_data['style_file']) && file_exists($current_page_data['style_file'])) { ?>
     <?php echo '<link rel="stylesheet" href="' . $current_page_data['style_file'] . '">'; ?>
     <?php } ?>
-    <link rel="stylesheet" href="./styles/style.css">
 </head>
 
 <body>
