@@ -15,11 +15,11 @@
 </head>
 
 <body>
-    <div>
-        <div>
-            <h1>404</h1>
-            <p>A Keresett oldal nem található...</p>
-            <a href=".">Vissza a főoldalra</a>
+    <div class="d-flex align-items-center justify-content-center min-vh-100 px-2">
+        <div class="text-center">
+            <h1 class="display-1 fw-bold">404</h1>
+            <p class="fw-medium mt-2 mb-3">A Keresett oldal nem található...</p>
+            <a href="." class="btn btn-link">Vissza a főoldalra</a>
         </div>
     </div>
 
