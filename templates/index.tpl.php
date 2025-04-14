@@ -4,7 +4,11 @@
 <head>
 	<meta charset="utf-8">
     <title><?= $current_page_data['title']; ?></title>
-	<link rel="stylesheet" href="styles/style.css">
+
+    <?php if(isset($current_page_data['style_file']) && file_exists($current_page_data['style_file'])) { ?>
+    <?php echo '<link rel="stylesheet" href="' . $current_page_data['style_file'] . '">'; ?>
+    <?php } ?>
+	<link rel="stylesheet" href="./styles/style.css">
 </head>
 
 <body>
@@ -32,7 +36,10 @@
         <a href="https://vaszilijedc.hu/" target="_blank">vaszilijedc.hu</a>
     </footer>
 
-    <script src="scripts/script.js"></script>
+    <script src="./scripts/script.js"></script>
+    <?php if(isset($current_page_data['script_file']) && file_exists($current_page_data['script_file'])) { ?>
+    <?php echo '<script src="' . $current_page_data['script_file'] . '"></script>'; ?>
+    <?php } ?>
 </body>
 
 </html>
