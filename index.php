@@ -1,5 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 include('config.inc.php');
+
+function load_error_page($error) {
+    header('HTTP/1.0 ' . $error['code'] . ' ' . $error['name']);
+    include('./templates/error.tpl.php');
+}
 
 // retrieve page data by 'page' query param
 if (isset($_GET['page'])) {
@@ -9,18 +14,16 @@ if (isset($_GET['page'])) {
         include('./templates/index.tpl.php');
     }
     else {
-        header("HTTP/1.0 404 Not Found");
-        include('./templates/404.tpl.php'); // load 404 template
+        load_error_page($errors['404']); // requested page not found
     }
 }
 else {
-    $current_page_data = current($page_datas); // retrieve main page data on load or current page by internal pointer ('/')
+    $current_page_data = $page_datas['/']; // retrieve main page data (no query param)
     if (file_exists($current_page_data['html_template'])) {
         include('./templates/index.tpl.php');
     }
     else {
-        header("HTTP/1.0 500 Internal Server Error");
-        include('./templates/500.tpl.php');
+        load_error_page($errors['500']); // main page could not be loaded
     }
 }
 ?>
