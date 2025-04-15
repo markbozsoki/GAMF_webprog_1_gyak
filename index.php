@@ -14,7 +14,13 @@ if (isset($_GET['page'])) {
     }
 }
 else {
-    $current_page_data = current($page_datas); // retrieve main page data on load or current page by internal pointer
-    include('./templates/index.tpl.php');
+    $current_page_data = current($page_datas); // retrieve main page data on load or current page by internal pointer ('/')
+    if (file_exists($current_page_data['html_template'])) {
+        include('./templates/index.tpl.php');
+    }
+    else {
+        header("HTTP/1.0 500 Internal Server Error");
+        include('./templates/500.tpl.php');
+    }
 }
 ?>
