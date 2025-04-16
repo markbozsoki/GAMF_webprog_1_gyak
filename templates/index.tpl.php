@@ -38,7 +38,7 @@
         <?php include($current_page_data['html_template']); ?>
     </section>
 
-    <footer>
+    <footer class="fixed-bottom text-center">
         <a href="https://vaszilijedc.hu/" target="_blank">vaszilijedc.hu</a>
     </footer>
 
