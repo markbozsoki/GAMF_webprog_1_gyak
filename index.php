@@ -1,11 +1,6 @@
 <?php declare(strict_types=1);
 include('config.inc.php');
 
-function load_error_page($error) {
-    header('HTTP/1.0 ' . $error['code'] . ' ' . $error['name']);
-    include('./templates/error.tpl.php');
-}
-
 // retrieve page data by 'page' query param
 if (isset($_GET['page'])) {
     $page_data_key = $_GET['page'];
