@@ -12,14 +12,11 @@
     ?>
     </div>
 <div class="gallery-upload">
-        <form action="include/gallery/upload.inc.php" method="post" enctype="multipart/form-data">
+        <form action="logicals/gallery/upload.inc.php" method="post" enctype="multipart/form-data">
         <input type="text" name="filename" placeholder="Fájl neve...">
         <input type="text" name="filetitle" placeholder="Kép címe...">
         <input type="text" name="filedescription" placeholder="Leírás...">
-        <input type="file" name="file" required>
-        <input type="hidden" name="MAX_FILE_SIZE" value="512000">
+        <input type="file" name="file">
         <button type="submit" name="submit">Feltöltés</button>
         </form>
     </div>
-</body>
-</html>
