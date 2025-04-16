@@ -17,5 +17,11 @@ $page_datas = array(
         'style_file' => './styles/pages/knifes.css',
         'script_file' => './scripts/pages/knifes.js',
     ),
+    'gallery' => array(
+    'title' => 'Galéria',
+    'html_template' => './templates/pages/gallery.tpl.php', 
+    'style_file' => './styles/pages/gallery.css',
+    'script_file' => './scripts/pages/gallery.js',
+    ),
 );
 ?>
