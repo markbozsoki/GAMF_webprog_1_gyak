@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>404 - Az oldal nem található</title>
+    <title><?= $error['code'] . ' - ' . $error['title'] ?></title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
@@ -17,9 +17,11 @@
 <body>
     <div class="d-flex align-items-center justify-content-center min-vh-100 px-2">
         <div class="text-center">
-            <h1 class="display-1 fw-bold">404</h1>
-            <p class="fw-medium mt-2 mb-3">A Keresett oldal nem található...</p>
-            <a href="." class="btn btn-link">Vissza a főoldalra</a>
+            <h1 class="display-1 fw-bold"><?= $error['code'] ?></h1>
+            <p class="fw-medium mt-2 mb-3"><?= $error['message'] ?></p>
+            <?php if($error['allow_redirect']) { ?>
+            <?php echo '<a href="." class="btn btn-link">Vissza a főoldalra</a>' ?>
+            <?php } ?>
         </div>
     </div>
 
