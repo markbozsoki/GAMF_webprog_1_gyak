@@ -1,5 +1,10 @@
 <?php
-$page_datas = array( // collection of available page templates, styles and page spacific values
+// list of used includes
+include('./includes/error.inc.php');
+
+
+// collection of available page templates, styles and page spacific values
+$page_datas = array(
     '/' => array(
         'title' => 'Főoldal',
         'html_template' => './templates/pages/main_page.tpl.php', 
