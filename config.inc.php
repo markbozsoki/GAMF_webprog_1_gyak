@@ -20,16 +20,10 @@ $page_datas = array(
         'script_file' => './scripts/pages/knifes.js',
     ),
     'gallery' => array(
-<<<<<<< HEAD
         'title' => 'Galéria',
         'html_template' => './templates/pages/gallery.tpl.php', 
         'style_file' => './styles/pages/gallery.css',
         'script_file' => './scripts/pages/gallery.js',
-=======
-    'title' => 'Galéria',
-    'html_template' => './templates/pages/gallery.tpl.php', 
-    'style_file' => './styles/pages/gallery.css',
-    'script_file' => './scripts/pages/gallery.js',
     ),
 );
 
@@ -47,7 +41,6 @@ $errors = array(
         'title' => 'Hiba',
         'message' => 'Az oldal nem tölthető be...',
         'allow_redirect' => false,
->>>>>>> 6e59a70ebbaeab612c3d400f2b5aa241541e4106
     ),
 );
 ?>
