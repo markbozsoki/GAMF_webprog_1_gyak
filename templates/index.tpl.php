@@ -22,16 +22,18 @@
         <h1><?= $current_page_data['title']; ?></h1>
     </header>
 
-    <nav>
-        <ul>
-            <?php foreach($page_datas as $page_data_key => $page_data_value) { ?>
-            <li <?= (($page_data_value == $current_page_data) ? 'class="active"' : ''); ?>> 
-                <a href="<?= ($page_data_key == '/') ? '.' : ('?page=' . $page_data_key); ?>">
-                    <?php echo $page_data_value['title']; ?>
-                </a>
-            </li>
-            <?php } ?>
-        </ul>
+    <nav class="navbar">
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav">
+                <?php foreach($page_datas as $page_data_key => $page_data_value) { ?>
+                <li class="nav-item"> 
+                    <a class="nav-link" href="<?= ($page_data_key == '/') ? '.' : ('?page=' . $page_data_key); ?>">
+                        <?php echo $page_data_value['title']; ?>
+                    </a>
+                </li>
+                <?php } ?>
+            </ul>
+        </div>
     </nav>
 
     <section>
