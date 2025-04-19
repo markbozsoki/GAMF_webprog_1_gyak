@@ -1,8 +1,11 @@
 <?php
-// list of used includes
+// system level includes
 include('./includes/error.inc.php');
 include('./includes/image_gallery.inc.php');
+include('./includes/session.inc.php');
 
+// feature level includes
+include('./includes/gallery/image_gallery.inc.php');
 
 
 // collection of available page templates, styles and page spacific values

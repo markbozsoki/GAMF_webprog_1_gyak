@@ -1,6 +1,19 @@
 <?php declare(strict_types=1);
 include('config.inc.php');
 
+// autologin for debugging
+$_SESSION["surname"] = 'Dummilton';
+$_SESSION["forename"] = 'Userling';
+$_SESSION["username"] = 'dummy_user';
+$_SESSION['logged_in'] = TRUE;
+
+// logout user on 'logout' query param
+if (isset($_GET['logout'])) {
+    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == TRUE) {
+        logout_user();
+    }
+}
+
 // retrieve page data by 'page' query param
 if (isset($_GET['page'])) {
     $page_data_key = $_GET['page'];

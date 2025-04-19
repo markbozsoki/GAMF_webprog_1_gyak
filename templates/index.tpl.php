@@ -35,6 +35,11 @@
                     </a>
                 </li>
                 <?php } ?>
+                <?php if(isset($_SESSION['logged_in'])) { ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="?logout">Kijelentkezés</a>
+                </li>
+                <?php } ?>
             </ul>
         </div>
     </nav>
