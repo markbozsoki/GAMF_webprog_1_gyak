@@ -19,8 +19,10 @@
         <div class="text-center">
             <h1 class="display-1 fw-bold"><?= $error['code'] ?></h1>
             <p class="fw-medium mt-2 mb-3"><?= $error['message'] ?></p>
-            <?php if($error['allow_redirect']) { ?>
-            <?php echo '<a href="." class="btn btn-link">Vissza a főoldalra</a>' ?>
+            <?php if($error['redirect_to_main_page']) { ?>
+            <a href="." class="btn btn-link">
+                Vissza a főoldalra
+            </a>
             <?php } ?>
         </div>
     </div>

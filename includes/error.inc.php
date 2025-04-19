@@ -1,23 +1,34 @@
 <?php
-function load_error_page($error) {
-    header('HTTP/1.0 ' . $error['code'] . ' ' . $error['name']);
+function load_error_page($error, $extra_message = '') {
+    $header_message = $error['name'];
+    if ($extra_message) {
+        $header_message = $header_message . ': ' . $extra_message;
+    }
+    header('HTTP/1.0 ' . $error['code'] . ' ' . $header_message);
     include('./templates/error.tpl.php');
 }
 
 $errors = array(
+    '400' => array(
+        'code' => 400,
+        'name' => 'Bad Request',
+        'title' => 'Hibás kérés',
+        'message' => 'A megadott kérés nem teljesíthető..',
+        'redirect_to_main_page' => true,
+    ),
     '404' => array(
         'code' => 404,
         'name' => 'Not Found',
         'title' => 'Az oldal nem található',
         'message' => 'A keresett oldal nem található...',
-        'allow_redirect' => true,
+        'redirect_to_main_page' => true,
     ),
     '500' => array(
         'code' => 500,
         'name' => 'Internal Server Error',
         'title' => 'Hiba',
         'message' => 'Az oldal nem tölthető be...',
-        'allow_redirect' => false,
+        'redirect_to_main_page' => false,
     ),
 );
 ?>
