@@ -25,5 +25,11 @@ $page_datas = array(
         'style_file' => './styles/pages/gallery.css',
         'script_file' => './scripts/pages/gallery.js',
     ),
+    'login' => array( // this should be the last item
+        'title' => 'Bejelentkezés',
+        'html_template' => './templates/pages/login.tpl.php',
+        'style_file' => './styles/pages/login.css',
+        'script_file' => './scripts/pages/login.js',
+    ),
 );
 ?>
