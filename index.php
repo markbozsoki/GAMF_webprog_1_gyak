@@ -14,6 +14,16 @@ if (isset($_GET['logout'])) {
     }
 }
 
+// login user on 'login' query param
+if (isset($_GET['login'])) {
+    
+}
+
+// register new user on 'register' query param
+if (isset($_GET['register'])) {
+
+}
+
 // retrieve page data by 'page' query param
 if (isset($_GET['page'])) {
     $page_data_key = $_GET['page'];
