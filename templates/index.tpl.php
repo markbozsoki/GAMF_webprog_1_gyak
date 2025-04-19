@@ -22,11 +22,14 @@
         <h1><?= $current_page_data['title']; ?></h1>
     </header>
 
-    <nav class="navbar">
-        <div class="collapse navbar-collapse">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <?php foreach($page_datas as $page_data_key => $page_data_value) { ?>
-                <li class="nav-item"> 
+                <li class="nav-item<?= (($page_data_value == $current_page_data) ? ' active' : ''); ?>"> 
                     <a class="nav-link" href="<?= ($page_data_key == '/') ? '.' : ('?page=' . $page_data_key); ?>">
                         <?php echo $page_data_value['title']; ?>
                     </a>
