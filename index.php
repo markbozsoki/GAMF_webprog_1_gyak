@@ -7,11 +7,9 @@ $_SESSION["forename"] = 'Userling';
 $_SESSION["username"] = 'dummy_user';
 $_SESSION['logged_in'] = TRUE;
 
-// logout user on 'logout' query param
-if (isset($_GET['logout'])) {
-    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == TRUE) {
-        logout_user();
-    }
+// logout user on 'logout' query param and user logged in
+if (isset($_GET['logout']) && is_user_logged_in()) {
+    logout_user();
 }
 
 // login user on 'login' query param

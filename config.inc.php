@@ -15,24 +15,40 @@ $page_datas = array(
         'html_template' => './templates/pages/main_page.tpl.php', 
         'style_file' => './styles/pages/main_page.css', // optional
         'script_file' => './scripts/pages/main_page.js', // optional
+        'accessibility' => array(
+            'show_when_logged_in' => TRUE,
+            'show_when_logged_out' => TRUE,
+        ),
     ),
     'knives' => array(
         'title' => 'Kések',
         'html_template' => './templates/pages/knives.tpl.php', 
         'style_file' => './styles/pages/knives.css',
         'script_file' => './scripts/pages/knives.js',
+        'accessibility' => array(
+            'show_when_logged_in' => TRUE,
+            'show_when_logged_out' => TRUE,
+        ),
     ),
     'gallery' => array(
         'title' => 'Galéria',
         'html_template' => './templates/pages/gallery.tpl.php', 
         'style_file' => './styles/pages/gallery.css',
         'script_file' => './scripts/pages/gallery.js',
+        'accessibility' => array(
+            'show_when_logged_in' => TRUE,
+            'show_when_logged_out' => TRUE,
+        ),
     ),
     'login' => array( // this should be the last item
         'title' => 'Bejelentkezés',
         'html_template' => './templates/pages/login.tpl.php',
         'style_file' => './styles/pages/login.css',
         'script_file' => './scripts/pages/login.js',
+        'accessibility' => array(
+            'show_when_logged_in' => FALSE,
+            'show_when_logged_out' => TRUE,
+        ),
     ),
 );
 ?>

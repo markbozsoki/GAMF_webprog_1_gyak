@@ -32,13 +32,19 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <?php foreach($page_datas as $page_data_key => $page_data_value) { ?>
-                <li class="nav-item<?= (($page_data_value == $current_page_data) ? ' active' : ''); ?>"> 
-                    <a class="nav-link" href="<?= ($page_data_key == '/') ? '.' : ('?page=' . $page_data_key); ?>">
-                        <?php echo $page_data_value['title']; ?>
-                    </a>
-                </li>
+                    <?php $menu_accessibility = $page_data_value['accessibility']; ?>
+                    <?php $on_logged_in_allowed = is_user_logged_in() && $menu_accessibility['show_when_logged_in'] ?>
+                    <?php $on_logged_out_allowed = !is_user_logged_in() && $menu_accessibility['show_when_logged_out'] ?>
+                    <?php $should_show_menu = $on_logged_in_allowed || $on_logged_out_allowed ?>
+                    <?php if($should_show_menu) { ?>
+                    <li class="nav-item<?= (($page_data_value == $current_page_data) ? ' active' : ''); ?>"> 
+                        <a class="nav-link" href="<?= ($page_data_key == '/') ? '.' : ('?page=' . $page_data_key); ?>">
+                            <?php echo $page_data_value['title']; ?>
+                        </a>
+                    </li>
+                    <?php } ?>
                 <?php } ?>
-                <?php if(isset($_SESSION['logged_in'])) { ?>
+                <?php if(is_user_logged_in()) { ?>
                 <li class="nav-item">
                     <a class="nav-link" href="?logout">Kijelentkezés</a>
                 </li>
