@@ -16,6 +16,7 @@ if (isset($_GET['logout']) && is_user_logged_in()) {
 if (isset($_GET['login'])) {
     if (is_user_logged_in()) {
         logout_user();
+        load_error_page($errors['403']);
     }
 
     // check form data
@@ -39,6 +40,7 @@ if (isset($_GET['login'])) {
 if (isset($_GET['register'])) {
     if (is_user_logged_in()) {
         logout_user();
+        load_error_page($errors['403']);
     }
 
     // check and validate form data 
