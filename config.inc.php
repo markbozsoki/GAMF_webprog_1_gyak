@@ -1,5 +1,6 @@
 <?php
 // system level includes
+include('./includes/environment.inc.php');
 include('./includes/error.inc.php');
 include('./includes/image_gallery.inc.php');
 include('./includes/session.inc.php');
