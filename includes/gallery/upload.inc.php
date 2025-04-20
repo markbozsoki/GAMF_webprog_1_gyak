@@ -1,32 +1,37 @@
 <?php
 include('image_gallery.inc.php');
 $DIR = realpath(__DIR__ . '/../../assets/images/') . '/';
-$message = [];
+$MAXSIZE = 500 * 1024;
+$MEDIATYPE = array('image/jpeg', 'image/png');
+$message = "";  // Az üzenet változó, amit visszaküldünk
 
 if (isset($_FILES['file'])) {
     $file = $_FILES['file'];
 
     if ($file['error'] == 4) {
-        $message[] = "Nem töltöttél fel fájlt.";
+        $message = "Nem töltöttél fel fájlt.";
     } elseif (
         $file['error'] == 1 ||
         $file['error'] == 2 ||
         $file['size'] > $MAXSIZE
     ) {
-        $message[] = "Túl nagy állomány: " . $file['name'];
+        $message = "Túl nagy állomány: " . $file['name'];
     } elseif (!in_array($file['type'], $MEDIATYPE)) {
-        $message[] = "Nem megfelelő típus: " . $file['name'];
+        $message = "Nem megfelelő típus: " . $file['name'];
     } else {
         $final = $DIR . strtolower($file['name']);
 
         if (file_exists($final)) {
-            $message[] = "Már létezik: " . $file['name'];
+            $message = "Már létezik: " . $file['name'];
         } else {
             if (move_uploaded_file($file['tmp_name'], $final)) {
-                $message[] = "Sikeres feltöltés: " . $file['name'];
+                $message = "Sikeres feltöltés: " . $file['name'];
             } else {
-                $message[] = "Hiba történt a feltöltéskor.";
+                $message = "Hiba történt a feltöltéskor.";
             }
         }
     }
 }
+
+echo $message; 
+?>
