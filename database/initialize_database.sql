@@ -1,0 +1,68 @@
+CREATE DATABASE IF NOT EXISTS `knifes_database`
+CHARACTER SET utf8 COLLATE utf8_hungarian_ci;
+
+USE `knifes_database`;
+
+-- TABLES
+CREATE TABLE IF NOT EXISTS `ACCESS` (
+  `id` int(5) unsigned NOT NULL auto_increment,
+  `created_at` int(10) NOT NULL,
+  `last_logged_in` int(10) default '0',
+  `password_hash` varchar(64) default NULL,
+  PRIMARY KEY (`id`)
+) ENGINE = MYISAM;
+
+CREATE TABLE IF NOT EXISTS `DETAILS` (
+  `id` int(5) unsigned NOT NULL auto_increment,
+  `surname` varchar(35) default '',
+  `forename` varchar(35) default '',
+  PRIMARY KEY (`id`)
+) ENGINE = MYISAM;
+
+CREATE TABLE IF NOT EXISTS `USERS` (
+  `id` int(5) unsigned NOT NULL auto_increment,
+  `username` varchar(25) NOT NULL unique,
+  `created_at` int(10) NOT NULL,
+  `access_id` int(5) unsigned NOT NULL unique,
+  `detail_id` int(5) unsigned NOT NULL unique,
+  PRIMARY KEY (`id`),
+  CONSTRAINT FK_USER_ACCESS FOREIGN KEY (access_id) REFERENCES ACCESS(id),
+  CONSTRAINT FK_USER_DETAIL FOREIGN KEY (detail_id) REFERENCES DETAILS(id)
+) ENGINE = MYISAM;
+
+-- VIEWS
+CREATE VIEW IF NOT EXISTS USERNAMES AS
+SELECT username FROM USERS;
+
+CREATE VIEW IF NOT EXISTS USER_DETAILS AS
+SELECT USERS.username AS username, 
+       DETAILS.surname AS surname, 
+       DETAILS.forename AS forename 
+FROM USERS LEFT JOIN DETAILS ON USERS.detail_id = DETAILS.id;
+
+CREATE VIEW IF NOT EXISTS USER_LOGINS AS
+SELECT USERS.username AS username, 
+       USERS.created_at AS user_created_at_timestamp, 
+       from_unixtime(USERS.created_at) AS user_created_at, 
+       ACCESS.created_at AS access_created_at_timestamp, 
+       from_unixtime(ACCESS.created_at) AS access_created_at, 
+       ACCESS.last_logged_in AS last_logged_in_timestamp,
+       from_unixtime(ACCESS.last_logged_in) AS last_logged_in
+FROM USERS LEFT JOIN ACCESS ON USERS.access_id = ACCESS.id
+ORDER BY last_logged_in_timestamp DESC, access_created_at_timestamp DESC, user_created_at_timestamp DESC;
+
+CREATE VIEW IF NOT EXISTS ORPHAN_ACCESS_RECORDS AS
+SELECT * 
+FROM ACCESS 
+WHERE id NOT IN (
+  SELECT access_id 
+  FROM USERS
+  );
+
+CREATE VIEW IF NOT EXISTS ORPHAN_DETAILS_RECORDS AS
+SELECT * 
+FROM DETAILS 
+WHERE id NOT IN (
+  SELECT detail_id 
+  FROM USERS
+  );
