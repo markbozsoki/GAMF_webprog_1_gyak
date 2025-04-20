@@ -30,19 +30,26 @@ $errors = array(
         'message' => 'A keresett oldal nem található...',
         'redirect_to_main_page' => TRUE,
     ),
-    '418' = array(
-        'code' => 418
-        'name' => "I'm a teapot",
+    '418' => array(
+        'code' => 418,
+        'name' => 'I\'m a teapot',
         'title' => 'Tea time!',
-        'message' => 'Én egy teáskanna vagyok..',
+        'message' => 'Én egy teáskanna vagyok.. 🫖',
         'redirect_to_main_page' => TRUE,
-    )
+    ),
     '500' => array(
         'code' => 500,
         'name' => 'Internal Server Error',
-        'title' => 'Hiba',
+        'title' => 'Szerver hiba',
         'message' => 'Az oldal nem tölthető be...',
         'redirect_to_main_page' => FALSE,
+    ),
+    '501' => array(
+        'code' => 501,
+        'name' => "Not Implemented",
+        'title' => 'Oldal nem létezik',
+        'message' => 'Ez az oldal nem áll rendelkezésre..',
+        'redirect_to_main_page' => TRUE,
     ),
 );
 ?>

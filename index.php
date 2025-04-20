@@ -1,6 +1,17 @@
 <?php declare(strict_types=1);
 include('config.inc.php');
 
+// 'error' query param for presenting error pages, usage: ?error=418
+if (isset($_GET['error'])) {
+    $error_code = $_GET['error'];
+    if (!isset($errors[$error_code])) {
+        load_error_page($errors['501'], 'the [' . $error_code . '] error page is not implemented!');
+        return;
+    }
+    load_error_page($errors[$error_code], 'testing the [' . $error_code . '] error page');
+    return;
+}
+
 // autologin for debugging
 $_SESSION["surname"] = 'Dummilton';
 $_SESSION["forename"] = 'Userling';
