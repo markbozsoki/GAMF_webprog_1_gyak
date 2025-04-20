@@ -3,6 +3,7 @@
 include('./includes/error.inc.php');
 include('./includes/image_gallery.inc.php');
 include('./includes/session.inc.php');
+include('./includes/data_access_layer.inc.php');
 
 // feature level includes
 include('./includes/gallery/image_gallery.inc.php');
