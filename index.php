@@ -14,7 +14,9 @@ if (isset($_GET['logout']) && is_user_logged_in()) {
 
 // login user on 'login' query param
 if (isset($_GET['login'])) {
-    // logout user if logged in
+    if (is_user_logged_in()) {
+        logout_user();
+    }
 
     // check form data
 
@@ -25,11 +27,14 @@ if (isset($_GET['login'])) {
     // get user detail
 
     // update session data
+    set_user_login_session($surname, $forename, $username);
 }
 
 // register new user on 'register' query param
 if (isset($_GET['register'])) {
-    // logout user if logged in
+    if (is_user_logged_in()) {
+        logout_user();
+    }
 
     // check and validate form data 
     
@@ -38,7 +43,6 @@ if (isset($_GET['register'])) {
     // hash password
 
     // create new user
-
 
 }
 
