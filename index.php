@@ -12,12 +12,6 @@ if (isset($_GET['error'])) {
     return;
 }
 
-// autologin for debugging
-$_SESSION["surname"] = 'Dummilton';
-$_SESSION["forename"] = 'Userling';
-$_SESSION["username"] = 'dummy_user';
-$_SESSION['logged_in'] = TRUE;
-
 // logout user on 'logout' query param and user logged in
 if (isset($_GET['logout']) && is_user_logged_in()) {
     logout_user();
@@ -40,7 +34,8 @@ if (isset($_GET['login'])) {
         // get user detail
 
         // update session data
-        set_user_login_session($current_surname, $current_forename, $current_username);
+        set_user_login_session('Dummilton', 'Userling', 'dummy_user');
+        //set_user_login_session($current_surname, $current_forename, $current_username);
     }
     unset($current_surname);
     unset($current_forename);
