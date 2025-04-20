@@ -1,15 +1,9 @@
 <?php
-//TODO: these should come from environment file
-putenv("DB_HOST='localhost'");
-putenv("DB_NAME='knifes_database'");
-putenv("DB_USER='root'");
-putenv("DB_PW=''");
-
 class DataAccessLayerSingleton {
 
-    protected static $_instance;
+    protected static $_instance = NULL;
 
-    protected $_connection;
+    protected $_connection = NULL;
 
     private function __clone() {
         // prevent cloning
@@ -21,25 +15,29 @@ class DataAccessLayerSingleton {
     }
 
     private function __construct() {
-        if (!isset($_ENV['DB_HOST'])) {
-            throw new \Exception('DB_HOST must be set!');
-        }
-        if (!isset($_ENV['DB_NAME'])) {
-            throw new \Exception('DB_NAME must be set!');
-        }
-        if (!isset($_ENV['DB_USER'])) {
-            throw new \Exception('DB_USER must be set!');
-        }
-        if (!isset($_ENV['DB_PW'])) {
-            putenv("DB_PW=''"); // if no password set for DB, defult to ''
-        }
-
+        global $_ENV;
+        global $errors;
+        
         try {
-            $dsn = 'mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'];
+            if (getenv('DB_HOST') == NULL) {
+                throw new \Exception('DB_HOST must be set!');
+            }
+            if (getenv('DB_NAME') == NULL) {
+                throw new \Exception('DB_NAME must be set!');
+            }
+            if (getenv('DB_USER') == NULL) {
+                throw new \Exception('DB_USER must be set!');
+            }
+            if (getenv('DB_PW') == NULL) {
+                putenv("DB_PW=''"); // if no password set for DB, defult to ''
+            }
+
+            $dsn = 'mysql:host=' . getenv('DB_HOST') . ';dbname=' . getenv('DB_NAME');
+            $driver_options = array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION);
             $this->_connection = new PDO(
                 $dsn,
-                $_ENV['DB_USER'], 
-                $_ENV['DB_PW'],
+                getenv('DB_USER'), 
+                getenv('DB_PW'),
                 $driver_options
             );
             // set error mode to exception
@@ -48,6 +46,8 @@ class DataAccessLayerSingleton {
             $this->_connection->query('SET NAMES utf8 COLLATE utf8_hungarian_ci');
         } catch (PDOException $e) {
             load_error_page($errors['500'], 'connection failed - ' . $e->getMessage());
+        } catch (Exception $e) {
+            load_error_page($errors['500'], $e->getMessage());
         }
     }
 

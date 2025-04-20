@@ -22,24 +22,38 @@ if (isset($_GET['login'])) {
     if (is_user_logged_in()) {
         logout_user();
         load_error_page($errors['403']);
+        return;
     }
 
     // check form data
+    if (!isset($_POST['username'])){
+
+    }
+    $username = $_POST['username'];
+
+    if (!isset($_POST['current-password'])){
+        
+    }
+    $current_password = $_POST['current-password'];
+
 
     // check if username exists
-    if (is_username_exists($current_username)) {
+    if (!is_username_exists($username)) {
 
-        // check that password is correct
-        
-        // get user detail
-
-        // update session data
-        set_user_login_session('Dummilton', 'Userling', 'dummy_user');
-        //set_user_login_session($current_surname, $current_forename, $current_username);
     }
-    unset($current_surname);
-    unset($current_forename);
-    unset($current_username);
+
+    // check that password is correct
+        
+    // get user detail
+
+    // update session data
+    set_user_login_session('Dummilton', 'Userling', $username);
+    //set_user_login_session($surname, $forename, $username);
+    
+    unset($username);
+    unset($current_password);
+    unset($surname);
+    unset($forename);
 }
 
 // register new user on 'register' query param
@@ -47,18 +61,20 @@ if (isset($_GET['register'])) {
     if (is_user_logged_in()) {
         logout_user();
         load_error_page($errors['403']);
+        return;
     }
 
-    // check and validate form data 
+    // check and validate form data
     
     // check if username already exists
-    if (!is_username_exists($new_username)) {
-
-        // hash password
-
-        // create new user
+    if (is_username_exists($new_username)) {
 
     }
+
+    // hash password
+
+    // create new user
+
     unset($new_surname);
     unset($new_forename);
     unset($new_username);

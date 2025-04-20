@@ -8,13 +8,10 @@ function is_username_exists($username): bool {
         $prepared_statement = $data_access_layer->prepare($query_template);
         $prepared_statement->execute($params);
         $result = $prepared_statement->fetch(PDO::FETCH_ASSOC);
-        if (!isset($result) || $result === FALSE) {
-            return true; // DB error
-        }
 
         return (bool) $result['username_exists'];
     }
-    catch (PDOException $e) {
+    catch (Exception $e) {
         load_error_page($errors['500'], $e->getMessage());
     }
 }

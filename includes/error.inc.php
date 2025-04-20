@@ -34,7 +34,7 @@ $errors = array(
         'code' => 418,
         'name' => 'I\'m a teapot',
         'title' => 'Tea time!',
-        'message' => 'Én egy teáskanna vagyok.. 🫖',
+        'message' => 'Én egy teáskanna vagyok..',
         'redirect_to_main_page' => TRUE,
     ),
     '500' => array(
@@ -50,6 +50,6 @@ $errors = array(
         'title' => 'Oldal nem létezik',
         'message' => 'Ez az oldal nem áll rendelkezésre..',
         'redirect_to_main_page' => TRUE,
-    ),
+    )
 );
 ?>
