@@ -35,7 +35,7 @@ class DataAccessLayerSingleton {
         }
 
         try {
-            $dsn = 'mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'], 
+            $dsn = 'mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'];
             $this->_connection = new PDO(
                 $dsn,
                 $_ENV['DB_USER'], 
@@ -43,12 +43,11 @@ class DataAccessLayerSingleton {
                 $driver_options
             );
             // set error mode to exception
-            $this->_connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION)
+            $this->_connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             // set collation for hungarian alphabetical ordering
             $this->_connection->query('SET NAMES utf8 COLLATE utf8_hungarian_ci');
-        }
-        catch {
-            load_error_page($errors['500'], 'DB connection failed');
+        } catch (PDOException $e) {
+            load_error_page($errors['500'], 'connection failed - ' . $e->getMessage());
         }
     }
 
@@ -73,7 +72,7 @@ class DataAccessLayerSingleton {
             // init class only one time
             self::$_instance = new self();
         }
-        return self::$_instance
+        return self::$_instance;
     }
 
 }
