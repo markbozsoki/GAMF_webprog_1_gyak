@@ -5,7 +5,6 @@
             <img src="<?= $URL.$file ?>">
             </a>            
             <p>Név:  <?= $file; ?></p>
-            <p>Dátum: <?= date($DATEFORM, $date) ?></p>
         </div>
     <?php
     }
