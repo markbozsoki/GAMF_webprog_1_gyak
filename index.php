@@ -21,13 +21,18 @@ if (isset($_GET['login'])) {
     // check form data
 
     // check if username exists
+    if (is_username_exists($current_username)) {
 
-    // check that password is correct
-    
-    // get user detail
+        // check that password is correct
+        
+        // get user detail
 
-    // update session data
-    set_user_login_session($surname, $forename, $username);
+        // update session data
+        set_user_login_session($current_surname, $current_forename, $current_username);
+    }
+    unset($current_surname);
+    unset($current_forename);
+    unset($current_username);
 }
 
 // register new user on 'register' query param
@@ -39,11 +44,16 @@ if (isset($_GET['register'])) {
     // check and validate form data 
     
     // check if username already exists
+    if (!is_username_exists($new_username)) {
 
-    // hash password
+        // hash password
 
-    // create new user
+        // create new user
 
+    }
+    unset($new_surname);
+    unset($new_forename);
+    unset($new_username);
 }
 
 // retrieve page data by 'page' query param
