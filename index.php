@@ -14,11 +14,31 @@ if (isset($_GET['logout']) && is_user_logged_in()) {
 
 // login user on 'login' query param
 if (isset($_GET['login'])) {
+    // logout user if logged in
+
+    // check form data
+
+    // check if username exists
+
+    // check that password is correct
     
+    // get user detail
+
+    // update session data
 }
 
 // register new user on 'register' query param
 if (isset($_GET['register'])) {
+    // logout user if logged in
+
+    // check and validate form data 
+    
+    // check if username already exists
+
+    // hash password
+
+    // create new user
+
 
 }
 
