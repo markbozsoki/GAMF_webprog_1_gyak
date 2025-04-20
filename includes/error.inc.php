@@ -30,6 +30,13 @@ $errors = array(
         'message' => 'A keresett oldal nem található...',
         'redirect_to_main_page' => TRUE,
     ),
+    '418' = array(
+        'code' => 418
+        'name' => "I'm a teapot",
+        'title' => 'Tea time!',
+        'message' => 'Én egy teáskanna vagyok..',
+        'redirect_to_main_page' => TRUE,
+    )
     '500' => array(
         'code' => 500,
         'name' => 'Internal Server Error',
