@@ -1,4 +1,4 @@
-USE `knifes_database`;
+USE `knives_database`;
 
 -- check if username already exists
 SET @username = "admin";

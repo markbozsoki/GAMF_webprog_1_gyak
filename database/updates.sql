@@ -1,4 +1,4 @@
-USE `knifes_database`;
+USE `knives_database`;
 
 -- update login timestamp
 SET @username = "admin";

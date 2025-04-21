@@ -1,4 +1,4 @@
-USE `knifes_database`;
+USE `knives_database`;
 
 SET @username = 'dummyUser';
 SET @password = 'Password12345';

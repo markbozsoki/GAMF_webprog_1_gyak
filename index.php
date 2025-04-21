@@ -33,7 +33,7 @@ function reload_login_page($extra_headers = NULL) {
 }
 
 function custom_header($key, $value) {
-    $key = 'X-Knifes-' . $key;
+    $key = 'X-Knives-' . $key;
     return array(
         'key' => $key,
         'value' => $value,

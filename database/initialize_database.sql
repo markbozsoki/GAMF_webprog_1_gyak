@@ -2,13 +2,13 @@
 CREATE USER IF NOT EXISTS 'debug_user'@'localhost' IDENTIFIED BY 'password';
 GRANT SELECT, INSERT, UPDATE ON *.* TO 'debug_user'@'localhost' 
 REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 3600 MAX_CONNECTIONS_PER_HOUR 3600 MAX_UPDATES_PER_HOUR 3600 MAX_USER_CONNECTIONS 3600;
-GRANT SELECT, INSERT, UPDATE ON `knifes\_database`.* TO 'debug_user'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON `knives\_database`.* TO 'debug_user'@'localhost';
 
 -- DATABASE
-CREATE DATABASE IF NOT EXISTS `knifes_database`
+CREATE DATABASE IF NOT EXISTS `knives_database`
 CHARACTER SET utf8 COLLATE utf8_hungarian_ci;
 
-USE `knifes_database`;
+USE `knives_database`;
 
 -- TABLES
 CREATE TABLE IF NOT EXISTS `ACCESS` (
