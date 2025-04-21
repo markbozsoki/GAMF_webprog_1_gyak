@@ -1,7 +1,10 @@
 <?php declare(strict_types=1);
 include('config.inc.php');
 
-function load_main_page($message) {
+function load_main_page($message = NULL) {
+    global $page_datas;
+    global $errors;
+
     $current_page_data = $page_datas['/']; // get main page data
     if (!file_exists($current_page_data['html_template'])) {
         load_error_page($errors['500'], 'missing index template'); // main page could not be loaded
@@ -49,7 +52,7 @@ if (isset($_GET['login'])) {
             return;
         }
         $username = $_POST['username'];
-        if (count($username) == '' || count($username) > USRMGT_MAX_USERNAME_LENGTH) {
+        if (strlen($username) == '' || strlen($username) > USRMGT_MAX_USERNAME_LENGTH) {
             reload_login_page();
             return;
         }
@@ -57,8 +60,8 @@ if (isset($_GET['login'])) {
             reload_login_page();
             return;
         }
-        $password_hash = $_POST['new-password'];
-        if (count($password_hash) != USRMGT_PASSWORD_HASH_REQUIRED_LENGTH) {
+        $password_hash = $_POST['current-password'];
+        if (strlen($password_hash) != USRMGT_PASSWORD_HASH_REQUIRED_LENGTH) {
             reload_login_page();
             return;
         }
@@ -105,7 +108,7 @@ if (isset($_GET['register'])) {
             return;
         }
         $username = $_POST['username'];
-        if (count($username) == '' || count($username) > USRMGT_MAX_USERNAME_LENGTH) {
+        if (strlen($username) == '' || strlen($username) > USRMGT_MAX_USERNAME_LENGTH) {
             reload_login_page();
             return;
         }
@@ -114,7 +117,7 @@ if (isset($_GET['register'])) {
             return;
         }
         $password_hash = $_POST['new-password'];
-        if (count($password_hash) != USRMGT_PASSWORD_HASH_REQUIRED_LENGTH) {
+        if (strlen($password_hash) != USRMGT_PASSWORD_HASH_REQUIRED_LENGTH) {
             reload_login_page();
             return;
         }
@@ -123,7 +126,7 @@ if (isset($_GET['register'])) {
             return;
         }
         $surname = $_POST['surname'];
-        if (count($surname) == '' || count($surname) > USRMGT_MAX_SURNAME_LENGTH) {
+        if (strlen($surname) == '' || strlen($surname) > USRMGT_MAX_SURNAME_LENGTH) {
             reload_login_page();
             return;
         }
@@ -132,7 +135,7 @@ if (isset($_GET['register'])) {
             return;
         }
         $forename = $_POST['forename'];
-        if (count($forename) == '' || count($forename) > USRMGT_MAX_FORENAME_LENGTH) {
+        if (strlen($forename) == '' || strlen($forename) > USRMGT_MAX_FORENAME_LENGTH) {
             reload_login_page();
             return;
         }

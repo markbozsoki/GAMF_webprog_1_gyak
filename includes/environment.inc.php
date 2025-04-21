@@ -1,5 +1,6 @@
 <?php
-$env_file_content = file_get_contents(__DIR__ . "../.env");
+$env_file_path = realpath('.env');
+$env_file_content = file_get_contents($env_file_path);
 $lines = explode("\n", $env_file_content);
 
 foreach($lines as $line) {
