@@ -15,3 +15,9 @@ WHERE id IN (
     FROM USERS 
     WHERE username = @username
     );
+
+-- get user details (username is unique)
+SET @username = "admin";
+SELECT surname, forename
+FROM USER_DETAILS
+WHERE username = @username;

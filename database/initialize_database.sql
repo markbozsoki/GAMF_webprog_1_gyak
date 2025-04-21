@@ -1,3 +1,10 @@
+-- DEBUG USER FOR CONNECTION
+CREATE USER IF NOT EXISTS 'debug_user'@'localhost' IDENTIFIED BY 'password';
+GRANT SELECT, INSERT, UPDATE ON *.* TO 'debug_user'@'localhost' 
+REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 3600 MAX_CONNECTIONS_PER_HOUR 3600 MAX_UPDATES_PER_HOUR 3600 MAX_USER_CONNECTIONS 3600;
+GRANT SELECT, INSERT, UPDATE ON `knifes\_database`.* TO 'debug_user'@'localhost';
+
+-- DATABASE
 CREATE DATABASE IF NOT EXISTS `knifes_database`
 CHARACTER SET utf8 COLLATE utf8_hungarian_ci;
 
@@ -31,16 +38,16 @@ CREATE TABLE IF NOT EXISTS `USERS` (
 ) ENGINE = MYISAM;
 
 -- VIEWS
-CREATE VIEW IF NOT EXISTS USERNAMES AS
+CREATE VIEW IF NOT EXISTS `USERNAMES` AS
 SELECT username FROM USERS;
 
-CREATE VIEW IF NOT EXISTS USER_DETAILS AS
+CREATE VIEW IF NOT EXISTS `USER_DETAILS` AS
 SELECT USERS.username AS username, 
        DETAILS.surname AS surname, 
        DETAILS.forename AS forename 
 FROM USERS LEFT JOIN DETAILS ON USERS.detail_id = DETAILS.id;
 
-CREATE VIEW IF NOT EXISTS USER_LOGINS AS
+CREATE VIEW IF NOT EXISTS `USER_LOGINS` AS
 SELECT USERS.username AS username, 
        USERS.created_at AS user_created_at_timestamp, 
        from_unixtime(USERS.created_at) AS user_created_at, 
@@ -51,7 +58,7 @@ SELECT USERS.username AS username,
 FROM USERS LEFT JOIN ACCESS ON USERS.access_id = ACCESS.id
 ORDER BY last_logged_in_timestamp DESC, access_created_at_timestamp DESC, user_created_at_timestamp DESC;
 
-CREATE VIEW IF NOT EXISTS ORPHAN_ACCESS_RECORDS AS
+CREATE VIEW IF NOT EXISTS `ORPHAN_ACCESS_RECORDS` AS
 SELECT * 
 FROM ACCESS 
 WHERE id NOT IN (
@@ -59,10 +66,21 @@ WHERE id NOT IN (
   FROM USERS
   );
 
-CREATE VIEW IF NOT EXISTS ORPHAN_DETAILS_RECORDS AS
+CREATE VIEW IF NOT EXISTS `ORPHAN_DETAILS_RECORDS` AS
 SELECT * 
 FROM DETAILS 
 WHERE id NOT IN (
   SELECT detail_id 
   FROM USERS
   );
+
+-- REGISTER ADMIN USER ON PAGE
+SET @username = 'admin';
+SET @password = 'admin';
+SET @surname = 'The';
+SET @forename = 'Admin';
+INSERT INTO `ACCESS` (`id`, `created_at`, `last_logged_in`, `password_hash`) VALUES (NULL, UNIX_TIMESTAMP(NOW()), '0', SHA2(@password, 256));
+SET @access_last_id = LAST_INSERT_ID();
+INSERT INTO `DETAILS` (`id`, `surname`, `forename`) VALUES (NULL, @surname, @forename);
+SET @details_last_id = LAST_INSERT_ID();
+INSERT INTO `USERS` (`id`, `username`, `created_at`, `access_id`, `detail_id`) VALUES (NULL, @username, UNIX_TIMESTAMP(NOW()), @access_last_id, @details_last_id);
