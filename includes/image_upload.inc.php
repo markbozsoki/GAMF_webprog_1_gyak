@@ -3,7 +3,7 @@ include('image_gallery.inc.php');
 $DIR = realpath(__DIR__ . '/../../assets/images/') . '/';
 $MAXSIZE = 500 * 1024;
 $MEDIATYPE = array('image/jpeg', 'image/png');
-$message = "";  // Az üzenet változó, amit visszaküldünk
+$message = ""; 
 
 if (isset($_FILES['file'])) {
     $file = $_FILES['file'];

@@ -1,5 +1,5 @@
 <?php
-$DIR = realpath(__DIR__ . '/../../assets/images/') . '/';
+$DIR = realpath('assets/images/') . '/';
 $URL = '/assets/images/';
 $TYPES = array ('.jpg', '.png');
 $images = array();
