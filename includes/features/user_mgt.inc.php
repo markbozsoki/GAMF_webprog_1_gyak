@@ -71,7 +71,7 @@ function register_new_user($username, $password_hash, $surname, $forename) {
         $query_template = $query_template . $statement;
     }
     $params = array(
-        ':username' => $username;
+        ':username' => $username,
         ':password_hash' => $password_hash,
         ':surname' => $surname,
         ':forename' => $forename,

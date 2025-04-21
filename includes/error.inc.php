@@ -4,7 +4,7 @@ function load_error_page($error, $extra_message = '') {
     if ($extra_message) {
         $header_message = $header_message . ': ' . $extra_message;
     }
-    header('HTTP/1.0 ' . $error['code'] . ' ' . $header_message);
+    header($_SERVER["SERVER_PROTOCOL"] . $error['code'] . ' ' . $header_message);
     include('./templates/error.tpl.php');
 }
 
