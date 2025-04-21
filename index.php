@@ -28,17 +28,24 @@ if (isset($_GET['login'])) {
         if (!isset($_POST['username'])){
             // send back notification (reload login page)
         }
+        $username = $_POST['username'];
+        if (count($username) == '' || count($username) > 25) {
+
+        }
         if (!isset($_POST['current-password'])){
             // send back notification (reload login page)
         }
+        $password_hash = $_POST['new-password'];
+        if (count($password_hash) != 64) {
+            
+        }
 
-        $username = $_POST['username'];
         if (!is_username_exists($username)) {
             // send back notification (reload login page)
         }
 
         // password verification
-        if (!is_password_correct($username, $_POST['current-password'])) {
+        if (!is_password_correct($username, $password_hash)) {
             // send back notification (reload login page)
         }
         
@@ -55,6 +62,7 @@ if (isset($_GET['login'])) {
         return;
     } finally {
         unset($username);
+        unset($password_hash);
         unset($name_details);
     }
 }
@@ -67,17 +75,33 @@ if (isset($_GET['register'])) {
         return;
     }
     try {
+        if (!isset($_POST['username'])){
+            // send back notification (reload login page)
+        }
+        $username = $_POST['username'];
+        if (count($username) == '' || count($username) > 25) {
+
+        }
+        if (!isset($_POST['new-password'])){
+            // send back notification (reload login page)
+        }
+        $password_hash = $_POST['new-password'];
+        if (count($password_hash) != 64) {
+            
+        }
         if (!isset($_POST['surname'])){
             // send back notification (reload login page)
+        }
+        $surname = $_POST['surname'];
+        if (count($surname) == '' || count($surname) > 35) {
+
         }
         if (!isset($_POST['forename'])){
             // send back notification (reload login page)
         }
-        if (!isset($_POST['username'])){
-            // send back notification (reload login page)
-        }
-        if (!isset($_POST['new-password'])){
-            // send back notification (reload login page)
+        $forename = $_POST['forename'];
+        if (count($forename) == '' || count($forename) > 35) {
+
         }
         
         if (is_username_exists($new_username)) {
