@@ -29,14 +29,14 @@ if (isset($_GET['login'])) {
             // send back notification (reload login page)
         }
         $username = $_POST['username'];
-        if (count($username) == '' || count($username) > 25) {
+        if (count($username) == '' || count($username) > USRMGT_MAX_USERNAME_LENGTH) {
 
         }
         if (!isset($_POST['current-password'])){
             // send back notification (reload login page)
         }
         $password_hash = $_POST['new-password'];
-        if (count($password_hash) != 64) {
+        if (count($password_hash) != USRMGT_PASSWORD_HASH_REQUIRED_LENGTH) {
             
         }
 
@@ -79,28 +79,28 @@ if (isset($_GET['register'])) {
             // send back notification (reload login page)
         }
         $username = $_POST['username'];
-        if (count($username) == '' || count($username) > 25) {
+        if (count($username) == '' || count($username) > USRMGT_MAX_USERNAME_LENGTH) {
 
         }
         if (!isset($_POST['new-password'])){
             // send back notification (reload login page)
         }
         $password_hash = $_POST['new-password'];
-        if (count($password_hash) != 64) {
+        if (count($password_hash) != USRMGT_PASSWORD_HASH_REQUIRED_LENGTH) {
             
         }
         if (!isset($_POST['surname'])){
             // send back notification (reload login page)
         }
         $surname = $_POST['surname'];
-        if (count($surname) == '' || count($surname) > 35) {
+        if (count($surname) == '' || count($surname) > USRMGT_MAX_SURNAME_LENGTH) {
 
         }
         if (!isset($_POST['forename'])){
             // send back notification (reload login page)
         }
         $forename = $_POST['forename'];
-        if (count($forename) == '' || count($forename) > 35) {
+        if (count($forename) == '' || count($forename) > USRMGT_MAX_FORENAME_LENGTH) {
 
         }
         

@@ -1,4 +1,10 @@
 <?php
+const USRMGT_MAX_USERNAME_LENGTH = 25;
+const USRMGT_PASSWORD_HASH_REQUIRED_LENGTH = 64;
+const USRMGT_MAX_SURNAME_LENGTH = 35;
+const USRMGT_MAX_FORENAME_LENGTH = 35;
+
+
 function is_username_exists($username): bool {
     $query_template = "SELECT count(username) AS username_exists FROM USERNAMES WHERE username = :username;";
     $params = array(':username' => $username);
