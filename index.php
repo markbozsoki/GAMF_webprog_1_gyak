@@ -1,26 +1,40 @@
 <?php declare(strict_types=1);
 include('config.inc.php');
 
-function load_main_page($message = NULL) {
+function load_page($page_data_key, $extra_headers = NULL) {
     global $page_datas;
     global $errors;
 
-    $current_page_data = $page_datas['/']; // get main page data
-    if (!file_exists($current_page_data['html_template'])) {
-        load_error_page($errors['500'], 'missing index template'); // main page could not be loaded
+    if (!isset($page_datas[$page_data_key])) {
+        load_error_page($errors['400'], "unregistered page");
         return;
     }
+    if(!file_exists($page_datas[$page_data_key]['html_template'])) {
+        load_error_page($errors['404'], "template could not be loaded");
+        return;
+    }
+
+    $current_page_data = $page_datas[$page_data_key]; // retrieve requested page data
+    header('X-Loaded-Page: ' . $page_data_key);
+    append_extra_headers($extra_headers);
     include('./templates/index.tpl.php');
 }
 
-function reload_login_page($message = NULL) {
-    header("Location: .?page=login");
-    if ($message != NULL) {
-        header('Content-Type: text/event-stream');
-        header('Cache-Control: no-cache');
-        echo "data: " . $message . "\n\n";
-        flush();
+function append_extra_headers($extra_headers) {
+    // expects NULL or a list of array
+    if ($extra_headers == NULL) {
+        return;
     }
+
+    foreach($extra_headers as $extra_header) {
+        if (isset($extra_header['key']) && isset($extra_header['value'])) {
+            header($extra_header['key'] . ': ' . $extra_header['value']);
+        }
+    }
+}
+
+function reload_login_page($extra_headers = NULL) {
+    load_page('login', $extra_headers);
 }
 
 // '?error=' query param for presenting error pages, usage: ?error=418
@@ -85,6 +99,8 @@ if (isset($_GET['login'])) {
             $name_details['forename'],
             $username
         );
+        header('Location: .');
+        return;
     } catch (Exception $e) {
         load_error_page($errors['500'], $e->getMessage());
         return;
@@ -146,7 +162,7 @@ if (isset($_GET['register'])) {
         }
 
         register_new_user($username, $password_hash, $surname, $forename);
-        load_main_page();
+        reload_login_page([array('key' => 'X-New-Registered-User', 'value' => $username)]);
         return;
     } catch (Exception $e) {
         load_error_page($errors['500'], $e->getMessage());
@@ -162,19 +178,15 @@ if (isset($_GET['register'])) {
 // retrieve page data by '?page=' query param
 if (isset($_GET['page'])) {
     $page_data_key = $_GET['page'];
-    if (!isset($page_datas[$page_data_key])) {
-        load_error_page($errors['400'], "unregistered page");
-        return;
-    }
-    if(!file_exists($page_datas[$page_data_key]['html_template'])) {
-        load_error_page($errors['404'], "template could not be loaded");
-        return;
-    }
-    $current_page_data = $page_datas[$page_data_key]; // retrieve requested page data
-    include('./templates/index.tpl.php');
+    load_page($page_data_key);
     return;
 }
 
 // no query param were set, or fall through
-load_main_page();
+$current_page_data = $page_datas['/']; // get main page data
+if (!file_exists($current_page_data['html_template'])) {
+    load_error_page($errors['500'], 'missing index template'); // main page could not be loaded
+    return;
+}
+include('./templates/index.tpl.php');
 ?>
