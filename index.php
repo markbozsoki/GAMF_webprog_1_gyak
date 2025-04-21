@@ -82,7 +82,7 @@ if (isset($_GET['login'])) {
             return;
         }
         $password_hash = parse_password_hash($_POST, 'current-password');
-        if ($password === NULL) {
+        if ($password_hash === NULL) {
             reload_login_page([
                 login_info_header('password parse error'),
             ]);
@@ -142,7 +142,7 @@ if (isset($_GET['register'])) {
             return;
         }
         $password_hash = parse_password_hash($_POST, 'new-password');
-        if ($password === NULL) {
+        if ($password_hash === NULL) {
             reload_login_page([
                 registration_info_header('password parse error'),
             ]);

@@ -15,22 +15,22 @@ function _parse_nonempty_string_with_max_length($DATA, $key, $max_length) {
     return $value;
 }
 
-function parse_username($DATA, $key = 'username'): ?str {
+function parse_username($DATA, $key = 'username'): ?string {
     $username = _parse_nonempty_string_with_max_length($DATA, $key, USRMGT_MAX_USERNAME_LENGTH);
     return $username;
 }
 
-function parse_surname($DATA, $key = 'surname'): ?str {
+function parse_surname($DATA, $key = 'surname'): ?string {
     $surname = _parse_nonempty_string_with_max_length($DATA, $key, USRMGT_MAX_SURNAME_LENGTH);
     return $surname;
 }
 
-function parse_forename($DATA, $key = 'forename'): ?str {
+function parse_forename($DATA, $key = 'forename'): ?string {
     $forename = _parse_nonempty_string_with_max_length($DATA, $key, USRMGT_MAX_FORENAME_LENGTH);
     return $forename;
 }
 
-function parse_password_hash($DATA, $key = 'password'): ?str {
+function parse_password_hash($DATA, $key = 'password'): ?string {
     if (!isset($DATA[$key])){
         return NULL;
     }
