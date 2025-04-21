@@ -15,27 +15,40 @@ function load_page($page_data_key, $extra_headers = NULL) {
     }
 
     $current_page_data = $page_datas[$page_data_key]; // retrieve requested page data
-    header('X-Loaded-Page: ' . $page_data_key);
-    append_extra_headers($extra_headers);
-    include('./templates/index.tpl.php');
-}
-
-function append_extra_headers($extra_headers) {
-    // expects NULL or a list of array
-    if ($extra_headers == NULL) {
-        return;
+    
+    if ($extra_headers === NULL) {
+        $extra_headers = array();
     }
-
+    array_push($extra_headers, custom_header('Loaded-Page', $page_data_key));
     foreach($extra_headers as $extra_header) {
         if (isset($extra_header['key']) && isset($extra_header['value'])) {
             header($extra_header['key'] . ': ' . $extra_header['value']);
         }
     }
+    include('./templates/index.tpl.php');
 }
 
 function reload_login_page($extra_headers = NULL) {
     load_page('login', $extra_headers);
 }
+
+function custom_header($key, $value) {
+    $key = 'X-Knifes-' . $key;
+    return array(
+        'key' => $key,
+        'value' => $value,
+    );
+}
+
+function login_info_header($message) {
+    return custom_header('Login-Info', $message);
+}
+
+function registration_info_header($message) {
+    return custom_header('Register-Info', $message);
+}
+
+/// ---------- 
 
 // '?error=' query param for presenting error pages, usage: ?error=418
 if (isset($_GET['error'])) {
@@ -63,29 +76,37 @@ if (isset($_GET['login'])) {
     try {
         $username = parse_username($_POST);
         if ($username === NULL) {
-            reload_login_page();
+            reload_login_page([
+                login_info_header('username parse error'),
+            ]);
             return;
         }
         $password_hash = parse_password_hash($_POST, 'current-password');
         if ($password === NULL) {
-            reload_login_page();
+            reload_login_page([
+                login_info_header('password parse error'),
+            ]);
             return;
         }
 
         if (!is_username_exists($username)) {
-            reload_login_page();
+            reload_login_page([
+                login_info_header('no username found'),
+            ]);
             return;
         }
 
         // password verification
         if (!is_password_correct($username, $password_hash)) {
-            reload_login_page();
+            reload_login_page([
+                login_info_header('incorrect password'),
+            ]);
             return;
         }
         
         // log in user (update session)
         $name_details = get_name_details_for_user($username);
-        update_last_logged_in_time($user);
+        update_last_logged_in_time($username);
         set_user_login_session(
             $name_details['surname'], 
             $name_details['forename'],
@@ -113,34 +134,47 @@ if (isset($_GET['register'])) {
         return;
     }
     try {
-        $username = parse_username($_POST);
+        $username = parse_username($_POST, 'new-username');
         if ($username === NULL) {
-            reload_login_page();
+            reload_login_page([
+                registration_info_header('username parse error'),
+            ]);
             return;
         }
         $password_hash = parse_password_hash($_POST, 'new-password');
         if ($password === NULL) {
-            reload_login_page();
+            reload_login_page([
+                registration_info_header('password parse error'),
+            ]);
             return;
         }
         $surname = parse_surname($_POST);
         if ($surname === NULL) {
-            reload_login_page();
+            reload_login_page([
+                registration_info_header('surname parse error'),
+            ]);
             return;
         }
         $forename = parse_forename($_POST);
         if ($forename === NULL) {
-            reload_login_page();
+            reload_login_page([
+                registration_info_header('forename parse error'),
+            ]);
             return;
         }
         
         if (is_username_exists($new_username)) {
-            reload_login_page();
+            reload_login_page([
+                registration_info_header('username already taken'),
+            ]);
             return;
         }
 
         register_new_user($username, $password_hash, $surname, $forename);
-        reload_login_page([array('key' => 'X-New-Registered-User', 'value' => $username)]);
+        reload_login_page([
+            registration_info_header('registration complited'),
+            custom_header('New-User-Registered', $username),
+        ]);
         return;
     } catch (PDOException $e) {
         load_error_page($errors['500'], 'SQL error ' . $e->getMessage());
