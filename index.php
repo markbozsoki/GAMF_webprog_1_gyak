@@ -31,7 +31,7 @@ if (isset($_GET['login'])) {
         if (!isset($_POST['current-password'])){
             // send back notification (reload login page)
         }
-        
+
         $username = $_POST['username'];
         if (!is_username_exists($username)) {
             // send back notification (reload login page)
@@ -67,16 +67,29 @@ if (isset($_GET['register'])) {
         return;
     }
     try {
-        // check and validate form data
+        if (!isset($_POST['surname'])){
+            // send back notification (reload login page)
+        }
+        if (!isset($_POST['forename'])){
+            // send back notification (reload login page)
+        }
+        if (!isset($_POST['username'])){
+            // send back notification (reload login page)
+        }
+        if (!isset($_POST['new-password'])){
+            // send back notification (reload login page)
+        }
         
-        // check if username already exists
         if (is_username_exists($new_username)) {
-
+            // send back notification (reload login page)
         }
 
-        // hash password
+        // create new access record (get autoinc index)
 
-        // create new user
+        // create new user details record (get autoinc index)
+
+        // create new user record with access_id and details_id
+        
     } catch (Exception $e) {
         load_error_page($errors['500'], $e->getMessage());
         return;
