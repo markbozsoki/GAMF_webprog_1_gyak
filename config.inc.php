@@ -4,6 +4,7 @@ include('./includes/error.inc.php');
 include('./includes/gallery/image_gallery.inc.php');
 
 
+
 // collection of available page templates, styles and page spacific values
 $page_datas = array(
     '/' => array(
