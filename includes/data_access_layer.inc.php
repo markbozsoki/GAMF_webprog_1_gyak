@@ -18,37 +18,31 @@ class DataAccessLayerSingleton {
         global $_ENV;
         global $errors;
         
-        try {
-            if (getenv('DB_HOST') == NULL) {
-                throw new \Exception('DB_HOST must be set!');
-            }
-            if (getenv('DB_NAME') == NULL) {
-                throw new \Exception('DB_NAME must be set!');
-            }
-            if (getenv('DB_USER') == NULL) {
-                throw new \Exception('DB_USER must be set!');
-            }
-            if (getenv('DB_PW') == NULL) {
-                putenv("DB_PW="); // if no password set for DB, defult to ''
-            }
-
-            $dsn = 'mysql:host=' . getenv('DB_HOST') . ';dbname=' . getenv('DB_NAME');
-            $driver_options = array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION);
-            $this->_connection = new PDO(
-                $dsn,
-                getenv('DB_USER'), 
-                getenv('DB_PW'),
-                $driver_options
-            );
-            // set error mode to exception
-            $this->_connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            // set collation for hungarian alphabetical ordering
-            $this->_connection->query('SET NAMES utf8 COLLATE utf8_hungarian_ci');
-        } catch (PDOException $e) {
-            load_error_page($errors['500'], 'connection failed - ' . $e->getMessage());
-        } catch (Exception $e) {
-            load_error_page($errors['500'], $e->getMessage());
+        if (getenv('DB_HOST') == NULL) {
+            throw new \Exception('DB_HOST must be set!');
         }
+        if (getenv('DB_NAME') == NULL) {
+            throw new \Exception('DB_NAME must be set!');
+        }
+        if (getenv('DB_USER') == NULL) {
+            throw new \Exception('DB_USER must be set!');
+        }
+        if (getenv('DB_PW') == NULL) {
+            putenv("DB_PW="); // if no password set for DB, defult to ''
+        }
+
+        $dsn = 'mysql:host=' . getenv('DB_HOST') . ';dbname=' . getenv('DB_NAME');
+        $driver_options = array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION);
+        $this->_connection = new PDO(
+            $dsn,
+            getenv('DB_USER'), 
+            getenv('DB_PW'),
+            $driver_options
+        );
+        // set error mode to exception
+        $this->_connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        // set collation for hungarian alphabetical ordering
+        $this->_connection->query('SET NAMES utf8 COLLATE utf8_hungarian_ci');
     }
 
     public function __get($name) {
@@ -75,16 +69,10 @@ class DataAccessLayerSingleton {
         return self::$_instance;
     }
 
-    public function executeQuery($query_template, $params): array {
-        try {
-            $prepared_statement = $data_access_layer->prepare($query_template);
-            $prepared_statement->execute($params);
-            return $prepared_statement->fetch(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            load_error_page($errors['500'], 'SQL error' . $e->getMessage());
-        } catch (Exception $e) {
-            load_error_page($errors['500'], $e->getMessage());
-        }
+    public function executeCommand($template, $params): array {
+        $prepared_statement = $this->$_connection->prepare($template);
+        $prepared_statement->execute($params);
+        return $prepared_statement->fetch(PDO::FETCH_ASSOC);
     }
 }
 ?>

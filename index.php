@@ -61,21 +61,13 @@ if (isset($_GET['login'])) {
         return;
     }
     try {
-        if (!isset($_POST['username'])){
+        $username = parse_username($_POST);
+        if ($username === NULL) {
             reload_login_page();
             return;
         }
-        $username = $_POST['username'];
-        if (strlen($username) == '' || strlen($username) > USRMGT_MAX_USERNAME_LENGTH) {
-            reload_login_page();
-            return;
-        }
-        if (!isset($_POST['current-password'])){
-            reload_login_page();
-            return;
-        }
-        $password_hash = $_POST['current-password'];
-        if (strlen($password_hash) != USRMGT_PASSWORD_HASH_REQUIRED_LENGTH) {
+        $password_hash = parse_password_hash($_POST, 'current-password');
+        if ($password === NULL) {
             reload_login_page();
             return;
         }
@@ -101,6 +93,8 @@ if (isset($_GET['login'])) {
         );
         header('Location: .');
         return;
+    } catch (PDOException $e) {
+        load_error_page($errors['500'], 'SQL error ' . $e->getMessage());
     } catch (Exception $e) {
         load_error_page($errors['500'], $e->getMessage());
         return;
@@ -119,39 +113,23 @@ if (isset($_GET['register'])) {
         return;
     }
     try {
-        if (!isset($_POST['username'])){
+        $username = parse_username($_POST);
+        if ($username === NULL) {
             reload_login_page();
             return;
         }
-        $username = $_POST['username'];
-        if (strlen($username) == '' || strlen($username) > USRMGT_MAX_USERNAME_LENGTH) {
+        $password_hash = parse_password_hash($_POST, 'new-password');
+        if ($password === NULL) {
             reload_login_page();
             return;
         }
-        if (!isset($_POST['new-password'])){
+        $surname = parse_surname($_POST);
+        if ($surname === NULL) {
             reload_login_page();
             return;
         }
-        $password_hash = $_POST['new-password'];
-        if (strlen($password_hash) != USRMGT_PASSWORD_HASH_REQUIRED_LENGTH) {
-            reload_login_page();
-            return;
-        }
-        if (!isset($_POST['surname'])){
-            reload_login_page();
-            return;
-        }
-        $surname = $_POST['surname'];
-        if (strlen($surname) == '' || strlen($surname) > USRMGT_MAX_SURNAME_LENGTH) {
-            reload_login_page();
-            return;
-        }
-        if (!isset($_POST['forename'])){
-            reload_login_page();
-            return;
-        }
-        $forename = $_POST['forename'];
-        if (strlen($forename) == '' || strlen($forename) > USRMGT_MAX_FORENAME_LENGTH) {
+        $forename = parse_forename($_POST);
+        if ($forename === NULL) {
             reload_login_page();
             return;
         }
@@ -164,6 +142,8 @@ if (isset($_GET['register'])) {
         register_new_user($username, $password_hash, $surname, $forename);
         reload_login_page([array('key' => 'X-New-Registered-User', 'value' => $username)]);
         return;
+    } catch (PDOException $e) {
+        load_error_page($errors['500'], 'SQL error ' . $e->getMessage());
     } catch (Exception $e) {
         load_error_page($errors['500'], $e->getMessage());
         return;
