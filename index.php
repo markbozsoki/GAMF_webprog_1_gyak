@@ -1,7 +1,26 @@
 <?php declare(strict_types=1);
 include('config.inc.php');
 
-// 'error' query param for presenting error pages, usage: ?error=418
+function load_main_page($message) {
+    $current_page_data = $page_datas['/']; // get main page data
+    if (!file_exists($current_page_data['html_template'])) {
+        load_error_page($errors['500'], 'missing index template'); // main page could not be loaded
+        return;
+    }
+    include('./templates/index.tpl.php');
+}
+
+function reload_login_page($message = NULL) {
+    header("Location: .?page=login");
+    if ($message != NULL) {
+        header('Content-Type: text/event-stream');
+        header('Cache-Control: no-cache');
+        echo "data: " . $message . "\n\n";
+        flush();
+    }
+}
+
+// '?error=' query param for presenting error pages, usage: ?error=418
 if (isset($_GET['error'])) {
     $error_code = $_GET['error'];
     if (!isset($errors[$error_code])) {
@@ -12,12 +31,12 @@ if (isset($_GET['error'])) {
     return;
 }
 
-// logout user on 'logout' query param and user logged in
+// logout user on '?logout' query param and user logged in
 if (isset($_GET['logout']) && is_user_logged_in()) {
     clear_user_login_session();
 }
 
-// login user on 'login' query param
+// login user on '?login' query param
 if (isset($_GET['login'])) {
     if (is_user_logged_in()) {
         clear_user_login_session();
@@ -26,27 +45,33 @@ if (isset($_GET['login'])) {
     }
     try {
         if (!isset($_POST['username'])){
-            // send back notification (reload login page)
+            reload_login_page();
+            return;
         }
         $username = $_POST['username'];
         if (count($username) == '' || count($username) > USRMGT_MAX_USERNAME_LENGTH) {
-
+            reload_login_page();
+            return;
         }
         if (!isset($_POST['current-password'])){
-            // send back notification (reload login page)
+            reload_login_page();
+            return;
         }
         $password_hash = $_POST['new-password'];
         if (count($password_hash) != USRMGT_PASSWORD_HASH_REQUIRED_LENGTH) {
-            
+            reload_login_page();
+            return;
         }
 
         if (!is_username_exists($username)) {
-            // send back notification (reload login page)
+            reload_login_page();
+            return;
         }
 
         // password verification
         if (!is_password_correct($username, $password_hash)) {
-            // send back notification (reload login page)
+            reload_login_page();
+            return;
         }
         
         // log in user (update session)
@@ -67,7 +92,7 @@ if (isset($_GET['login'])) {
     }
 }
 
-// register new user on 'register' query param
+// register new user on '?register' query param
 if (isset($_GET['register'])) {
     if (is_user_logged_in()) {
         clear_user_login_session();
@@ -76,39 +101,50 @@ if (isset($_GET['register'])) {
     }
     try {
         if (!isset($_POST['username'])){
-            // send back notification (reload login page)
+            reload_login_page();
+            return;
         }
         $username = $_POST['username'];
         if (count($username) == '' || count($username) > USRMGT_MAX_USERNAME_LENGTH) {
-
+            reload_login_page();
+            return;
         }
         if (!isset($_POST['new-password'])){
-            // send back notification (reload login page)
+            reload_login_page();
+            return;
         }
         $password_hash = $_POST['new-password'];
         if (count($password_hash) != USRMGT_PASSWORD_HASH_REQUIRED_LENGTH) {
-            
+            reload_login_page();
+            return;
         }
         if (!isset($_POST['surname'])){
-            // send back notification (reload login page)
+            reload_login_page();
+            return;
         }
         $surname = $_POST['surname'];
         if (count($surname) == '' || count($surname) > USRMGT_MAX_SURNAME_LENGTH) {
-
+            reload_login_page();
+            return;
         }
         if (!isset($_POST['forename'])){
-            // send back notification (reload login page)
+            reload_login_page();
+            return;
         }
         $forename = $_POST['forename'];
         if (count($forename) == '' || count($forename) > USRMGT_MAX_FORENAME_LENGTH) {
-
+            reload_login_page();
+            return;
         }
         
         if (is_username_exists($new_username)) {
-            // send back notification (reload login page)
+            reload_login_page();
+            return;
         }
 
         register_new_user($username, $password_hash, $surname, $forename);
+        load_main_page();
+        return;
     } catch (Exception $e) {
         load_error_page($errors['500'], $e->getMessage());
         return;
@@ -120,7 +156,7 @@ if (isset($_GET['register'])) {
     }
 }
 
-// retrieve page data by 'page' query param
+// retrieve page data by '?page=' query param
 if (isset($_GET['page'])) {
     $page_data_key = $_GET['page'];
     if (!isset($page_datas[$page_data_key])) {
@@ -136,12 +172,6 @@ if (isset($_GET['page'])) {
     return;
 }
 
-// load main page
-$current_page_data = $page_datas['/']; // get main page data
-if (!file_exists($current_page_data['html_template'])) {
-    load_error_page($errors['500'], 'missing index template'); // main page could not be loaded
-    return;
-}
-include('./templates/index.tpl.php');
-
+// no query param were set, or fall through
+load_main_page();
 ?>
