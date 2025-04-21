@@ -27,7 +27,7 @@ function is_password_correct($username, $password_hash): bool {
     return FALSE;
 }
 
-function get_user_name_details($username): array {
+function get_name_details_for_user($username): array {
     $query_template = "SELECT surname, forename FROM USER_DETAILS WHERE username = :username;";
     $params = array(':username' => $username);
 
@@ -41,6 +41,14 @@ function get_user_name_details($username): array {
     if (count(array_keys($result)) !== 2) {
         throw new Exception("[" . __FUNCTION__ . "] - Query result contains more keys than expected (" . print_r(array_keys($result)) . ")!");
     }
+    return $result;
+}
+
+function update_last_logged_in_time($username) {
+    $query_template = "UPDATE ACCESS SET last_logged_in = UNIX_TIMESTAMP(NOW()) WHERE id IN (SELECT access_id FROM USERS WHERE username = :username);";
+    $params = array(':username' => $username);
+
+    $result = DataAccessLayerSingleton::getInstance()::executeQuery($query_template, $params);
     return $result;
 }
 

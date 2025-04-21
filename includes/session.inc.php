@@ -1,5 +1,5 @@
 <?php
-function logout_user() {
+function clear_user_login_session() {
     unset($_SESSION["surname"]);
     unset($_SESSION["forename"]);
     unset($_SESSION["username"]);

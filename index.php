@@ -14,56 +14,55 @@ if (isset($_GET['error'])) {
 
 // logout user on 'logout' query param and user logged in
 if (isset($_GET['logout']) && is_user_logged_in()) {
-    logout_user();
+    clear_user_login_session();
 }
 
 // login user on 'login' query param
 if (isset($_GET['login'])) {
     if (is_user_logged_in()) {
-        logout_user();
+        clear_user_login_session();
         load_error_page($errors['403']);
         return;
     }
     try {
-        // check form data
         if (!isset($_POST['username'])){
-
+            // send back notification (reload login page)
         }
-        $username = $_POST['username'];
-
         if (!isset($_POST['current-password'])){
-            
+            // send back notification (reload login page)
         }
-        $current_password = $_POST['current-password'];
-
-
-        // check if username exists
+        
+        $username = $_POST['username'];
         if (!is_username_exists($username)) {
-
+            // send back notification (reload login page)
         }
 
-        // check that password is correct
-            
-        // get user detail
-
-        // update session data
-        set_user_login_session('Dummilton', 'Userling', $username);
-        //set_user_login_session($surname, $forename, $username);
+        // password verification
+        if (!is_password_correct($username, $_POST['current-password'])) {
+            // send back notification (reload login page)
+        }
+        
+        // log in user (update session)
+        $name_details = get_name_details_for_user($username);
+        update_last_logged_in_time($user);
+        set_user_login_session(
+            $name_details['surname'], 
+            $name_details['forename'],
+            $username
+        );
     } catch (Exception $e) {
         load_error_page($errors['500'], $e->getMessage());
         return;
     } finally {
         unset($username);
-        unset($current_password);
-        unset($surname);
-        unset($forename);
+        unset($name_details);
     }
 }
 
 // register new user on 'register' query param
 if (isset($_GET['register'])) {
     if (is_user_logged_in()) {
-        logout_user();
+        clear_user_login_session();
         load_error_page($errors['403']);
         return;
     }
