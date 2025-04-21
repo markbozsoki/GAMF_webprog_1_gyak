@@ -29,7 +29,7 @@ class DataAccessLayerSingleton {
                 throw new \Exception('DB_USER must be set!');
             }
             if (getenv('DB_PW') == NULL) {
-                putenv("DB_PW=''"); // if no password set for DB, defult to ''
+                putenv("DB_PW="); // if no password set for DB, defult to ''
             }
 
             $dsn = 'mysql:host=' . getenv('DB_HOST') . ';dbname=' . getenv('DB_NAME');

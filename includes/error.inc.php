@@ -50,6 +50,6 @@ $errors = array(
         'title' => 'Oldal nem létezik',
         'message' => 'Ez az oldal nem áll rendelkezésre..',
         'redirect_to_main_page' => TRUE,
-    )
+    ),
 );
 ?>
