@@ -67,7 +67,7 @@ class DataAccessLayerSingleton {
         return call_user_func_array($callback, $args);
     }
 
-    public static function getInstance() {
+    public static function getInstance(): DataAccessLayerSingleton {
         if (self::$_instance === NULL) {
             // init class only one time
             self::$_instance = new self();
@@ -75,5 +75,16 @@ class DataAccessLayerSingleton {
         return self::$_instance;
     }
 
+    public function executeQuery($query_template, $params): array {
+        try {
+            $prepared_statement = $data_access_layer->prepare($query_template);
+            $prepared_statement->execute($params);
+            return $prepared_statement->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            load_error_page($errors['500'], 'SQL error' . $e->getMessage());
+        } catch (Exception $e) {
+            load_error_page($errors['500'], $e->getMessage());
+        }
+    }
 }
 ?>

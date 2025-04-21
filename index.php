@@ -24,36 +24,40 @@ if (isset($_GET['login'])) {
         load_error_page($errors['403']);
         return;
     }
+    try {
+        // check form data
+        if (!isset($_POST['username'])){
 
-    // check form data
-    if (!isset($_POST['username'])){
+        }
+        $username = $_POST['username'];
 
+        if (!isset($_POST['current-password'])){
+            
+        }
+        $current_password = $_POST['current-password'];
+
+
+        // check if username exists
+        if (!is_username_exists($username)) {
+
+        }
+
+        // check that password is correct
+            
+        // get user detail
+
+        // update session data
+        set_user_login_session('Dummilton', 'Userling', $username);
+        //set_user_login_session($surname, $forename, $username);
+    } catch (Exception $e) {
+        load_error_page($errors['500'], $e->getMessage());
+        return;
+    } finally {
+        unset($username);
+        unset($current_password);
+        unset($surname);
+        unset($forename);
     }
-    $username = $_POST['username'];
-
-    if (!isset($_POST['current-password'])){
-        
-    }
-    $current_password = $_POST['current-password'];
-
-
-    // check if username exists
-    if (!is_username_exists($username)) {
-
-    }
-
-    // check that password is correct
-        
-    // get user detail
-
-    // update session data
-    set_user_login_session('Dummilton', 'Userling', $username);
-    //set_user_login_session($surname, $forename, $username);
-    
-    unset($username);
-    unset($current_password);
-    unset($surname);
-    unset($forename);
 }
 
 // register new user on 'register' query param
@@ -63,21 +67,25 @@ if (isset($_GET['register'])) {
         load_error_page($errors['403']);
         return;
     }
+    try {
+        // check and validate form data
+        
+        // check if username already exists
+        if (is_username_exists($new_username)) {
 
-    // check and validate form data
-    
-    // check if username already exists
-    if (is_username_exists($new_username)) {
+        }
 
+        // hash password
+
+        // create new user
+    } catch (Exception $e) {
+        load_error_page($errors['500'], $e->getMessage());
+        return;
+    } finally {
+        unset($new_surname);
+        unset($new_forename);
+        unset($new_username);
     }
-
-    // hash password
-
-    // create new user
-
-    unset($new_surname);
-    unset($new_forename);
-    unset($new_username);
 }
 
 // retrieve page data by 'page' query param
