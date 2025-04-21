@@ -84,19 +84,15 @@ if (isset($_GET['register'])) {
             // send back notification (reload login page)
         }
 
-        // create new access record (get autoinc index)
-
-        // create new user details record (get autoinc index)
-
-        // create new user record with access_id and details_id
-        
+        register_new_user($username, $password_hash, $surname, $forename);
     } catch (Exception $e) {
         load_error_page($errors['500'], $e->getMessage());
         return;
     } finally {
-        unset($new_surname);
-        unset($new_forename);
-        unset($new_username);
+        unset($username);
+        unset($password_hash);
+        unset($surname);
+        unset($forename);
     }
 }
 

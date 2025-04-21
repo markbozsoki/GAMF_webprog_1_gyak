@@ -52,4 +52,27 @@ function update_last_logged_in_time($username) {
     return $result;
 }
 
+function register_new_user($username, $password_hash, $surname, $forename) {
+    $statements = [
+        "INSERT INTO ACCESS (`id`, `created_at`, `last_logged_in`, `password_hash`) VALUES (NULL, UNIX_TIMESTAMP(NOW()), '0', :password_hash; ",
+        "SET @access_last_id = LAST_INSERT_ID(); ",
+        "INSERT INTO DETAILS (`id`, `surname`, `forename`) VALUES (NULL, :surname, :forename); ",
+        "SET @details_last_id = LAST_INSERT_ID(); ",
+        "INSERT INTO USERS (`id`, `username`, `created_at`, `access_id`, `detail_id`) VALUES (NULL, :username, UNIX_TIMESTAMP(NOW()), @access_last_id, @details_last_id);",
+    ];
+    $query_template = "";
+    foreach($statements as $statement) {
+        $query_template = $query_template . $statement;
+    }
+    $params = array(
+        ':username' => $username;
+        ':password_hash' => $password_hash,
+        ':surname' => $surname,
+        ':forename' => $forename,
+    );
+
+    $result = DataAccessLayerSingleton::getInstance()::executeQuery($query_template, $params);
+    return $result;
+}
+
 ?>
