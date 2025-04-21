@@ -41,4 +41,30 @@ function is_password_correct($username, $password_hash): bool {
     }
 }
 
+function get_user_name_details($username): array {
+    try {
+        
+        $query_template = "SELECT surname, forename FROM USER_DETAILS WHERE username = :username;";
+        $params = array(':username' => $username);
+
+        $data_access_layer = DataAccessLayerSingleton::getInstance();
+        $prepared_statement = $data_access_layer->prepare($query_template);
+        $prepared_statement->execute($params);
+        $result = $prepared_statement->fetch(PDO::FETCH_ASSOC);
+        if (!isset($result['surname'])) {
+            throw new Exception("[" . __FUNCTION__ . "] - Query result does not contain 'surname'!");
+        }
+        if (!isset($result['forename'])) {
+            throw new Exception("[" . __FUNCTION__ . "] - Query result does not contain 'forename'!");
+        }
+        if (count(array_keys($result)) !== 2) {
+            throw new Exception("[" . __FUNCTION__ . "] - Query result contains more keys than expected (" . print_r(array_keys($result)) . ")!");
+        }
+        return $result;
+    }
+    catch (Exception $e) {
+        load_error_page($errors['500'], $e->getMessage());
+    }
+}
+
 ?>
