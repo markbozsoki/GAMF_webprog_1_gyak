@@ -1,7 +1,7 @@
 <?php
 // list of used includes
 include('./includes/error.inc.php');
-include('./includes/gallery/image_gallery.inc.php');
+include('./includes/image_gallery.inc.php');
 
 
 
