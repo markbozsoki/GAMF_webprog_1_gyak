@@ -11,7 +11,7 @@ class DataAccessLayerSingleton {
 
     public function __wakeup() {
         // prevent unserialization
-        throw new \Exception(statci::class . ' should not be unserialized!');
+        throw new Exception(static::class . ' should not be unserialized!');
     }
 
     private function __construct() {
@@ -19,13 +19,13 @@ class DataAccessLayerSingleton {
         global $errors;
         
         if (getenv('DB_HOST') == NULL) {
-            throw new \Exception('DB_HOST must be set!');
+            throw new Exception('DB_HOST must be set!');
         }
         if (getenv('DB_NAME') == NULL) {
-            throw new \Exception('DB_NAME must be set!');
+            throw new Exception('DB_NAME must be set!');
         }
         if (getenv('DB_USER') == NULL) {
-            throw new \Exception('DB_USER must be set!');
+            throw new Exception('DB_USER must be set!');
         }
         if (getenv('DB_PW') == NULL) {
             putenv("DB_PW="); // if no password set for DB, defult to ''
@@ -70,7 +70,7 @@ class DataAccessLayerSingleton {
     }
 
     public function executeCommand($template, $params): array {
-        $prepared_statement = $this->$_connection->prepare($template);
+        $prepared_statement = $this->_connection->prepare($template);
         $prepared_statement->execute($params);
         return $prepared_statement->fetch(PDO::FETCH_ASSOC);
     }
