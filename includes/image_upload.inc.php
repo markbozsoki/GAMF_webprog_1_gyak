@@ -2,7 +2,7 @@
 include('image_gallery.inc.php');
 $DIR = realpath(__DIR__ . '/../../assets/images/') . '/';
 $IMG_MAX_SIZE = 500 * 1024;
-$ALLOWED_MIME_TYPES = array('image/jpeg', 'image/png');
+$ALLOWED_MIME_TYPES = array('image/jpeg', 'image/jpg','image/png');
 $message = ""; 
 
 if (isset($_FILES['file'])) {
