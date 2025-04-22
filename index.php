@@ -33,7 +33,8 @@ function reload_login_page($extra_headers = NULL) {
 }
 
 function custom_header($key, $value) {
-    $key = 'X-Knives-' . $key;
+    global $_HEADER_PREFIX;
+    $key = $_HEADER_PREFIX . $key;
     return array(
         'key' => $key,
         'value' => $value,
@@ -116,6 +117,7 @@ if (isset($_GET['login'])) {
         return;
     } catch (PDOException $e) {
         load_error_page($errors['500'], 'SQL error ' . $e->getMessage());
+        return;
     } catch (Exception $e) {
         load_error_page($errors['500'], $e->getMessage());
         return;
@@ -178,6 +180,7 @@ if (isset($_GET['register'])) {
         return;
     } catch (PDOException $e) {
         load_error_page($errors['500'], 'SQL error ' . $e->getMessage());
+        return;
     } catch (Exception $e) {
         load_error_page($errors['500'], $e->getMessage());
         return;

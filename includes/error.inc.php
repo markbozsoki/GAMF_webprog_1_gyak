@@ -1,10 +1,11 @@
 <?php
 function load_error_page($error, $extra_message = '') {
-    $header_message = $error['name'];
+    global $_HEADER_PREFIX;
+    
     if ($extra_message) {
-        $header_message = $header_message . ': ' . $extra_message;
+        header($_HEADER_PREFIX . 'Error-Message: ' . $extra_message);
     }
-    header($_SERVER["SERVER_PROTOCOL"] . $error['code'] . ' ' . $header_message);
+    header($_SERVER['SERVER_PROTOCOL'] . $error['code'] . ' ' . $error['name']);
     include('./templates/error.tpl.php');
 }
 

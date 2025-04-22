@@ -1,4 +1,7 @@
 <?php
+// global variables
+$_HEADER_PREFIX = 'X-Knives-';
+
 // system level includes
 include('./includes/environment.inc.php');
 include('./includes/error.inc.php');
