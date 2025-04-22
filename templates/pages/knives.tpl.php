@@ -179,11 +179,8 @@
                             <a href="https://vaszilijedc.hu/category/irasok/kesek/page/2/">&laquo; Régebbi
                                 bejegyzések</a>
                         </div>
-                        <div class="alignright"></div>
                     </div>
                 </div>
-
             </div>
         </div>
-    </div>
-    
+        
