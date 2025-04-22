@@ -17,7 +17,7 @@
 </div>
 
 
-<form id="uploadForm" enctype="multipart/form-data" class="p-4 border rounded shadow-sm bg-light" style="max-width: 500px; margin: auto;">
+<form id="imageUploadForm" enctype="multipart/form-data" class="p-4 border rounded shadow-sm bg-light" style="max-width: 500px; margin: auto;">
     <div class="mb-3">
         <label for="filetitle" class="form-label">Kép címe</label>
         <input type="text" class="form-control" id="filetitle" name="filetitle" placeholder="Add meg a kép címét">
@@ -29,7 +29,7 @@
     </div>
 
     <div class="mb-3">
-        <label for="file" class="form-label">Válassz képet /.jpg vagy .png</label>
+        <label for="file" class="form-label">Válassz képet</label>
         <input type="file" class="form-control" id="file" name="file" required>
     </div>
 

@@ -19,12 +19,12 @@ if (isset($_FILES['file'])) {
     } elseif (!in_array($file['type'], $ALLOWED_MIME_TYPES)) {
         $message = "Nem megfelelő típus: " . $file['name'];
     } else {
-        $final = $DIR . strtolower($file['name']);
+        $new_image_file_path = $DIR . strtolower($file['name']);
 
-        if (file_exists($final)) {
+        if (file_exists($new_image_file_path)) {
             $message = "Már létezik: " . $file['name'];
         } else {
-            if (move_uploaded_file($file['tmp_name'], $final)) {
+            if (move_uploaded_file($file['tmp_name'], $new_image_file_path)) {
                 $message = "Sikeres feltöltés: " . $file['name'];
             } else {
                 $message = "Hiba történt a feltöltéskor.";
