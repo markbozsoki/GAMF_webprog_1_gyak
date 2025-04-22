@@ -1,8 +1,8 @@
 <?php
 include('image_gallery.inc.php');
 $DIR = realpath(__DIR__ . '/../../assets/images/') . '/';
-$MAXSIZE = 500 * 1024;
-$MEDIATYPE = array('image/jpeg', 'image/png');
+$IMG_MAX_SIZE = 500 * 1024;
+$ALLOWED_MIME_TYPES = array('image/jpeg', 'image/png');
 $message = ""; 
 
 if (isset($_FILES['file'])) {
@@ -13,10 +13,10 @@ if (isset($_FILES['file'])) {
     } elseif (
         $file['error'] == 1 ||
         $file['error'] == 2 ||
-        $file['size'] > $MAXSIZE
+        $file['size'] > $IMG_MAX_SIZE
     ) {
         $message = "Túl nagy állomány: " . $file['name'];
-    } elseif (!in_array($file['type'], $MEDIATYPE)) {
+    } elseif (!in_array($file['type'], $ALLOWED_MIME_TYPES)) {
         $message = "Nem megfelelő típus: " . $file['name'];
     } else {
         $final = $DIR . strtolower($file['name']);

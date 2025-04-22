@@ -29,7 +29,7 @@
     </div>
 
     <div class="mb-3">
-        <label for="file" class="form-label">Válassz képet</label>
+        <label for="file" class="form-label">Válassz képet /.jpg vagy .png</label>
         <input type="file" class="form-control" id="file" name="file" required>
     </div>
 
