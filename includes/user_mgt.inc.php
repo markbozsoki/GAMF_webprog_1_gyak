@@ -128,4 +128,13 @@ function register_new_user($username, $password_hash, $surname, $forename) {
         throw $e;
     }
 }
+
+function login_info_header($message) {
+    return create_custom_header('Login-Info', $message);
+}
+
+function registration_info_header($message) {
+    return create_custom_header('Register-Info', $message);
+}
+
 ?>

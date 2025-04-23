@@ -19,16 +19,6 @@ function load_string_from_custom_header($custom_header) {
     return $custom_header['key'] . ': ' . $custom_header['value'];
 }
 
-function login_info_header($message) {
-    return create_custom_header('Login-Info', $message);
-}
-
-function registration_info_header($message) {
-    return create_custom_header('Register-Info', $message);
-}
-
-/// ---------- 
-
 // '?error=' query param for presenting error pages, usage: ?error=418
 if (isset($_GET['error'])) {
     $error_code = $_GET['error'];
