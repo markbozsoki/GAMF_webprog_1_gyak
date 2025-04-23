@@ -19,21 +19,30 @@ function load_page($page_data_key, $extra_headers = NULL) {
     if ($extra_headers === NULL) {
         $extra_headers = array();
     }
-    array_push($extra_headers, custom_header('Loaded-Page', $page_data_key));
+    array_push($extra_headers, create_custom_header('Loaded-Page', $page_data_key));
     foreach($extra_headers as $extra_header) {
-        if (isset($extra_header['key']) && isset($extra_header['value'])) {
-            header($extra_header['key'] . ': ' . $extra_header['value']);
-        }
+        header(load_string_from_custom_header($extra_header));
     }
     include('./templates/index.tpl.php');
+    exit();
 }
 
 function reload_login_page($extra_headers = NULL) {
     load_page('login', $extra_headers);
 }
 
-function custom_header($key, $value) {
+function redirect_to($path) {
+    header('Location: ' . $path);
+    exit();
+}
+
+function redirect_to_main_page() {
+    redirect_to('.');
+}
+
+function create_custom_header($key, $value) {
     global $_HEADER_PREFIX;
+
     $key = $_HEADER_PREFIX . $key;
     return array(
         'key' => $key,
@@ -41,12 +50,21 @@ function custom_header($key, $value) {
     );
 }
 
+function load_string_from_custom_header($custom_header) {
+    global $errors;
+
+    if (!isset($custom_header['key']) || !isset($custom_header['value'])) {
+        load_error_page($errors['500'], 'Custom header cannot be loaded');
+    }
+    return $custom_header['key'] . ': ' . $custom_header['value'];
+}
+
 function login_info_header($message) {
-    return custom_header('Login-Info', $message);
+    return create_custom_header('Login-Info', $message);
 }
 
 function registration_info_header($message) {
-    return custom_header('Register-Info', $message);
+    return create_custom_header('Register-Info', $message);
 }
 
 /// ---------- 
@@ -56,10 +74,8 @@ if (isset($_GET['error'])) {
     $error_code = $_GET['error'];
     if (!isset($errors[$error_code])) {
         load_error_page($errors['501'], 'the [' . $error_code . '] error page is not implemented!');
-        return;
     }
     load_error_page($errors[$error_code], 'testing the [' . $error_code . '] error page');
-    return;
 }
 
 // logout user on '?logout' query param and user logged in
@@ -71,7 +87,6 @@ if (isset($_GET['logout']) && is_user_logged_in()) {
 if (isset($_GET['page']) && $_GET['page'] == 'login' && is_user_logged_in()) {
     clear_user_login_session();
     load_error_page($errors['403']);
-    return;
 }
 
 // login user on '?login' query param
@@ -79,7 +94,6 @@ if (isset($_GET['login'])) {
     if (is_user_logged_in()) {
         clear_user_login_session();
         load_error_page($errors['403']);
-        return;
     }
     try {
         $username = parse_username($_POST);
@@ -87,21 +101,18 @@ if (isset($_GET['login'])) {
             reload_login_page([
                 login_info_header('username parse error'),
             ]);
-            return;
         }
         $password_hash = parse_password_hash($_POST, 'current-password');
         if ($password_hash === NULL) {
             reload_login_page([
                 login_info_header('password parse error'),
             ]);
-            return;
         }
 
         if (!is_username_exists($username)) {
             reload_login_page([
-                login_info_header('no username found'),
+                login_info_header('no registered username found'),
             ]);
-            return;
         }
 
         // password verification
@@ -109,7 +120,6 @@ if (isset($_GET['login'])) {
             reload_login_page([
                 login_info_header('incorrect password'),
             ]);
-            return;
         }
         
         // log in user (update session)
@@ -120,14 +130,11 @@ if (isset($_GET['login'])) {
             $name_details['forename'],
             $username
         );
-        header('Location: .');
-        return;
+        redirect_to_main_page();
     } catch (PDOException $e) {
         load_error_page($errors['500'], 'SQL error ' . $e->getMessage());
-        return;
     } catch (Exception $e) {
         load_error_page($errors['500'], $e->getMessage());
-        return;
     } finally {
         unset($username);
         unset($password_hash);
@@ -140,7 +147,6 @@ if (isset($_GET['register'])) {
     if (is_user_logged_in()) {
         clear_user_login_session();
         load_error_page($errors['403']);
-        return;
     }
     try {
         $username = parse_username($_POST, 'new-username');
@@ -148,49 +154,41 @@ if (isset($_GET['register'])) {
             reload_login_page([
                 registration_info_header('username parse error'),
             ]);
-            return;
         }
         $password_hash = parse_password_hash($_POST, 'new-password');
         if ($password_hash === NULL) {
             reload_login_page([
                 registration_info_header('password parse error'),
             ]);
-            return;
         }
         $surname = parse_surname($_POST);
         if ($surname === NULL) {
             reload_login_page([
                 registration_info_header('surname parse error'),
             ]);
-            return;
         }
         $forename = parse_forename($_POST);
         if ($forename === NULL) {
             reload_login_page([
                 registration_info_header('forename parse error'),
             ]);
-            return;
         }
         
         if (is_username_exists($new_username)) {
             reload_login_page([
-                registration_info_header('username already taken'),
+                registration_info_header('username already registered'),
             ]);
-            return;
         }
 
         register_new_user($username, $password_hash, $surname, $forename);
         reload_login_page([
-            registration_info_header('registration complited'),
-            custom_header('New-User-Registered', $username),
+            registration_info_header('registration succeeded'),
+            create_custom_header('New-User-Registered', $username),
         ]);
-        return;
     } catch (PDOException $e) {
         load_error_page($errors['500'], 'SQL error ' . $e->getMessage());
-        return;
     } catch (Exception $e) {
         load_error_page($errors['500'], $e->getMessage());
-        return;
     } finally {
         unset($username);
         unset($password_hash);
@@ -203,14 +201,12 @@ if (isset($_GET['register'])) {
 if (isset($_GET['page'])) {
     $page_data_key = $_GET['page'];
     load_page($page_data_key);
-    return;
 }
 
 // no query param were set, or fall through
 $current_page_data = $page_datas['/']; // get main page data
 if (!file_exists($current_page_data['html_template'])) {
     load_error_page($errors['500'], 'missing index template'); // main page could not be loaded
-    return;
 }
 include('./templates/index.tpl.php');
 ?>

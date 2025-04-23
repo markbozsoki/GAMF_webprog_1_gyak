@@ -1,5 +1,5 @@
 <?php
-function load_error_page($error, $extra_message = '') {
+function load_error_page($error, $extra_message = NULL) {
     global $_HEADER_PREFIX;
 
     if ($extra_message) {
@@ -7,6 +7,7 @@ function load_error_page($error, $extra_message = '') {
     }
     header($_SERVER['SERVER_PROTOCOL'] . $error['code'] . ' ' . $error['name']);
     include('./templates/error.tpl.php');
+    exit();
 }
 
 $errors = array(
