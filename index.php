@@ -58,26 +58,26 @@ if (isset($_GET['login'])) {
     try {
         $username = parse_username($_POST);
         if ($username === NULL) {
-            reload_login_page([
+            load_page('login', [
                 login_info_header('username parse error'),
             ]);
         }
         $password_hash = parse_password_hash($_POST, 'current-password');
         if ($password_hash === NULL) {
-            reload_login_page([
+            load_page('login', [
                 login_info_header('password parse error'),
             ]);
         }
 
         if (!is_username_exists($username)) {
-            reload_login_page([
+            load_page('login', [
                 login_info_header('no registered username found'),
             ]);
         }
 
         // password verification
         if (!is_password_correct($username, $password_hash)) {
-            reload_login_page([
+            load_page('login', [
                 login_info_header('incorrect password'),
             ]);
         }
@@ -111,37 +111,37 @@ if (isset($_GET['register'])) {
     try {
         $username = parse_username($_POST, 'new-username');
         if ($username === NULL) {
-            reload_login_page([
+            load_page('login', [
                 registration_info_header('username parse error'),
             ]);
         }
         $password_hash = parse_password_hash($_POST, 'new-password');
         if ($password_hash === NULL) {
-            reload_login_page([
+            load_page('login', [
                 registration_info_header('password parse error'),
             ]);
         }
         $surname = parse_surname($_POST);
         if ($surname === NULL) {
-            reload_login_page([
+            load_page('login', [
                 registration_info_header('surname parse error'),
             ]);
         }
         $forename = parse_forename($_POST);
         if ($forename === NULL) {
-            reload_login_page([
+            load_page('login', [
                 registration_info_header('forename parse error'),
             ]);
         }
         
         if (is_username_exists($new_username)) {
-            reload_login_page([
+            load_page('login', [
                 registration_info_header('username already registered'),
             ]);
         }
 
         register_new_user($username, $password_hash, $surname, $forename);
-        reload_login_page([
+        load_page('login', [
             registration_info_header('registration succeeded'),
             create_custom_header('New-User-Registered', $username),
         ]);

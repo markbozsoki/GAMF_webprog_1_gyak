@@ -1,4 +1,5 @@
 <?php
+
 function load_main_page() {
     global $errors;
 
@@ -32,10 +33,6 @@ function load_page($page_data_key, $extra_headers = NULL) {
     }
     include('./templates/index.tpl.php');
     exit();
-}
-
-function reload_login_page($extra_headers = NULL) {
-    load_page('login', $extra_headers);
 }
 
 function redirect_to($path) {
