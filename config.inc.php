@@ -7,13 +7,12 @@ $_HEADER_PREFIX = 'X-Knives-';
 // system level includes
 include('./includes/environment.inc.php');
 include('./includes/error.inc.php');
-include('./includes/image_gallery.inc.php');
 include('./includes/session.inc.php');
 include('./includes/page_controls.inc.php');
 include('./includes/data_access_layer.inc.php');
 
 // feature level includes
-include('./includes/gallery/image_gallery.inc.php');
+include('./includes/image_gallery.inc.php');
 include('./includes/user_mgt.inc.php');
 
 
