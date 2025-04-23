@@ -67,6 +67,13 @@ if (isset($_GET['logout']) && is_user_logged_in()) {
     clear_user_login_session();
 }
 
+// logout user and load 403 page on '?page=login', if user try to load the login page while logged in 
+if (isset($_GET['page']) && $_GET['page'] == 'login' && is_user_logged_in()) {
+    clear_user_login_session();
+    load_error_page($errors['403']);
+    return;
+}
+
 // login user on '?login' query param
 if (isset($_GET['login'])) {
     if (is_user_logged_in()) {
