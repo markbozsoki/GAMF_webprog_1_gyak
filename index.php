@@ -1,7 +1,7 @@
 <?php include('config.inc.php');
 
 // '?error=' query param for presenting error pages, usage: ?error=418
-if (isset($_GET['error'])) {
+if (isset($_GET['error'] $$ count($_GET) == 1)) {
     $error_code = $_GET['error'];
     if (!isset($errors[$error_code])) {
         load_error_page($errors['501'], 'the [' . $error_code . '] error page is not implemented!');
@@ -9,22 +9,28 @@ if (isset($_GET['error'])) {
     load_error_page($errors[$error_code], 'testing the [' . $error_code . '] error page');
 }
 
-// logout user on '?logout' query param and user logged in
+// load 403 page on '?logout', if user try to the logout while logged out
+if (isset($_GET['logout']) && !is_user_logged_in()) {
+    load_error_page($errors['403'], 'unauthorized logout request');
+}
+
+// logout user on '?logout' query param, if user logged in
 if (isset($_GET['logout']) && is_user_logged_in()) {
     clear_user_login_session();
+    redirect_to_main_page();
 }
 
 // logout user and load 403 page on '?page=login', if user try to load the login page while logged in 
 if (isset($_GET['page']) && $_GET['page'] == 'login' && is_user_logged_in()) {
     clear_user_login_session();
-    load_error_page($errors['403']);
+    load_error_page($errors['403'], 'unauthorized access attempt to login page');
 }
 
 // login user on '?login' query param
 if (isset($_GET['login'])) {
     if (is_user_logged_in()) {
         clear_user_login_session();
-        load_error_page($errors['403']);
+        load_error_page($errors['403'], 'unauthorized login request');
     }
     try {
         $username = parse_username($_POST);
@@ -77,10 +83,10 @@ if (isset($_GET['login'])) {
 if (isset($_GET['register'])) {
     if (is_user_logged_in()) {
         clear_user_login_session();
-        load_error_page($errors['403']);
+        load_error_page($errors['403'], 'unauthorized registration request');
     }
     try {
-        $username = parse_username($_POST, 'new-username');
+        $username = parse_username($_POST);
         if ($username === NULL) {
             load_page('login', [
                 registration_info_header('username parse error'),

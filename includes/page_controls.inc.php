@@ -1,6 +1,7 @@
 <?php
 
 function load_main_page() {
+    global $page_datas;
     global $errors;
 
     $current_page_data = $page_datas['/']; // get main page data
