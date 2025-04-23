@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 // global variables
 $_HEADER_PREFIX = 'X-Knives-';
 

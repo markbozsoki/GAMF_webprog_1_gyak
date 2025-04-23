@@ -14,6 +14,6 @@ function set_user_login_session($surname, $forename, $username, $logged_in = TRU
 }
 
 function is_user_logged_in(): bool {
-    return isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == TRUE;
+    return isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === TRUE;
 }
 ?>

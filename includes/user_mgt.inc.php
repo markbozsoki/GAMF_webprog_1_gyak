@@ -36,7 +36,7 @@ function parse_password_hash($DATA, $key = 'password'): ?string {
     }
     $password_hash = $DATA[$key];
     if (strlen($password_hash) != USRMGT_PASSWORD_HASH_REQUIRED_LENGTH) {
-        return NULL;
+        return hash('sha256', $password_hash); // hash password if not hashed
     }
     return $password_hash;
 }
@@ -63,10 +63,7 @@ function is_password_correct($username, $password_hash): bool {
     if (!isset($result['password_hash'])) {
         throw new Exception("[" . __FUNCTION__ . "] - Query result does not contain 'password_hash'!");
     }
-    if ($password_hash == $result['password_hash']) {
-        return TRUE;
-    }
-    return FALSE;
+    return $password_hash === $result['password_hash'];
 }
 
 function get_name_details_for_user($username): array {

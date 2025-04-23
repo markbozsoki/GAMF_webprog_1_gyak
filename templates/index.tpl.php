@@ -20,7 +20,7 @@
 <body>
     <header>
         <h1><?= $current_page_data['title']; ?></h1>
-        <?php if(isset($_SESSION['logged_in'])) { ?>
+        <?php if(is_user_logged_in()) { ?>
         <?php echo "<p>Bejelentkezett: " . $_SESSION['surname'] . " " . $_SESSION['forename'] . " (" . $_SESSION['username'] . ")</p>"; ?>
         <?php } ?>
     </header>

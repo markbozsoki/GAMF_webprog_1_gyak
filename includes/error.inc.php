@@ -1,7 +1,7 @@
 <?php
 function load_error_page($error, $extra_message = '') {
     global $_HEADER_PREFIX;
-    
+
     if ($extra_message) {
         header($_HEADER_PREFIX . 'Error-Message: ' . $extra_message);
     }
@@ -22,7 +22,7 @@ $errors = array(
         'name' => 'Forbidden',
         'title' => 'Hozzáférés megtagadva',
         'message' => 'Az esemény jelentve lett az oldal karbantartójának..',
-        'redirect_to_main_page' => FALSE,
+        'redirect_to_main_page' => TRUE,
     ),
     '404' => array(
         'code' => 404,
