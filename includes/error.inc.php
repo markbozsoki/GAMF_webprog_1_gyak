@@ -3,7 +3,7 @@ function load_error_page($error, $extra_message = NULL) {
     global $_HEADER_PREFIX;
 
     if ($extra_message) {
-        header($_HEADER_PREFIX . 'Error-Message: ' . $extra_message);
+        header(get_error_message_header_value($extra_message));
     }
     header($_SERVER['SERVER_PROTOCOL'] . $error['code'] . ' ' . $error['name']);
     include('./templates/error.tpl.php');

@@ -1,12 +1,10 @@
 <?php declare(strict_types=1);
 session_start();
 
-// global variables
-$_HEADER_PREFIX = 'X-Knives-';
-
 // system level includes
 include('./includes/environment.inc.php');
 include('./includes/error.inc.php');
+include('./includes/custom_headers.inc.php');
 include('./includes/session.inc.php');
 include('./includes/page_controls.inc.php');
 include('./includes/data_access_layer.inc.php');

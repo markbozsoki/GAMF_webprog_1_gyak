@@ -1,24 +1,5 @@
 <?php include('config.inc.php');
 
-function create_custom_header($key, $value) {
-    global $_HEADER_PREFIX;
-
-    $key = $_HEADER_PREFIX . $key;
-    return array(
-        'key' => $key,
-        'value' => $value,
-    );
-}
-
-function load_string_from_custom_header($custom_header) {
-    global $errors;
-
-    if (!isset($custom_header['key']) || !isset($custom_header['value'])) {
-        load_error_page($errors['500'], 'Custom header cannot be loaded');
-    }
-    return $custom_header['key'] . ': ' . $custom_header['value'];
-}
-
 // '?error=' query param for presenting error pages, usage: ?error=418
 if (isset($_GET['error'])) {
     $error_code = $_GET['error'];
