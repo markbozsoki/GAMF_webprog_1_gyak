@@ -9,7 +9,7 @@ function _parse_nonempty_string_with_max_length($DATA, $key, $max_length) {
         return NULL;
     }
     $value = $DATA[$key];
-    if (strlen($value) == '' || strlen($value) > $max_length) {
+    if (strlen($value) === 0 || strlen($value) > $max_length) {
         return NULL;
     }
     return $value;

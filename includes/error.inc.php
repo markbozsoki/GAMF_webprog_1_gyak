@@ -1,7 +1,5 @@
 <?php
 function load_error_page($error, $extra_message = NULL) {
-    global $_HEADER_PREFIX;
-
     if ($extra_message) {
         header(get_error_message_header_value($extra_message));
     }

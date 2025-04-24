@@ -21,7 +21,7 @@
     <header>
         <h1><?= $current_page_data['title']; ?></h1>
         <?php if(is_user_logged_in()) { ?>
-        <?php echo "<p>Bejelentkezett: " . $_SESSION['surname'] . " " . $_SESSION['forename'] . " (" . $_SESSION['username'] . ")</p>"; ?>
+        <?php echo "<p>Bejelentkezett: " . htmlspecialchars($_SESSION['surname']) . " " . htmlspecialchars($_SESSION['forename']) . " (" . htmlspecialchars($_SESSION['username']) . ")</p>"; ?>
         <?php } ?>
     </header>
 
@@ -37,8 +37,8 @@
                     <?php $on_logged_out_allowed = !is_user_logged_in() && $menu_accessibility['show_when_logged_out'] ?>
                     <?php $should_show_menu = $on_logged_in_allowed || $on_logged_out_allowed ?>
                     <?php if($should_show_menu) { ?>
-                    <li class="nav-item<?= (($page_data_value == $current_page_data) ? ' active' : ''); ?>"> 
-                        <a class="nav-link" href="<?= ($page_data_key == '/') ? '.' : ('?page=' . $page_data_key); ?>">
+                    <li class="nav-item<?= (($page_data_value === $current_page_data) ? ' active' : ''); ?>"> 
+                        <a class="nav-link" href="<?= ($page_data_key === '/') ? '.' : ('?page=' . $page_data_key); ?>">
                             <?php echo $page_data_value['title']; ?>
                         </a>
                     </li>

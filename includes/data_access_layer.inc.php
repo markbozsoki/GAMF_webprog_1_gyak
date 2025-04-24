@@ -15,7 +15,6 @@ class DataAccessLayerSingleton {
     }
 
     private function __construct() {
-        global $_ENV;
         global $errors;
         
         if (getenv('DB_HOST') == NULL) {
