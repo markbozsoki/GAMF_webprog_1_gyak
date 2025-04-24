@@ -49,14 +49,14 @@ FROM USERS LEFT JOIN DETAILS ON USERS.detail_id = DETAILS.id;
 
 CREATE VIEW IF NOT EXISTS `USER_LOGINS` AS
 SELECT USERS.username AS username, 
-       USERS.created_at AS user_created_at_timestamp, 
+       from_unixtime(ACCESS.last_logged_in) AS last_logged_in,
+       from_unixtime(ACCESS.created_at) AS access_created_at,
        from_unixtime(USERS.created_at) AS user_created_at, 
-       ACCESS.created_at AS access_created_at_timestamp, 
-       from_unixtime(ACCESS.created_at) AS access_created_at, 
-       ACCESS.last_logged_in AS last_logged_in_timestamp,
-       from_unixtime(ACCESS.last_logged_in) AS last_logged_in
+       ACCESS.last_logged_in AS logged_in_epoch,
+       ACCESS.created_at AS access_crtd_epoch, 
+       USERS.created_at AS user_crtd_epoch
 FROM USERS LEFT JOIN ACCESS ON USERS.access_id = ACCESS.id
-ORDER BY last_logged_in_timestamp DESC, access_created_at_timestamp DESC, user_created_at_timestamp DESC;
+ORDER BY logged_in_epoch DESC, access_crtd_epoch DESC, user_crtd_epoch DESC;
 
 CREATE VIEW IF NOT EXISTS `ORPHAN_ACCESS_RECORDS` AS
 SELECT * 
@@ -74,7 +74,7 @@ WHERE id NOT IN (
   FROM USERS
   );
 
--- REGISTER ADMIN USER ON PAGE
+-- REGISTER ADMIN USER
 SET @username = 'admin';
 SET @password = 'admin';
 SET @surname = 'The';
