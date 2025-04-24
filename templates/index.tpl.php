@@ -20,6 +20,9 @@
 <body>
     <header>
         <h1><?= $current_page_data['title']; ?></h1>
+        <?php if(is_user_logged_in()) { ?>
+        <?php echo "<p>Bejelentkezett: " . htmlspecialchars($_SESSION['surname']) . " " . htmlspecialchars($_SESSION['forename']) . " (" . htmlspecialchars($_SESSION['username']) . ")</p>"; ?>
+        <?php } ?>
     </header>
 
     <nav class="navbar navbar-expand-lg navbar-light">
@@ -29,10 +32,21 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <?php foreach($page_datas as $page_data_key => $page_data_value) { ?>
-                <li class="nav-item<?= (($page_data_value == $current_page_data) ? ' active' : ''); ?>"> 
-                    <a class="nav-link" href="<?= ($page_data_key == '/') ? '.' : ('?page=' . $page_data_key); ?>">
-                        <?php echo $page_data_value['title']; ?>
-                    </a>
+                    <?php $menu_accessibility = $page_data_value['accessibility']; ?>
+                    <?php $on_logged_in_allowed = is_user_logged_in() && $menu_accessibility['show_when_logged_in'] ?>
+                    <?php $on_logged_out_allowed = !is_user_logged_in() && $menu_accessibility['show_when_logged_out'] ?>
+                    <?php $should_show_menu = $on_logged_in_allowed || $on_logged_out_allowed ?>
+                    <?php if($should_show_menu) { ?>
+                    <li class="nav-item<?= (($page_data_value === $current_page_data) ? ' active' : ''); ?>"> 
+                        <a class="nav-link" href="<?= ($page_data_key === '/') ? '.' : ('?page=' . $page_data_key); ?>">
+                            <?php echo $page_data_value['title']; ?>
+                        </a>
+                    </li>
+                    <?php } ?>
+                <?php } ?>
+                <?php if(is_user_logged_in()) { ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="?logout">Kijelentkezés</a>
                 </li>
                 <?php } ?>
             </ul>
