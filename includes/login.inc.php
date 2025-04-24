@@ -92,18 +92,18 @@ function update_last_logged_in_time($username) {
 }
 
 function register_new_user($username, $password_hash, $surname, $forename) {
-    $insert_access_record_template = "INSERT INTO ACCESS (`id`, `created_at`, `last_logged_in`, `password_hash`) VALUES (NULL, UNIX_TIMESTAMP(NOW()), '0', :password_hash;";
+    $insert_access_record_template = "INSERT INTO ACCESS VALUES (NULL, UNIX_TIMESTAMP(NOW()), '0', :password_hash);";
     $insert_access_record_params = array(
         ':password_hash' => $password_hash,
     );
 
-    $insert_detail_record_template = "INSERT INTO DETAILS (`id`, `surname`, `forename`) VALUES (NULL, :surname, :forename);";
+    $insert_detail_record_template = "INSERT INTO DETAILS VALUES (NULL, :surname, :forename);";
     $insert_detail_record_params = array(
         ':surname' => $surname,
         ':forename' => $forename,
     );
 
-    $insert_user_record_template = "INSERT INTO USERS (`id`, `username`, `created_at`, `access_id`, `detail_id`) VALUES (NULL, :username, UNIX_TIMESTAMP(NOW()), :access_id, :details_id);";
+    $insert_user_record_template = "INSERT INTO USERS VALUES (NULL, :username, UNIX_TIMESTAMP(NOW()), :access_id, :details_id);";
     $insert_user_record_params = array(
         ':username' => $username,
         ':access_id' => NULL,

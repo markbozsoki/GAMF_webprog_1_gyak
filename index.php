@@ -1,7 +1,7 @@
 <?php include('config.inc.php');
 
 // '?error=' query param for presenting error pages, usage: ?error=418
-if (isset($_GET['error'] $$ count($_GET) == 1)) {
+if (isset($_GET['error']) && count($_GET) == 1) {
     $error_code = $_GET['error'];
     if (!isset($errors[$error_code])) {
         load_error_page($errors['501'], 'the [' . $error_code . '] error page is not implemented!');
@@ -111,7 +111,7 @@ if (isset($_GET['register'])) {
             ]);
         }
         
-        if (is_username_exists($new_username)) {
+        if (is_username_exists($username)) {
             load_page('login', [
                 registration_info_header('username already registered'),
             ]);
