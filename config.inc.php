@@ -46,6 +46,26 @@ $page_datas = array(
             'show_when_logged_out' => TRUE,
         ),
     ),
+    'messaging' => array(
+        'title' => 'Kapcsolat',
+        'html_template' => './templates/pages/message_composer.tpl.php', 
+        'style_file' => './styles/pages/message_composer.css',
+        'script_file' => './scripts/pages/message_composer.js',
+        'accessibility' => array(
+            'show_when_logged_in' => TRUE,
+            'show_when_logged_out' => TRUE,
+        ),
+    ),
+    'messages' => array(
+        'title' => 'Üzenetek',
+        'html_template' => './templates/pages/messages.tpl.php', 
+        'style_file' => './styles/pages/messages.css',
+        'script_file' => './scripts/pages/messages.js',
+        'accessibility' => array(
+            'show_when_logged_in' => TRUE,
+            'show_when_logged_out' => FALSE,
+        ),
+    ),
     'login' => array( // this should be the last item
         'title' => 'Bejelentkezés',
         'html_template' => './templates/pages/login.tpl.php',

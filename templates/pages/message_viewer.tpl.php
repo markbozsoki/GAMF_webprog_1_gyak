@@ -1,0 +1,1 @@
+<p>Egy üzenet megjelenítése</p>

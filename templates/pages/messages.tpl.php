@@ -1,0 +1,1 @@
+<p>Üzenetek listázása</p>
