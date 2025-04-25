@@ -20,10 +20,99 @@
         </div>
     </div>
 
-    <!-- carousel placeholder) -->
     <div class="mb-5">
+        <div id=carouselCaptions class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+            </div>
 
-        <div>Carousel</div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://vaszilijedc.hu/wp-content/uploads/2025/04/20250222_1659167002.jpg"
+                        class="d-block w-100">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h2><a href="https://vaszilijedc.hu/lali-szamurajkardja/">Lali szamurájkardja</a></h2>
+                        <p>Szerző: <span><a href="https://vaszilijedc.hu/author/basaja/"
+                                    title="VaszilijEDC Ultra bejegyzései" rel="author">VaszilijEDC Ultra</a></span> |
+                            <span class="published">2025.04.06.</span> | <a
+                                href="https://vaszilijedc.hu/category/irasok/egyeb/" rel="category tag">Egyéb</a> | 0
+                            Hozzászólások
+                        </p>
+                        <p>Képzeljük el Lalit, aki nyílászárók beszerelésével
+                            keresi a kenyerét. Egyszerű építőipari munkás, aki már
+                            évek óta megbízható munkát végez. Szépen építgeti az
+                            életét, komoly barátnője van, saját lakásra gyűjt. Egyik
+                            reggel, amikor egy újépítésű házhoz szállnak ki a...</p>
+                        <div><a class="btn btn-outline-light"
+                                href="https://vaszilijedc.hu/lali-szamurajkardja/">Bővebben</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="carousel-item">
+                    <img src="https://vaszilijedc.hu/wp-content/uploads/2025/04/IMG_2549.jpeg" class="d-block w-100">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h2><a href="https://vaszilijedc.hu/we-banter-ujratoltve/">We Banter -Újratöltve</a></h2>
+                        <p>Szerző: <span><a href="https://vaszilijedc.hu/author/basaja/"
+                                    title="VaszilijEDC Ultra bejegyzései" rel="author">VaszilijEDC Ultra</a></span> |
+                            <span class="published">2025.04.20.</span> | <a
+                                href="https://vaszilijedc.hu/category/we-knives-2/" rel="category tag">We knives</a>, <a
+                                href="https://vaszilijedc.hu/category/irasok/kesek/weknives/" rel="category tag">We
+                                knives</a>, <a href="https://vaszilijedc.hu/category/irasok/kesek/we-knives/"
+                                rel="category tag">WE Knives</a>, <a
+                                href="https://vaszilijedc.hu/category/irasok/kesek/folder/we-knives-folder/"
+                                rel="category tag">WE Knives</a> | 0 Hozzászólások
+                        </p>
+                        <p>4 évvel ezelőtt született egy cikk Ben Petersen első
+                            saját tervezésű késéről ( We Banter ). Most, hogy
+                            megjelent a második generáció, valamint hogy lassan
+                            másfél éve használok egy módosított verziót az első
+                            szériából, elegendő oknak bizonyult, hogy újra górcső
+                            alá...</p>
+                        <div><a class="btn btn-outline-light"
+                                href="https://vaszilijedc.hu/we-banter-ujratoltve/">Bővebben</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <img src="https://vaszilijedc.hu/wp-content/uploads/2025/01/Kep1.jpg" class="d-block w-100">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h2><a href="https://vaszilijedc.hu/svord-peasant/">Svörd Peasant</a></h2>
+                        <p>Szerző: <span><a href="https://vaszilijedc.hu/author/basaja/"
+                                    title="VaszilijEDC Ultra bejegyzései" rel="author">VaszilijEDC Ultra</a></span> |
+                            <span class="published">2025.01.26.</span> | <a
+                                href="https://vaszilijedc.hu/category/irasok/egyeb/" rel="category tag">Egyéb</a>| 0
+                            Hozzászólások
+                        </p>
+                        <p>Magányos túrázó sétál a Fekete-Körös gátján a
+                            táborhelye felé. Apró hobó kályhájában ropog a tűz. Sült
+                            szalonna és lilahagyma illata terjeng a táborhelyen. A
+                            túrázó fatányéron katonázza a falatokat surlódó záras
+                            bicskájával. Legalábbis ez a kép jelent meg a szemeim...</p>
+                        <div><a class="btn btn-outline-light"
+                                href="https://vaszilijedc.hu/we-banter-ujratoltve/">Bővebben</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselCaptions" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Előző</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselCaptions" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Következő</span>
+            </button>
+        </div>
+
     </div>
 
     <div class="row text-center mb-5">
@@ -33,7 +122,7 @@
                 <div>
                     <p>Vaszilij EDC a Facebookon.</p>
                 </div>
-                <a class="btn btn-light mt-2" href="https://www.facebook.com/VaszilijEdc" target="_blank"
+                <a class="btn btn-outline-light" href="https://www.facebook.com/VaszilijEdc" target="_blank"
                     rel="noopener">Megnézem</a>
             </div>
         </div>
@@ -43,7 +132,7 @@
                 <div>
                     <p>Ahol te adod a tartalmat.</p>
                 </div>
-                <a class="btn btn-light mt-2" href="https://www.facebook.com/groups/434204628313605" target="_blank"
+                <a class="btn btn-outline-light" href="https://www.facebook.com/groups/434204628313605" target="_blank"
                     rel="noopener">Megnézem</a>
             </div>
         </div>
@@ -53,7 +142,7 @@
                 <div>
                     <p>Küldj üzenetet nekem!</p>
                 </div>
-                <a class="btn btn-light mt-2" href="https://vaszilijedc.hu/uzenetkuldes/" target="_blank"
+                <a class="btn btn-outline-light" href="https://vaszilijedc.hu/uzenetkuldes/" target="_blank"
                     rel="noopener">Megnézem</a>
             </div>
         </div>
