@@ -17,14 +17,14 @@ CREATE TABLE IF NOT EXISTS `ACCESS` (
   `last_logged_in` int(10) default '0',
   `password_hash` varchar(64) default NULL,
   PRIMARY KEY (`id`)
-) ENGINE = MYISAM;
+) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `DETAILS` (
   `id` int(5) unsigned NOT NULL auto_increment,
   `surname` varchar(35) default '',
   `forename` varchar(35) default '',
   PRIMARY KEY (`id`)
-) ENGINE = MYISAM;
+) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `USERS` (
   `id` int(5) unsigned NOT NULL auto_increment,
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `USERS` (
   PRIMARY KEY (`id`),
   CONSTRAINT FK_USER_ACCESS FOREIGN KEY (access_id) REFERENCES ACCESS(id),
   CONSTRAINT FK_USER_DETAIL FOREIGN KEY (detail_id) REFERENCES DETAILS(id)
-) ENGINE = MYISAM;
+) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `MESSAGES` (
   `id` int(5) unsigned NOT NULL auto_increment,
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `MESSAGES` (
   `subject` varchar(450) NOT NULL,
   `msg_text` varchar(7500) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = MYISAM;
+) ENGINE = InnoDB;
 
 -- VIEWS
 CREATE VIEW IF NOT EXISTS `USERNAMES` AS
