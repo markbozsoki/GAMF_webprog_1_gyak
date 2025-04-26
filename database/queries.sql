@@ -21,3 +21,11 @@ SET @username = "admin";
 SELECT surname, forename
 FROM USER_DETAILS
 WHERE username = @username;
+
+-- get all messages paginated
+SET @start = 0;
+SET @page_size = 5;
+SELECT * 
+FROM MESSAGES
+ORDER BY MESSAGES.sent_at DESC
+LIMIT 5 OFFSET 0;
