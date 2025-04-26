@@ -38,7 +38,8 @@ CREATE TABLE IF NOT EXISTS `USERS` (
 ) ENGINE = MYISAM;
 
 CREATE TABLE IF NOT EXISTS `MESSAGES` (
-  `id` VARCHAR(16) default CONCAT("msg", SUBSTRING(UUID(), 1, 8), SUBSTRING(UUID(), 2, 6)),
+  `id` int(5) unsigned NOT NULL auto_increment,
+  `msg_id` VARCHAR(16) default CONCAT("msg", SUBSTRING(UUID(), 1, 8), SUBSTRING(UUID(), 2, 6)) unique,
   `sender_id` int(5) default NULL,
   `sent_at` int(10) NOT NULL,
   `text` varchar(7500) NOT NULL,
