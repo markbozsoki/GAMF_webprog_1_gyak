@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS `MESSAGES` (
   `sender_id` int(5) default NULL,
   `sent_at` int(10) NOT NULL,
   `email_address` varchar(255) NOT NULL,
+  `subject` varchar(450) NOT NULL,
   `msg_text` varchar(7500) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE = MYISAM;
