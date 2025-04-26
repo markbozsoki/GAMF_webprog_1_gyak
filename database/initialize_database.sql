@@ -42,7 +42,8 @@ CREATE TABLE IF NOT EXISTS `MESSAGES` (
   `msg_id` VARCHAR(16) default CONCAT("msg", SUBSTRING(UUID(), 1, 8), SUBSTRING(UUID(), 2, 6)) unique,
   `sender_id` int(5) default NULL,
   `sent_at` int(10) NOT NULL,
-  `text` varchar(7500) NOT NULL,
+  `email_address` varchar(255) NOT NULL,
+  `msg_text` varchar(7500) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE = MYISAM;
 
