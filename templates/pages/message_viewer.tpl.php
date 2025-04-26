@@ -14,7 +14,7 @@
         <p><?= htmlspecialchars($message_data['user_detail']); ?></p>
         <p>E-mail: <a href="mailto:<?= htmlspecialchars($message_data['email_address']); ?>"><?= htmlspecialchars($message_data['email_address']); ?></a></p>
     </div>
-    <p><?= htmlspecialchars($message_data['body']); ?></p>
+    <pre><?= $message_data['body']; ?></pre>
 </div>
 
 <a href="<?= ($parent_page_key === '/') ? '.' : ('?page=' . $parent_page_key); ?>">Vissza</a>
