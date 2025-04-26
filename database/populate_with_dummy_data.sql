@@ -4,53 +4,56 @@ SET @username = 'dummyUser';
 SET @password = 'Password12345';
 SET @surname = 'Dummilton';
 SET @forename = 'Userling';
-INSERT INTO `access` (`id`, `created_at`, `last_logged_in`, `password_hash`) VALUES (NULL, UNIX_TIMESTAMP(NOW()), '0', SHA2(@password, 256));
+INSERT INTO `access` (`id`, `created_at`, `last_logged_in`, `password_hash`) VALUES (default, UNIX_TIMESTAMP(NOW()), default, SHA2(@password, 256));
 SET @access_last_id = LAST_INSERT_ID();
-INSERT INTO `details` (`id`, `surname`, `forename`) VALUES (NULL, @surname, @forename);
+INSERT INTO `details` (`id`, `surname`, `forename`) VALUES (default, @surname, @forename);
 SET @details_last_id = LAST_INSERT_ID();
-INSERT INTO `users` (`id`, `username`, `created_at`, `access_id`, `detail_id`) VALUES (NULL, @username, UNIX_TIMESTAMP(NOW()), @access_last_id, @details_last_id);
+INSERT INTO `users` (`id`, `username`, `created_at`, `access_id`, `detail_id`) VALUES (default, @username, UNIX_TIMESTAMP(NOW()), @access_last_id, @details_last_id);
+SET @test_user_dummy_id = LAST_INSERT_ID();
 
 -- orphan useraccess 
 SET @password = 'randomstring';
-INSERT INTO `access` (`id`, `created_at`, `last_logged_in`, `password_hash`) VALUES (NULL, UNIX_TIMESTAMP(NOW()), '0', SHA2(@password, 256));
+INSERT INTO `access` (`id`, `created_at`, `last_logged_in`, `password_hash`) VALUES (default, UNIX_TIMESTAMP(NOW() - INTERVAL 1 YEAR), default, SHA2(@password, 256));
 
 SET @username = 'testUser1';
 SET @password = 'ILoveHorses';
 SET @surname = 'Horse-Lover';
 SET @forename = 'User';
-INSERT INTO `access` (`id`, `created_at`, `last_logged_in`, `password_hash`) VALUES (NULL, UNIX_TIMESTAMP(NOW()), '0', SHA2(@password, 256));
+INSERT INTO `access` (`id`, `created_at`, `last_logged_in`, `password_hash`) VALUES (default, UNIX_TIMESTAMP(NOW()), default, SHA2(@password, 256));
 SET @access_last_id = LAST_INSERT_ID();
-INSERT INTO `details` (`id`, `surname`, `forename`) VALUES (NULL, @surname, @forename);
+INSERT INTO `details` (`id`, `surname`, `forename`) VALUES (default, @surname, @forename);
 SET @details_last_id = LAST_INSERT_ID();
-INSERT INTO `users` (`id`, `username`, `created_at`, `access_id`, `detail_id`) VALUES (NULL, @username, UNIX_TIMESTAMP(NOW()), @access_last_id, @details_last_id);
+INSERT INTO `users` (`id`, `username`, `created_at`, `access_id`, `detail_id`) VALUES (default, @username, UNIX_TIMESTAMP(NOW()), @access_last_id, @details_last_id);
+SET @test_user_horse_id = LAST_INSERT_ID();
 
 -- orphan userdetail
 SET @surname = 'Doe';
 SET @forename = 'John';
-INSERT INTO `details` (`id`, `surname`, `forename`) VALUES (NULL, @surname, @forename);
+INSERT INTO `details` (`id`, `surname`, `forename`) VALUES (default, @surname, @forename);
 
 -- orphan userdetail
 SET @surname = 'Doe';
 SET @forename = 'Jane';
-INSERT INTO `details` (`id`, `surname`, `forename`) VALUES (NULL, @surname, @forename);
+INSERT INTO `details` (`id`, `surname`, `forename`) VALUES (default, @surname, @forename);
 
-SET @username = 'testUser1';
+SET @username = 'testUser2';
 SET @password = 'ILoveDogs';
 SET @surname = 'Dog-Lover';
 SET @forename = 'User';
-INSERT INTO `access` (`id`, `created_at`, `last_logged_in`, `password_hash`) VALUES (NULL, UNIX_TIMESTAMP(NOW()), '0', SHA2(@password, 256));
+INSERT INTO `access` (`id`, `created_at`, `last_logged_in`, `password_hash`) VALUES (default, UNIX_TIMESTAMP(NOW()), default, SHA2(@password, 256));
 SET @access_last_id = LAST_INSERT_ID();
-INSERT INTO `details` (`id`, `surname`, `forename`) VALUES (NULL, @surname, @forename);
+INSERT INTO `details` (`id`, `surname`, `forename`) VALUES (default, @surname, @forename);
 SET @details_last_id = LAST_INSERT_ID();
-INSERT INTO `users` (`id`, `username`, `created_at`, `access_id`, `detail_id`) VALUES (NULL, @username, UNIX_TIMESTAMP(NOW()), @access_last_id, @details_last_id);
+INSERT INTO `users` (`id`, `username`, `created_at`, `access_id`, `detail_id`) VALUES (default, @username, UNIX_TIMESTAMP(NOW()), @access_last_id, @details_last_id);
+SET @test_user_dog_id = LAST_INSERT_ID();
 
-SET @username = 'testUser2';
+SET @username = 'testUser3';
 SET @password = 'ILoveCats';
 SET @surname = 'Cat-Lover';
 SET @forename = 'User';
-INSERT INTO `access` (`id`, `created_at`, `last_logged_in`, `password_hash`) VALUES (NULL, UNIX_TIMESTAMP(NOW()), '0', SHA2(@password, 256));
+INSERT INTO `access` (`id`, `created_at`, `last_logged_in`, `password_hash`) VALUES (default, UNIX_TIMESTAMP(NOW()), default, SHA2(@password, 256));
 SET @access_last_id = LAST_INSERT_ID();
-INSERT INTO `details` (`id`, `surname`, `forename`) VALUES (NULL, @surname, @forename);
+INSERT INTO `details` (`id`, `surname`, `forename`) VALUES (default, @surname, @forename);
 SET @details_last_id = LAST_INSERT_ID();
 INSERT INTO `users` (`id`, `username`, `created_at`, `access_id`, `detail_id`) VALUES (default, @username, UNIX_TIMESTAMP(NOW()), @access_last_id, @details_last_id);
 SET @test_user_cat_id = LAST_INSERT_ID();
