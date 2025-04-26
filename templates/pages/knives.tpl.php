@@ -2,19 +2,19 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <div class="d-flex flex-column align-items-center text-justify gap-5">
+                <div class="d-flex flex-column align-items-center text-justify">
 
 
                     <article id="post-8424" class="mb-4">
-                        <a class="entry-featured-image-url" href="https://vaszilijedc.hu/we-banter-ujratoltve/">
+                        <a href="https://vaszilijedc.hu/we-banter-ujratoltve/">
                             <img src="https://vaszilijedc.hu/wp-content/uploads/2025/04/IMG_2549-980x626.jpeg"
                                 class="img-fluid rounded" alt="We Banter -Újratöltve"></a>
-                        <h2 class="entry-title"><a href="https://vaszilijedc.hu/we-banter-ujratoltve/">We Banter
+                        <h2><a href="https://vaszilijedc.hu/we-banter-ujratoltve/">We Banter
                                 -Újratöltve</a></h2>
-                        <p class="post-meta"> Szerző: <span class="author vcard">
+                        <p> Szerző: <span>
                                 <a href="https://vaszilijedc.hu/author/basaja/" title="VaszilijEDC Ultra bejegyzései"
                                     rel="author">VaszilijEDC Ultra</a></span>|
-                            <span class="published">2025. ápr. 20.</span> |
+                            <span>2025. ápr. 20.</span> |
                             <a href="https://vaszilijedc.hu/category/irasok/kesek/we-knives/" rel="category tag">WE
                                 Knives</a>
                         </p>
@@ -28,15 +28,15 @@
                     </article>
 
                     <article id="post-7642" class="mb-4">
-                        <a class="entry-featured-image-url" href="https://vaszilijedc.hu/mknifes-puukko-folder/">
+                        <a href="https://vaszilijedc.hu/mknifes-puukko-folder/">
                             <img src="https://vaszilijedc.hu/wp-content/uploads/2023/01/IMG_20230122_120307-1080x675.jpg.webp"
                                 class="img-fluid rounded" alt="MKnifes Puukko folder" /></a>
-                        <h2 class="entry-title"><a href="https://vaszilijedc.hu/mknifes-puukko-folder/">MKnifes Puukko
+                        <h2><a href="https://vaszilijedc.hu/mknifes-puukko-folder/">MKnifes Puukko
                                 folder</a></h2>
-                        <p class="post-meta"> Szerző: <span class="author vcard">
+                        <p> Szerző: <span>
                                 <a href="https://vaszilijedc.hu/author/vaszilij/" title="Vaszilij bejegyzései"
                                     rel="author">Vaszilij</a></span> |
-                            <span class="published">2023. jan. 28.</span> |
+                            <span>2023. jan. 28.</span> |
                             <a href="https://vaszilijedc.hu/category/irasok/kesek/" rel="category tag">Kések</a>,
                             <a href="https://vaszilijedc.hu/category/irasok/kesek/folder/" rel="category tag">Folder</a>
                         </p>
@@ -50,17 +50,16 @@
                     </article>
 
                     <article id="post-7586" class="mb-4">
-                        <a class="entry-featured-image-url" href="https://vaszilijedc.hu/kizer-zen-engedj-el-mindent/">
+                        <a href="https://vaszilijedc.hu/kizer-zen-engedj-el-mindent/">
                             <img src="https://vaszilijedc.hu/wp-content/uploads/2022/12/IMG_20220622_065552-1080x675.jpg.webp"
                                 class="img-fluid rounded" alt="Kizer Zen – Engedj el mindent!" /> </a>
-                        <h2 class="entry-title">
+                        <h2>
                             <a href="https://vaszilijedc.hu/kizer-zen-engedj-el-mindent/">Kizer Zen – Engedj el
                                 mindent!</a>
                         </h2>
-                        <p class="post-meta"> Szerző: <span class="author vcard"><a
-                                    href="https://vaszilijedc.hu/author/vaszilij/" title="Vaszilij bejegyzései"
+                        <p> Szerző: <span><a href="https://vaszilijedc.hu/author/vaszilij/" title="Vaszilij bejegyzései"
                                     rel="author">Vaszilij</a></span> |
-                            <span class="published">2022. dec. 4.</span> |
+                            <span>2022. dec. 4.</span> |
                             <a href="https://vaszilijedc.hu/category/irasok/kesek/" rel="category tag">Kések</a>,
                             <a href="https://vaszilijedc.hu/category/irasok/kesek/folder/"
                                 rel="category tag">Folder</a>,
@@ -77,16 +76,16 @@
                     </article>
 
                     <article id="post-7373" class="mb-4">
-                        <a class="entry-featured-image-url" href="https://vaszilijedc.hu/cold-steel-pro-lite/">
+                        <a href="https://vaszilijedc.hu/cold-steel-pro-lite/">
                             <img src="https://vaszilijedc.hu/wp-content/uploads/2022/07/IMG_20220505_142625-1080x675.jpg.webp"
                                 class="img-fluid rounded" alt="Cold Steel Pro Lite" /></a>
-                        <h2 class="entry-title">
+                        <h2>
                             <a href="https://vaszilijedc.hu/cold-steel-pro-lite/">Cold Steel Pro Lite</a>
                         </h2>
-                        <p class="post-meta"> Szerző: <span class="author vcard">
+                        <p> Szerző: <span>
                                 <a href="https://vaszilijedc.hu/author/vaszilij/" title="Vaszilij bejegyzései"
                                     rel="author">Vaszilij</a></span> |
-                            <span class="published">2022. júl. 9.</span> |
+                            <span>2022. júl. 9.</span> |
                             <a href="https://vaszilijedc.hu/category/irasok/kesek/" rel="category tag">Kések</a>,
                             <a href="https://vaszilijedc.hu/category/irasok/kesek/folder/cold-steel/"
                                 rel="category tag">Cold Steel</a>,
@@ -102,16 +101,16 @@
                     </article>
 
                     <article id="post-7326" class="mb-4">
-                        <a class="entry-featured-image-url" href="https://vaszilijedc.hu/tops-3-pointer/">
+                        <a href="https://vaszilijedc.hu/tops-3-pointer/">
                             <img src="https://vaszilijedc.hu/wp-content/uploads/2022/06/IMG_20220308_130704-1080x675.jpg.webp"
                                 class="img-fluid rounded" /></a>
-                        <h2 class="entry-title">
+                        <h2>
                             <a href="https://vaszilijedc.hu/tops-3-pointer/">TOPS 3 Pointer</a>
                         </h2>
-                        <p class="post-meta"> Szerző: <span class="author vcard">
+                        <p> Szerző: <span>
                                 <a href="https://vaszilijedc.hu/author/vaszilij/" title="Vaszilij bejegyzései"
                                     rel="author">Vaszilij</a></span> |
-                            <span class="published">2022. jún. 19.</span> |
+                            <span>2022. jún. 19.</span> |
                             <a href="https://vaszilijedc.hu/category/irasok/kesek/" rel="category tag">Kések</a>,
                             <a href="https://vaszilijedc.hu/category/irasok/kesek/fixpenges/"
                                 rel="category tag">Fixpengés</a>,
@@ -127,16 +126,16 @@
                     </article>
 
                     <article id="post-7285" class="mb-4">
-                        <a class="entry-featured-image-url" href="https://vaszilijedc.hu/civivi-baby-banter/">
+                        <a href="https://vaszilijedc.hu/civivi-baby-banter/">
                             <img src="https://vaszilijedc.hu/wp-content/uploads/2022/05/IMG_20220527_134008-1080x675.jpg.webp"
                                 class="img-fluid rounded" alt="Civivi Baby Banter" /></a>
-                        <h2 class="entry-title">
+                        <h2>
                             <a href="https://vaszilijedc.hu/civivi-baby-banter/">Civivi Baby Banter</a>
                         </h2>
-                        <p class="post-meta"> Szerző: <span class="author vcard">
+                        <p> Szerző: <span>
                                 <a href="https://vaszilijedc.hu/author/vaszilij/" title="Vaszilij bejegyzései"
                                     rel="author">Vaszilij</a></span> |
-                            <span class="published">2022. máj. 29.</span> |
+                            <span>2022. máj. 29.</span> |
                             <a href="https://vaszilijedc.hu/category/irasok/kesek/" rel="category tag">Kések</a>,
                             <a href="https://vaszilijedc.hu/category/irasok/kesek/folder/civivi/"
                                 rel="category tag">Civivi</a>,
@@ -151,16 +150,16 @@
                     </article>
 
                     <article id="post-7248" class="mb-4">
-                        <a class="entry-featured-image-url" href="https://vaszilijedc.hu/boker-bark-beetle/">
+                        <a href="https://vaszilijedc.hu/boker-bark-beetle/">
                             <img src="https://vaszilijedc.hu/wp-content/uploads/2022/05/IMG_20220510_100605-1080x675.jpg.webp"
                                 class="img-fluid rounded" alt="Böker Bark Beetle" /></a>
-                        <h2 class="entry-title">
+                        <h2>
                             <a href="https://vaszilijedc.hu/boker-bark-beetle/">Böker Bark Beetle</a>
                         </h2>
-                        <p class="post-meta"> Szerző: <span class="author vcard">
+                        <p> Szerző: <span>
                                 <a href="https://vaszilijedc.hu/author/vaszilij/" title="Vaszilij bejegyzései"
                                     rel="author">Vaszilij</a></span> |
-                            <span class="published">2022. máj. 15.</span> |
+                            <span>2022. máj. 15.</span> |
                             <a href="https://vaszilijedc.hu/category/irasok/kesek/" rel="category tag">Kések</a>,
                             <a href="https://vaszilijedc.hu/category/irasok/kesek/fixpenges/boker-kesek/"
                                 rel="category tag">Böker</a>,
