@@ -1,5 +1,10 @@
 <?php include('config.inc.php');
 
+// feature level includes
+include('./includes/image_gallery.inc.php');
+include('./includes/login.inc.php');
+include('./includes/messaging_request_handler.inc.php');
+
 // '?error=' query param for presenting error pages, usage: ?error=418
 if (isset($_GET['error']) && count($_GET) == 1) {
     $error_code = $_GET['error'];

@@ -1,22 +1,20 @@
 <p>Egy üzenet megjelenítése</p>
 
+<?php if ($parent_page_key === 'messaging') { ?>
 <div>
-    <!-- TODO: csak akkor jelenjen meg, ha új üzenet lett küldve -->
-    <h1>Köszönjük, hogy felvette velünk a kapcsolatot!</h1>
-    <p>Amint feldolgoztuk üzenetét, az ön által megadott e-mail címen fogjuk keresni.</p>
+    <h2>Köszönjük, hogy felvette velünk a kapcsolatot!</h2>
+    <h3>Amint feldolgoztuk üzenetét, az ön által megadott e-mail címen fogjuk keresni.</h3>
 </div>
+<?php } ?>
 
 <div>
-    <h2>Test Subject</h2>
+    <h4><?= htmlspecialchars($message_data['subject']); ?></h4>
     <div>
-        <p>2025-04-26 17:26:46</p>
-        <p>Guest</p>
-        <p>E-mail: <a href="mailto:guest.user@example.com"></a>guest.user@example.com</p>
+        <p><?= $message_data['sent_at']; ?></p>
+        <p><?= htmlspecialchars($message_data['user_detail']); ?></p>
+        <p>E-mail: <a href="mailto:<?= htmlspecialchars($message_data['email_address']); ?>"><?= htmlspecialchars($message_data['email_address']); ?></a></p>
     </div>
-    <p>
-        Hello, is your frigde running?\n\n\nBye
-    </p>
+    <p><?= htmlspecialchars($message_data['body']); ?></p>
 </div>
 
-<a href="?page=messaging">Vissza</a> <!-- TODO: dinamikusan változó link legyen -->
-<a href=".">Vissza a főoldalra</a>
+<a href="<?= ($parent_page_key === '/') ? '.' : ('?page=' . $parent_page_key); ?>">Vissza</a>

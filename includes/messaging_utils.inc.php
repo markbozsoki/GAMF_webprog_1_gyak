@@ -8,13 +8,14 @@ const MINIMUM_PAGINATION_PAGE_SIZE = 1;
 const DEFAULT_PAGINATION_PAGE_SIZE = 10;
 const MAXIMUM_PAGINATION_PAGE_SIZE = 100;
 
-// TODO: implement param and data parsing
+const GET_MESSAGE_SQL_PROJECTION = "msg_id AS message_id, sender_id, from_unixtime(sent_at) AS sent_at, email_address, subject, msg_text AS body";
+
 
 function parse_email_address($DATA, $key = 'email') {
     if (!isset($DATA[$key])){
         return NULL;
     }
-    //TODO: parsing is not implemented yet
+    //TODO: validation is not implemented yet
     $value = $DATA[$key];
     if (strlen($value) === 0 || strlen($value) > MAXIMUM_EMAIL_LENGTH) {
         return NULL;
@@ -49,7 +50,7 @@ function parse_message_id($DATA, $key = 'message') {
         return NULL;
     }
     $value = $DATA[$key];
-    //TODO: parsing is not implemented yet
+    //TODO: validation is not implemented yet
     return $value;
 }
 
@@ -103,7 +104,7 @@ function message_exists($message_id): bool {
 
 
 function get_message_by_message_id($message_id) {
-    $query_template = "SELECT * FROM MESSAGES WHERE msg_id = :message_id;";
+    $query_template = "SELECT " . GET_MESSAGE_SQL_PROJECTION . " FROM MESSAGES WHERE msg_id = :message_id;";
     $params = array(':message_id' => $message_id);
 
     $result = DataAccessLayerSingleton::getInstance()->executeCommand($query_template, $params);
@@ -121,7 +122,7 @@ function get_paginated_messages($start_index = DEFAULT_PAGINATION_START_INDEX, $
         $page_size = MAXIMUM_PAGINATION_PAGE_SIZE;
     }
 
-    $query_template = "SELECT * FROM MESSAGES ORDER BY MESSAGES.sent_at DESC LIMIT :page_size OFFSET :start_index;";
+    $query_template = "SELECT " . GET_MESSAGE_SQL_PROJECTION . " FROM MESSAGES ORDER BY MESSAGES.sent_at DESC LIMIT :page_size OFFSET :start_index;";
     $params = array(
         ':page_size' => $page_size,
         ':start_index' => $start_index,
@@ -166,10 +167,11 @@ function extend_message_with_user_detail($message_data): array {
 
 function load_message_viewer_page_on($message_data) { 
     global $page_datas;
-
-    $message_veiw_data = array(
-
-    );
+    
+    $parent_page_key  = '/';
+    if (isset($_GET['page'])) {
+        $parent_page_key  = $_GET['page'];
+    }
     $current_page_data = $page_datas['message_viewer'];
     include('./templates/index.tpl.php');
     exit();
