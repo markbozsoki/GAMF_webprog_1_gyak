@@ -1,35 +1,33 @@
 <div class="container">
 
-    <div class="row align-items-center mb-5">
-        <div class="col-md-6">
-            <h2>Naplónak indult.</h2>
-            <h3>Bemutató bloggá vált.</h3>
-            <p class="text-justify">Aztán átalakult valami mássá. Ablakká, amelyben kitekintek a világra, a világ
-                meg betekinthet a gondolataimba: késekről, every day carry felszerelésekről,
-                és az ezek mögött meghúzódó filozófiáról.</p>
-            <p class="text-justify">Aztán ennél is több lett. Egy közösség, amelyben együtt, hasonló értékek
-                mentén dolgozunk azért, hogy egy minőségi, kissé talán régimódi találkahely
-                legyen ez az online térben.</p>
-            <p class="text-justify">Balogh József vagyok, és azon dolgozom, hogy ez a közösség egyre nagyobbá
-                váljon, és együtt adhassuk tovább ezek az értékeket. Tarts velünk te is!</p>
-        </div>
-        <div class="col-md-6">
-            <img class="rounded mx-auto d-block" style="max-width: 60%; height: auto;"
-                src="https://vaszilijedc.hu/wp-content/uploads/2018/06/IMG_20180614_163340_1.jpg.webp" alt="Vaszilij"
-                title="Vaszilij" />
+    <div class="container py-5">
+        <div class="row align-items-center">
+            <div class="col-md-6 mb-4 mb-md-0">
+                <h2>Naplónak indult.</h2>
+                <h3>Bemutató bloggá vált.</h3>
+                <p class="text-justify">Aztán átalakult valami mássá. Ablakká, amelyben kitekintek a világra, a világ
+                    meg betekinthet a gondolataimba: késekről, every day carry felszerelésekről,
+                    és az ezek mögött meghúzódó filozófiáról.</p>
+                <p class="text-justify">Aztán ennél is több lett. Egy közösség, amelyben együtt, hasonló értékek
+                    mentén dolgozunk azért, hogy egy minőségi, kissé talán régimódi találkahely
+                    legyen ez az online térben.</p>
+                <p class="text-justify">Balogh József vagyok, és azon dolgozom, hogy ez a közösség egyre nagyobbá
+                    váljon, és együtt adhassuk tovább ezek az értékeket. Tarts velünk te is!</p>
+            </div>
+            <div class="col-md-6">
+                <img class="rounded mx-auto d-block" style="max-width: 60%; height: auto;"
+                    src="https://vaszilijedc.hu/wp-content/uploads/2018/06/IMG_20180614_163340_1.jpg.webp"
+                    alt="Vaszilij" title="Vaszilij" />
+            </div>
         </div>
     </div>
-
     <div class="mb-5">
-        <div id=carouselCaptions class="carousel slide carousel-fade" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="0" class="active"
-                    aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="1"
-                    aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="2"
-                    aria-label="Slide 3"></button>
-            </div>
+        <div id=carouselCaptions class="carousel slide carousel-fade" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselCaptions" data-slide-to="0" class="active" aria-label="Slide 1"></li>
+                <li data-target="#carouselCaptions" data-slide-to="1" aria-label="Slide 2"></li>
+                <li data-target="#carouselCaptions" data-slide-to="2" aria-label="Slide 3"></li>
+            </ol>
 
             <div class="carousel-inner">
                 <div class="carousel-item active">
@@ -103,14 +101,14 @@
                 </div>
             </div>
 
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselCaptions" data-bs-slide="prev">
+            <a class="carousel-control-prev" data-target="#carouselCaptions" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Előző</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselCaptions" data-bs-slide="next">
+                <span class="sr-only">Előző</span>
+            </a>
+            <a class="carousel-control-next" data-target="#carouselCaptions" data-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Következő</span>
-            </button>
+                <span class="sr-only">Következő</span>
+            </a>
         </div>
 
     </div>
@@ -147,38 +145,39 @@
             </div>
         </div>
     </div>
-
-    <div class="row align-items-center mb-5">
-        <div class="col-md-6">
-            <img src="https://vaszilijedc.hu/wp-content/uploads/2020/12/IMG_20200614_143419-01.jpeg.webp"
-                alt="IMG 20200614 143419 01" title="IMG_20200614_143419-01" style="max-width: 60%; height: auto;"
-                class="img-fluid">
-        </div>
-        <div class="col-md-6">
-            <h2>De mi az az EDC?</h2>
-            <p class="text-justify">Egy angol betűszó, amely kibontva az every day carry kifejezést takarja. Ez
-                szó szerinti fordításban azokat a holmikat jelenti, amelyeket nap mint nap
-                magunknál hordunk. A közkeletű tévhittel ellentétben nem szükséges az, hogy
-                mindig minden nap nálunk legyen: inkább egyfajta készletről, gyűjteményről
-                van szó, amelynek elemeit az adott szituációnak megfelelően váltogathatjuk.
-                Más holmikat pakolunk el, ha egy irodába megyünk dolgozni, mást, ha egy
-                építkezésen melózunk, és akkor is, amikor hétvégén rokonlátogatóba megyünk.
-            </p>
-            <p class="text-justify">Ezen a blogon főképp késekről olvashatsz, mert hozzám ezek az eszközök állnak
-                legközelebb, de szó esik néha másról is. Multiszerszámokról, táskákról,
-                egyéb kiegészítőkről. És nem csak bemutatókat készítek: ahogy már írtam,
-                sokféle aspektusa érdekel ennek a világnak.</p>
-            <p class="text-justify">Az every day carry tehát sok minden lehet. Életmód, filozófia, hobbi, vagy
-                akár egy gyűjtőszenvedély alapja. Mindegy, hogy téged melyik része érdekel,
-                remélem, találsz itt értékes olvasnivalót.</p>
+    <div class="container py-5">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <img src="https://vaszilijedc.hu/wp-content/uploads/2020/12/IMG_20200614_143419-01.jpeg.webp"
+                    alt="IMG 20200614 143419 01" title="IMG_20200614_143419-01" style="max-width: 60%; height: auto;"
+                    class="rounded mx-auto d-block">
+            </div>
+            <div class="col-md-6">
+                <h2>De mi az az EDC?</h2>
+                <p class="text-justify">Egy angol betűszó, amely kibontva az every day carry kifejezést takarja. Ez
+                    szó szerinti fordításban azokat a holmikat jelenti, amelyeket nap mint nap
+                    magunknál hordunk. A közkeletű tévhittel ellentétben nem szükséges az, hogy
+                    mindig minden nap nálunk legyen: inkább egyfajta készletről, gyűjteményről
+                    van szó, amelynek elemeit az adott szituációnak megfelelően váltogathatjuk.
+                    Más holmikat pakolunk el, ha egy irodába megyünk dolgozni, mást, ha egy
+                    építkezésen melózunk, és akkor is, amikor hétvégén rokonlátogatóba megyünk.
+                </p>
+                <p class="text-justify">Ezen a blogon főképp késekről olvashatsz, mert hozzám ezek az eszközök állnak
+                    legközelebb, de szó esik néha másról is. Multiszerszámokról, táskákról,
+                    egyéb kiegészítőkről. És nem csak bemutatókat készítek: ahogy már írtam,
+                    sokféle aspektusa érdekel ennek a világnak.</p>
+                <p class="text-justify">Az every day carry tehát sok minden lehet. Életmód, filozófia, hobbi, vagy
+                    akár egy gyűjtőszenvedély alapja. Mindegy, hogy téged melyik része érdekel,
+                    remélem, találsz itt értékes olvasnivalót.</p>
+            </div>
         </div>
     </div>
 
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        <div class="col mb-4">
+    <div class="row">
+        <div class="col-12 col-md-4 mb-4">
             <div class="card h-100 text-center">
                 <img src="https://vaszilijedc.hu/wp-content/uploads/2021/12/29366421_1622414891184377_7218577531824242688_n.jpg.webp"
-                    class="card-img-top img-fluid" alt="Bladeshop">
+                    class="card-img-top img-fluid" style="height: 250px; object-fit:contain;" alt="Bladeshop">
                 <div class="card-body">
                     <h5 class="card-title">Bladeshop</h5>
                     <p class="card-text">Késes webshop gyakori akciókkal és vevőbarát hozzáállással. Ha új kés kell, ne
@@ -190,10 +189,10 @@
             </div>
         </div>
 
-        <div class="col mb-4">
+        <div class="col-12 col-md-4 mb-4">
             <div class="card h-100 text-center">
                 <img src="https://vaszilijedc.hu/wp-content/uploads/2021/12/162854478_131232062335812_8008164456523881828_n.jpg.webp"
-                    class="card-img-top img-fluid" alt="Elemlámpa blog">
+                    class="card-img-top img-fluid" style="height: 250px; object-fit:contain;" alt="Elemlámpa blog">
                 <div class="card-body">
                     <h5 class="card-title">Elemlámpa blog</h5>
                     <p class="card-text">Minden, amit az elemlámpákról tudni szeretnél. Cikkek, bemutatók, illetve
@@ -205,10 +204,10 @@
             </div>
         </div>
 
-        <div class="col mb-4">
+        <div class="col-12 col-md-4 mb-4">
             <div class="card h-100 text-center">
                 <img src="https://vaszilijedc.hu/wp-content/uploads/2021/12/Kesvilag.jpg.webp"
-                    class="card-img-top img-fluid" alt="Késvilág">
+                    class="card-img-top img-fluid" style="height: 250px; object-fit:contain;" alt="Késvilág">
                 <div class="card-body">
                     <h5 class="card-title">Késvilág</h5>
                     <p class="card-text">Hazai bolt és webáruház, rendkívül széles termékválasztékkal. Debrecenben
@@ -220,10 +219,10 @@
             </div>
         </div>
 
-        <div class="col mb-4">
+        <div class="col-12 col-md-4 mb-4">
             <div class="card h-100 text-center">
                 <img src="https://vaszilijedc.hu/wp-content/uploads/2021/12/mkszoveglogo.png.webp"
-                    class="card-img-top img-fluid" alt="mkszoveglogo">
+                    class="card-img-top img-fluid" style="height: 250px; object-fit:contain;" alt="mkszoveglogo">
                 <div class="card-body">
                     <h5 class="card-title">Magyar kések</h5>
                     <p class="card-text">Webshop és közösség. Elsősorban a hazai készítők termékeivel foglalkozik,
@@ -236,10 +235,11 @@
             </div>
         </div>
 
-        <div class="col mb-4">
+        <div class="col-12 col-md-4 mb-4">
             <div class="card h-100 text-center">
                 <img src="https://vaszilijedc.hu/wp-content/uploads/2021/12/993918_421456207969831_2037177305_n.jpg.webp"
-                    class="card-img-top img-fluid" alt="993918 421456207969831 2037177305 n">
+                    class="card-img-top img-fluid" style="height: 250px; object-fit:contain;"
+                    alt="993918 421456207969831 2037177305 n">
                 <div class="card-body">
                     <h5 class="card-title">Késportál</h5>
                     <p class="card-text">Magyarország legnagyobb késes tudásbázisa. Érdemes csatlakoznod a
@@ -251,10 +251,11 @@
             </div>
         </div>
 
-        <div class="col mb-4">
+        <div class="col-12 col-md-4 mb-4">
             <div class="card h-100 text-center">
                 <img src="https://vaszilijedc.hu/wp-content/uploads/2021/12/ZBOSSweb_fekete_hatterrel-kicsi.jpg.webp"
-                    class="card-img-top img-fluid" alt="ZBOSSweb fekete hatterrel kicsi">
+                    class="card-img-top img-fluid" style="height: 250px; object-fit:contain;"
+                    alt="ZBOSSweb fekete hatterrel kicsi">
                 <div class="card-body">
                     <h5 class="card-title">ZBOSS</h5>
                     <p class="card-text">Kések, edc felszerelések, túra és sok egyéb. Hazai webáruház, ahol a
