@@ -273,37 +273,41 @@
         </div>
     </div>
 
-    <div class="d-flex align-items-center justify-content-center">
-        <div>
-            <h5>Videó saját könyvtárból</h5>
-            <div class="media">
-                <video width="300" height="170" controls>
-                    <source src="assets/videos/showyouthecode.mp4" type="video/mp4">
-                    A böngésző nem támogatja a videó lejátszását.
-                </video>
-            </div>
-
-            <h5>YouTube videó</h5>
-            <div class="media">
-                <div class="ratio ratio-16x9 custom-video">
-                    <iframe src="https://www.youtube.com/embed/jCZuBLD_j10?si=4j1DRBFS2Nkfegf-"
-                        title="YouTube video player" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-                    </iframe>
-                </div>
-            </div>
-
-            <h5>Elérhetőség térképen</h5>
-            <div class="media">
-                <div class="ratio ratio-16x9 custom-map">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2701.575444420692!2d19.222816375448705!3d47.38120417116998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4741eb8ed25e9983%3A0x1001b036eff20959!2sVencel%20Bal%C3%A1zs%20E.V.!5e0!3m2!1shu!2hu!4v1744972642054!5m2!1shu!2hu"
-                        class="w-100 rounded" allowfullscreen loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
-                </div>
-            </div>
-        </div>
+    <div class="container my-5">
+  <div class="row justify-content-center text-center mb-4">
+    <div class="col-md-5 mb-3">
+      <video width="100%" height="auto" controls class="rounded shadow-sm">
+        <source src="assets/videos/showyouthecode.mp4" type="video/mp4">
+        A böngésző nem támogatja a videó lejátszását.
+      </video>
     </div>
+
+    <div class="col-md-5 mb-3">
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe class="embed-responsive-item" 
+                src="https://www.youtube.com/embed/jCZuBLD_j10?si=4j1DRBFS2Nkfegf-" 
+                allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center text-center">
+    <div class="col-md-8">
+      <h5>Elérhetőség térképen</h5>
+      <div class="embed-responsive embed-responsive-16by9 rounded">
+        <iframe 
+          class="embed-responsive-item" 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2701.575444420692!2d19.222816375448705!3d47.38120417116998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4741eb8ed25e9983%3A0x1001b036eff20959!2sVencel%20Bal%C3%A1zs%20E.V.!5e0!3m2!1shu!2hu!4v1744972642054!5m2!1shu!2hu" 
+          allowfullscreen 
+          loading="lazy">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+                    
+        
+    
     
