@@ -33,7 +33,7 @@ function parse_message_subject($DATA, $key = 'subject') {
     return $value;
 }
 
-function parse_message_text($DATA, $key = 'message') {
+function parse_message_text($DATA, $key = 'body') {
     if (!isset($DATA[$key])){
         return NULL;
     }
@@ -44,7 +44,7 @@ function parse_message_text($DATA, $key = 'message') {
     return $value;
 }
 
-function parse_message_id($DATA, $key = 'message_id') {
+function parse_message_id($DATA, $key = 'message') {
     if (!isset($DATA[$key])){
         return NULL;
     }
@@ -87,8 +87,8 @@ function save_new_message($sender_id = NULL, $email_address, $subject_text, $mes
     }
 }
 
-function is_message_exists($message_id): bool {
-    $query_template = "SELECT count(username) AS message_exists FROM MESSAGES WHERE msg_id = :message_id;";
+function message_exists($message_id): bool {
+    $query_template = "SELECT COUNT(msg_id) AS message_exists FROM MESSAGES WHERE msg_id = :message_id;";
     $params = array(':message_id' => $message_id);
 
     $result = DataAccessLayerSingleton::getInstance()->executeCommand($query_template, $params);
@@ -99,6 +99,15 @@ function is_message_exists($message_id): bool {
         throw new Exception("[" . __FUNCTION__ . "] - Query result indicates multiple messages by this message_id (" . $message_id . ")!");
     }
     return (bool) $result['message_exists'];
+}
+
+
+function get_message_by_message_id($message_id) {
+    $query_template = "SELECT * FROM MESSAGES WHERE msg_id = :message_id;";
+    $params = array(':message_id' => $message_id);
+
+    $result = DataAccessLayerSingleton::getInstance()->executeCommand($query_template, $params);
+    return $result;
 }
 
 function get_paginated_messages($start_index = DEFAULT_PAGINATION_START_INDEX, $page_size = DEFAULT_PAGINATION_PAGE_SIZE) {
@@ -126,19 +135,19 @@ function get_paginated_messages($start_index = DEFAULT_PAGINATION_START_INDEX, $
     return $result;
 }
 
-function extend_message_with_user_detail($message): array {
-    if (!isset($message['sender_id'])) {
-        throw new Exception("[" . __FUNCTION__ . "] - Missing sender_id from message: " . var_dump($message));
+function extend_message_with_user_detail($message_data): array {
+    if (!array_key_exists('sender_id', $message_data)) {
+        throw new Exception("[" . __FUNCTION__ . "] - Missing sender_id key from message data");
     }
 
     $user_detail_key = 'user_detail';
-    if ($message['sender_id'] === NULL) {
-        $message[$user_detail_key] = 'Vendég';
-        return $messsage;
+    if ($message_data['sender_id'] === NULL) {
+        $message_data[$user_detail_key] = 'Vendég';
+        return $message_data;
     }
 
     $query_template = "SELECT username, surname, forename FROM USER_DETAILS WHERE user_id = :user_id;";
-    $params = array(':user_id' => $message['sender_id']);
+    $params = array(':user_id' => $message_data['sender_id']);
 
     $result = DataAccessLayerSingleton::getInstance()->executeCommand($query_template, $params);
     if (!isset($result['username'])) {
@@ -151,19 +160,17 @@ function extend_message_with_user_detail($message): array {
         throw new Exception("[" . __FUNCTION__ . "] - Query result does not contain 'forename'!");
     }
 
-    $message[$user_detail_key] = $result['surname'] . " " . $result['forename'] . " (" . $result['username'] . ")";
-
-    return $messsage;
+    $message_data[$user_detail_key] = $result['surname'] . " " . $result['forename'] . " (" . $result['username'] . ")";
+    return $message_data;
 }
 
-function load_message_viewer_page_on($message_id) { 
+function load_message_viewer_page_on($message_data) { 
     global $page_datas;
-    global $errors;
-    
+
+    $message_veiw_data = array(
+
+    );
     $current_page_data = $page_datas['message_viewer'];
-    if (!is_message_exists($message_id)) {
-        load_error_page($errors['404'], "message (" . $message_id . ") not found");
-    }
     include('./templates/index.tpl.php');
     exit();
 }

@@ -13,27 +13,26 @@ if (is_request_form_page($_GET, 'messaging')) {
 
 }
 
-// load message viewer page on '?message_id=' param if authorized
-if (isset($_GET['message_id'])) {
+// load message viewer page on '?message=' param if authorized
+if (isset($_GET['message'])) {
     $message_id = parse_message_id($_GET);
     if (!is_user_logged_in() && !is_message_auth_session_valid($message_id)) {
-        // load 401 error page
+        load_error_page($errors['401'], 'not authorized to view messages');
     }
     try {
-        if (is_message_exists($message_id)) {
-            // load 403 error page
+        if (!message_exists($message_id)) {
+            load_error_page($errors['404'], 'no message found with id ' . $message_id);
         }
 
-        // TODO: get message data from db
+        $message_data = get_message_by_message_id($message_id);
+        $message_data = extend_message_with_user_detail($message_data);
 
-        // TODO: load message viewer page
-
+        load_message_viewer_page_on($message_data);
     } catch (PDOException $e) {
-        //load_error_page($errors['500'], 'SQL error ' . $e->getMessage());
+        load_error_page($errors['500'], 'SQL error ' . $e->getMessage());
     } catch (Exception $e) {
-        //load_error_page($errors['500'], $e->getMessage());
+        load_error_page($errors['500'], $e->getMessage());
     }
-
 }
 
 ?>

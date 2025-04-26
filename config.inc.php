@@ -1,20 +1,6 @@
 <?php declare(strict_types=1);
 session_start();
 
-// system level includes
-include('./includes/environment.inc.php');
-include('./includes/error.inc.php');
-include('./includes/custom_headers.inc.php');
-include('./includes/session.inc.php');
-include('./includes/page_controls.inc.php');
-include('./includes/data_access_layer.inc.php');
-
-// feature level includes
-include('./includes/image_gallery.inc.php');
-include('./includes/login.inc.php');
-include('./includes/messaging_request_handler.inc.php');
-
-
 // collection of available page templates, styles and page spacific values
 $page_datas = array(
     '/' => array(
@@ -58,7 +44,7 @@ $page_datas = array(
         ),
     ),
     'message_viewer' => array(
-        'title' => 'Üzenet - ',
+        'title' => 'Üzenet',
         'html_template' => './templates/pages/message_viewer.tpl.php', 
         'style_file' => './styles/pages/message_viewer.css',
         'script_file' => './scripts/pages/message_viewer.js',
@@ -88,4 +74,18 @@ $page_datas = array(
         ),
     ),
 );
+
+// system level includes
+include('./includes/environment.inc.php');
+include('./includes/error.inc.php');
+include('./includes/custom_headers.inc.php');
+include('./includes/session.inc.php');
+include('./includes/page_controls.inc.php');
+include('./includes/data_access_layer.inc.php');
+
+// feature level includes
+include('./includes/image_gallery.inc.php');
+include('./includes/login.inc.php');
+include('./includes/messaging_request_handler.inc.php');
+
 ?>
