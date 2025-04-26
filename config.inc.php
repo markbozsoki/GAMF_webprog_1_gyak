@@ -12,6 +12,7 @@ include('./includes/data_access_layer.inc.php');
 // feature level includes
 include('./includes/image_gallery.inc.php');
 include('./includes/login.inc.php');
+include('./includes/messaging_request_handler.inc.php');
 
 
 // collection of available page templates, styles and page spacific values
