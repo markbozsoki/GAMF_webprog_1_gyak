@@ -8,7 +8,6 @@ const MINIMUM_PAGINATION_PAGE_SIZE = 1;
 const DEFAULT_PAGINATION_PAGE_SIZE = 10;
 const MAXIMUM_PAGINATION_PAGE_SIZE = 100;
 
-const LINE_BREAK_ENCODED = "&#92;&#110;";
 const GET_MESSAGE_SQL_PROJECTION = "msg_id AS message_id, sender_id, from_unixtime(sent_at) AS sent_at, email_address, subject, msg_text AS body";
 
 
@@ -112,6 +111,11 @@ function get_message_by_message_id($message_id) {
     return format_message_data($result);
 }
 
+function format_message_data($message_data) {
+    $message_data['email_address'] = trim($message_data['email_address'], "'");
+    return $message_data;
+}
+
 function get_paginated_messages($start_index = DEFAULT_PAGINATION_START_INDEX, $page_size = DEFAULT_PAGINATION_PAGE_SIZE) {
     if ($start_index < DEFAULT_PAGINATION_START) {
         $start_index = DEFAULT_PAGINATION_START;
@@ -135,12 +139,6 @@ function get_paginated_messages($start_index = DEFAULT_PAGINATION_START_INDEX, $
         return NULL;
     }
     return $result;
-}
-
-function format_message_data($message_data) {
-    $message_data['email_address'] = trim($message_data['email_address'], "'");
-    $message_data['body'] = strtr($message_data['body'], array(LINE_BREAK_ENCODED => "\n"));
-    return $message_data;
 }
 
 function extend_message_with_user_detail($message_data): array {

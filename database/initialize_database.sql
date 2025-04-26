@@ -91,8 +91,11 @@ SET @username = 'admin';
 SET @password = 'admin';
 SET @surname = 'The';
 SET @forename = 'Admin';
-INSERT INTO `ACCESS` (`id`, `created_at`, `last_logged_in`, `password_hash`) VALUES (default, UNIX_TIMESTAMP(NOW()), default, SHA2(@password, 256));
+INSERT IGNORE INTO `ACCESS` (`id`, `created_at`, `last_logged_in`, `password_hash`) VALUES (default, UNIX_TIMESTAMP(NOW()), default, SHA2(@password, 256));
 SET @access_last_id = LAST_INSERT_ID();
-INSERT INTO `DETAILS` (`id`, `surname`, `forename`) VALUES (default, @surname, @forename);
+INSERT IGNORE INTO `DETAILS` (`id`, `surname`, `forename`) VALUES (default, @surname, @forename);
 SET @details_last_id = LAST_INSERT_ID();
-INSERT INTO `USERS` (`id`, `username`, `created_at`, `access_id`, `detail_id`) VALUES (default, @username, UNIX_TIMESTAMP(NOW()), @access_last_id, @details_last_id);
+INSERT IGNORE INTO `USERS` (`id`, `username`, `created_at`, `access_id`, `detail_id`) VALUES (default, @username, UNIX_TIMESTAMP(NOW()), @access_last_id, @details_last_id);
+
+-- ADD TEST MESSAGE: ?message=test
+INSERT IGNORE INTO `messages` (`id`, `msg_id`, `sender_id`, `sent_at`, `email_address`, `subject`, `msg_text`) VALUES (default, "test", default, UNIX_TIMESTAMP(NOW() - INTERVAL 5 MINUTE), "'guest.user@test.com'", "Test Subject", "Hello,&#92;&#110;I hope this email finds you well!&#92;&#110;&#92;&#110; 0===}::::::::::::::> &#92;&#110;&#92;&#110;Bye");
