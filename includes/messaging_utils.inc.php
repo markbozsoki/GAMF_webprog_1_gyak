@@ -156,4 +156,16 @@ function extend_message_with_user_detail($message): array {
     return $messsage;
 }
 
+function load_message_viewer_page_on($message_id) { 
+    global $page_datas;
+    global $errors;
+    
+    $current_page_data = $page_datas['message_viewer'];
+    if (!is_message_exists($message_id)) {
+        load_error_page($errors['404'], "message (" . $message_id . ") not found");
+    }
+    include('./templates/index.tpl.php');
+    exit();
+}
+
 ?>

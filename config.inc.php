@@ -57,6 +57,16 @@ $page_datas = array(
             'show_when_logged_out' => TRUE,
         ),
     ),
+    'message_viewer' => array(
+        'title' => 'Üzenet - ',
+        'html_template' => './templates/pages/message_viewer.tpl.php', 
+        'style_file' => './styles/pages/message_viewer.css',
+        'script_file' => './scripts/pages/message_viewer.js',
+        'accessibility' => array(
+            'show_when_logged_in' => FALSE,
+            'show_when_logged_out' => FALSE,
+        ),
+    ),
     'messages' => array(
         'title' => 'Üzenetek',
         'html_template' => './templates/pages/messages.tpl.php', 
