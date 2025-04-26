@@ -1,6 +1,7 @@
 <p>Üzenetek listázása</p>
 
 <div>
+    <!-- TODO: dinamikus linkek -->
     <a href="?page=messages&start=0&size=10">előző oldal</a>
     <a href="?page=messages&start=10&size=10">következő oldal</a>
 </div>

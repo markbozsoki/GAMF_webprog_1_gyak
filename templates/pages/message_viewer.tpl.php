@@ -11,7 +11,7 @@
     <div>
         <p>2025-04-26 17:26:46</p>
         <p>Guest</p>
-        <p>From: <a href="mailto:guest.user@example.com"></a>guest.user@example.com</p>
+        <p>E-mail: <a href="mailto:guest.user@example.com"></a>guest.user@example.com</p>
     </div>
     <p>
         Hello, is your frigde running?\n\n\nBye
