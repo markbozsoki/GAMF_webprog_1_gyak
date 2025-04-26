@@ -53,7 +53,7 @@ CREATE VIEW IF NOT EXISTS `USERNAMES` AS
 SELECT username FROM USERS;
 
 CREATE VIEW IF NOT EXISTS `USER_DETAILS` AS
-SELECT USERS.id AS user_id
+SELECT USERS.id AS user_id,
        USERS.username AS username, 
        DETAILS.surname AS surname, 
        DETAILS.forename AS forename 
