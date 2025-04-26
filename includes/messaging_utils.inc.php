@@ -25,6 +25,7 @@ function parse_email_address($DATA, $key = 'email') {
     }
     //TODO: parsing is not implemented yet
     $value = $DATA[$key];
+    return $value;
 }
 
 function parse_message_id($DATA, $key = 'message_id') {
@@ -33,7 +34,7 @@ function parse_message_id($DATA, $key = 'message_id') {
     }
     $value = $DATA[$key];
     //TODO: parsing is not implemented yet
-    return $value
+    return $value;
 }
 
 // TODO: implement db commonication
@@ -41,13 +42,13 @@ function parse_message_id($DATA, $key = 'message_id') {
 function save_new_message($sender_id = NULL, $message_text): ?string {
     throw new Exception("[" . __FUNCTION__ . "] - Is Not Implemented Yet");
     
-    $insert_new_message_template = "INSERT INTO MESSAGES  VALUES (default, default, :sender_id, UNIX_TIMESTAMP(NOW()), :message_text);"
+    $insert_new_message_template = "INSERT INTO MESSAGES  VALUES (default, default, :sender_id, UNIX_TIMESTAMP(NOW()), :message_text);";
     $insert_new_message_params = array(
         ':sender_id' => $sender_id,
         ':message_text' => $message_text,
     );
 
-    $new_message_id_query_template = "SELECT "
+    $new_message_id_query_template = "SELECT ";
 
     $data_access_layer = DataAccessLayerSingleton::getInstance();
     try {
@@ -77,10 +78,10 @@ function get_paginated_messages($start_index = DEFAULT_PAGINATION_START_INDEX, $
         $start_index = DEFAULT_PAGINATION_START;
     }
     if ($page_size < MINIMUM_PAGINATION_PAGE_SIZE) {
-        $page_size = MINIMUM_PAGINATION_PAGE_SIZE
+        $page_size = MINIMUM_PAGINATION_PAGE_SIZE;
     }
     if ($page_size > MAXIMUM_PAGINATION_PAGE_SIZE) {
-        $page_size = MAXIMUM_PAGINATION_PAGE_SIZE
+        $page_size = MAXIMUM_PAGINATION_PAGE_SIZE;
     }
 
     $query_template = "SELECT msg_id, sender_id, from_unixtime(sent_at), msg_text FROM MESSAGES ORDER BY MESSAGES.sent_at DESC LIMIT :page_size OFFSET :start_index;";
