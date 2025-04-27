@@ -49,7 +49,7 @@ if (is_request_form_page($_GET, 'messaging') && isset($_GET['new'])) {
 
         $new_message_meta_data = save_new_message($user_id, $email_address, $message_subject, $message_body);
 
-        //TODO: save message_id to session data
+        set_message_auth_session($new_message_meta_data['message_id']);
 
         //TODO: redirect to message viewer
     } catch (PDOException $e) {

@@ -29,12 +29,12 @@ function set_message_auth_session($message_id) {
     if (!isset($message_id) || !is_string($message_id)) {
         return;
     }
-    $allowed_auth_keys = array();
+    $mesage_auth_keys = array();
     if (isset($_SESSION['message_auth_key'])) {
-        $allowed_auth_keys = $_SESSION['message_auth_key'];
+        $mesage_auth_keys = $_SESSION['message_auth_key'];
     }
-    array_push($allowed_auth_keys, _generate_message_id_auth_key($message_id));
-    $_SESSION['message_auth_key'] = $allowed_auth_keys;
+    array_push($mesage_auth_keys, _generate_message_id_auth_key($message_id));
+    $_SESSION['message_auth_key'] = $mesage_auth_keys;
 }
 
 function is_message_auth_session_valid($message_id): bool {
