@@ -20,7 +20,7 @@ $errors = array(
         'code' => 401,
         'name' => 'Unauthorized',
         'title' => 'Illetéktelen hozzáférés',
-        'message' => 'Nem jogosulta tartalom megtekintésére..',
+        'message' => 'Nem jogosult a tartalom megtekintésére..',
         'redirect_to_main_page' => TRUE,
     ),
     '403' => array(
