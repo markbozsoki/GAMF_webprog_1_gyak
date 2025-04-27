@@ -37,6 +37,11 @@ function load_page($page_data_key, $extra_headers = NULL, $alert_message = NULL)
     }
 
     $current_page_data = $page_datas[$page_data_key]; // retrieve requested page data
+    
+    if ($alert_message) {
+        $current_page_data['popup']['alert'] = $alert_message;
+    }
+    
     include('./templates/index.tpl.php');
     exit();
 }

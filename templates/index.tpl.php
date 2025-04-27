@@ -71,6 +71,16 @@
     <?php if(isset($current_page_data['script_file']) && file_exists($current_page_data['script_file'])) { ?>
     <?php echo '<script src="' . $current_page_data['script_file'] . '"></script>'; ?>
     <?php } ?>
+
+    <?php if (isset($current_page_data['popup'])) { ?>
+    <!-- Popup -->
+    <script>
+        <?php if (isset($current_page_data['popup']['alert'])) { ?>
+        <?php // wait for the page to load and then make the popup appeare ?>
+        <?php echo 'onload = (event) => { alert("'. $current_page_data['popup']['alert'] . '") };'; ?>
+        <?php } ?>
+    </script>
+    <?php } ?>
 </body>
 
 </html>
