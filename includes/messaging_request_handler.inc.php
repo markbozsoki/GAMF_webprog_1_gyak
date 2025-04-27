@@ -48,10 +48,9 @@ if (is_request_form_page($_GET, 'messaging') && isset($_GET['new'])) {
         }
 
         $new_message_meta_data = save_new_message($user_id, $email_address, $message_subject, $message_body);
-
-        set_message_auth_session($new_message_meta_data['message_id']);
-
-        //TODO: redirect to message viewer
+        $new_message_id = $new_message_meta_data['message_id'];
+        set_message_auth_session($new_message_id);
+        redirect_to('?page=messaging&message=' . $new_message_id);
     } catch (PDOException $e) {
         load_error_page(500, 'SQL error ' . $e->getMessage());
     } catch (Exception $e) {
