@@ -9,10 +9,6 @@ include('./includes/session.inc.php');
 include('./includes/page_controls.inc.php');
 include('./includes/data_access_layer.inc.php');
 
-// feature level includes
-include('./includes/image_gallery.inc.php');
-include('./includes/login.inc.php');
-
 
 // collection of available page templates, styles and page spacific values
 $page_datas = array(
@@ -44,6 +40,36 @@ $page_datas = array(
         'accessibility' => array(
             'show_when_logged_in' => TRUE,
             'show_when_logged_out' => TRUE,
+        ),
+    ),
+    'messaging' => array(
+        'title' => 'Kapcsolat',
+        'html_template' => './templates/pages/message_composer.tpl.php', 
+        'style_file' => './styles/pages/message_composer.css',
+        'script_file' => './scripts/pages/message_composer.js',
+        'accessibility' => array(
+            'show_when_logged_in' => TRUE,
+            'show_when_logged_out' => TRUE,
+        ),
+    ),
+    'message_viewer' => array(
+        'title' => 'Üzenet',
+        'html_template' => './templates/pages/message_viewer.tpl.php', 
+        'style_file' => './styles/pages/message_viewer.css',
+        'script_file' => './scripts/pages/message_viewer.js',
+        'accessibility' => array(
+            'show_when_logged_in' => FALSE,
+            'show_when_logged_out' => FALSE,
+        ),
+    ),
+    'messages' => array(
+        'title' => 'Üzenetek',
+        'html_template' => './templates/pages/messages.tpl.php', 
+        'style_file' => './styles/pages/messages.css',
+        'script_file' => './scripts/pages/messages.js',
+        'accessibility' => array(
+            'show_when_logged_in' => TRUE,
+            'show_when_logged_out' => FALSE,
         ),
     ),
     'login' => array( // this should be the last item

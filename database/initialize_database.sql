@@ -17,14 +17,14 @@ CREATE TABLE IF NOT EXISTS `ACCESS` (
   `last_logged_in` int(10) default '0',
   `password_hash` varchar(64) default NULL,
   PRIMARY KEY (`id`)
-) ENGINE = MYISAM;
+) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `DETAILS` (
   `id` int(5) unsigned NOT NULL auto_increment,
   `surname` varchar(35) default '',
   `forename` varchar(35) default '',
   PRIMARY KEY (`id`)
-) ENGINE = MYISAM;
+) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `USERS` (
   `id` int(5) unsigned NOT NULL auto_increment,
@@ -35,14 +35,26 @@ CREATE TABLE IF NOT EXISTS `USERS` (
   PRIMARY KEY (`id`),
   CONSTRAINT FK_USER_ACCESS FOREIGN KEY (access_id) REFERENCES ACCESS(id),
   CONSTRAINT FK_USER_DETAIL FOREIGN KEY (detail_id) REFERENCES DETAILS(id)
-) ENGINE = MYISAM;
+) ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `MESSAGES` (
+  `id` int(5) unsigned NOT NULL auto_increment,
+  `msg_id` VARCHAR(16) default CONCAT("msg", SUBSTRING(UUID(), 1, 8), SUBSTRING(UUID(), 2, 6)) unique,
+  `sender_id` int(5) default NULL,
+  `sent_at` int(10) NOT NULL,
+  `email_address` varchar(255) NOT NULL,
+  `subject` varchar(450) NOT NULL,
+  `msg_text` varchar(7500) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB;
 
 -- VIEWS
 CREATE VIEW IF NOT EXISTS `USERNAMES` AS
 SELECT username FROM USERS;
 
 CREATE VIEW IF NOT EXISTS `USER_DETAILS` AS
-SELECT USERS.username AS username, 
+SELECT USERS.id AS user_id,
+       USERS.username AS username, 
        DETAILS.surname AS surname, 
        DETAILS.forename AS forename 
 FROM USERS LEFT JOIN DETAILS ON USERS.detail_id = DETAILS.id;
@@ -79,8 +91,11 @@ SET @username = 'admin';
 SET @password = 'admin';
 SET @surname = 'The';
 SET @forename = 'Admin';
-INSERT INTO `ACCESS` (`id`, `created_at`, `last_logged_in`, `password_hash`) VALUES (NULL, UNIX_TIMESTAMP(NOW()), '0', SHA2(@password, 256));
+INSERT IGNORE INTO `ACCESS` (`id`, `created_at`, `last_logged_in`, `password_hash`) VALUES (default, UNIX_TIMESTAMP(NOW()), default, SHA2(@password, 256));
 SET @access_last_id = LAST_INSERT_ID();
-INSERT INTO `DETAILS` (`id`, `surname`, `forename`) VALUES (NULL, @surname, @forename);
+INSERT IGNORE INTO `DETAILS` (`id`, `surname`, `forename`) VALUES (default, @surname, @forename);
 SET @details_last_id = LAST_INSERT_ID();
-INSERT INTO `USERS` (`id`, `username`, `created_at`, `access_id`, `detail_id`) VALUES (NULL, @username, UNIX_TIMESTAMP(NOW()), @access_last_id, @details_last_id);
+INSERT IGNORE INTO `USERS` (`id`, `username`, `created_at`, `access_id`, `detail_id`) VALUES (default, @username, UNIX_TIMESTAMP(NOW()), @access_last_id, @details_last_id);
+
+-- ADD TEST MESSAGE: ?message=test
+INSERT IGNORE INTO `messages` (`id`, `msg_id`, `sender_id`, `sent_at`, `email_address`, `subject`, `msg_text`) VALUES (default, "test", default, UNIX_TIMESTAMP(NOW() - INTERVAL 5 MINUTE), "'guest.user@test.com'", "Test Subject", "Hello,&#92;&#110;I hope this email finds you well!&#92;&#110;&#92;&#110; 0===}::::::::::::::> &#92;&#110;&#92;&#110;Bye");

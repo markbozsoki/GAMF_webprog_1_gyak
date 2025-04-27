@@ -1,5 +1,9 @@
 <?php
 
+function is_request_form_page($GET_DATA, $page_name): bool {
+    return isset($_GET['page']) && $_GET['page'] === $page_name;
+}
+
 function load_main_page() {
     global $page_datas;
     global $errors;

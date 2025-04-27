@@ -16,6 +16,13 @@ $errors = array(
         'message' => 'A megadott kérés nem teljesíthető..',
         'redirect_to_main_page' => TRUE,
     ),
+    '401' => array(
+        'code' => 401,
+        'name' => 'Unauthorized',
+        'title' => 'Illetéktelen hozzáférés',
+        'message' => 'Nem jogosult a tartalom megtekintésére..',
+        'redirect_to_main_page' => TRUE,
+    ),
     '403' => array(
         'code' => 403,
         'name' => 'Forbidden',

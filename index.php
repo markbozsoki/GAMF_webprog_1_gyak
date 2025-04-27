@@ -1,5 +1,10 @@
 <?php include('config.inc.php');
 
+// feature level includes
+include('./includes/image_gallery.inc.php');
+include('./includes/login.inc.php');
+include('./includes/messaging_request_handler.inc.php');
+
 // '?error=' query param for presenting error pages, usage: ?error=418
 if (isset($_GET['error']) && count($_GET) == 1) {
     $error_code = $_GET['error'];
@@ -21,7 +26,7 @@ if (isset($_GET['logout']) && is_user_logged_in()) {
 }
 
 // logout user and load 403 page on '?page=login', if user try to load the login page while logged in 
-if (isset($_GET['page']) && $_GET['page'] == 'login' && is_user_logged_in()) {
+if (is_request_form_page($_GET, 'login') && is_user_logged_in()) {
     clear_user_login_session();
     load_error_page($errors['403'], 'unauthorized access attempt to login page');
 }
