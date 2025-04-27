@@ -31,7 +31,7 @@ if (isset($_GET['login'])) {
                     login_info_header('username parse error'),
                 ],
                 alert_message: 'A felhasználónév formátuma nem megfelelő!',
-        );
+            );
         }
         $password_hash = parse_password_hash($_POST, 'current-password');
         if ($password_hash === NULL) {
@@ -40,7 +40,7 @@ if (isset($_GET['login'])) {
                     login_info_header('password parse error'),
                 ],
                 alert_message: 'A jelszó formátuma nem megfelelő!',
-        );
+            );
         }
 
         if (!is_username_exists($username)) {

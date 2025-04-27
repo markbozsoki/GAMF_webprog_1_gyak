@@ -2,12 +2,12 @@
 function load_error_page(int $error_code, string $extra_message = NULL) {
     global $errors;
 
-    $error = $errors[501]; // presens 501 if error template not implemented
+    $error = $errors[501]; // present 501 if requested error template not implemented
     if (isset($errors[$error_code])) {
         $error = $errors[$error_code];
     }
 
-    if ($extra_message) { // send header with extra message, if any
+    if ($extra_message) { // send header with extra message
         header(get_error_message_header_value($extra_message));
     }
     header($_SERVER['SERVER_PROTOCOL'] . $error['code'] . ' ' . $error['name']);

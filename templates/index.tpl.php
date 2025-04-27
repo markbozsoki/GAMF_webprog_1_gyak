@@ -83,7 +83,7 @@
     <!-- Popup -->
     <script>
         <?php if (isset($current_page_data['popup']['alert'])) { ?>
-        <?php // wait for the page to load and then make the popup appeare ?>
+        <?php // wait for the page to load and then make the popup appear ?>
         <?php echo 'onload = (event) => { alert("'. $current_page_data['popup']['alert'] . '") };'; ?>
         <?php } ?>
     </script>
