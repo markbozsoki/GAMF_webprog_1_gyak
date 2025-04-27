@@ -1,5 +1,3 @@
-<p>Egy üzenet megjelenítése</p>
-
 <?php if ($parent_page_key === 'messaging') { ?>
 <div>
     <h2>Köszönjük, hogy felvette velünk a kapcsolatot!</h2>
