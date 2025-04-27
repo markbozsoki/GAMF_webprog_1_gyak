@@ -75,7 +75,7 @@ function save_new_message($sender_id = 'default', $email_address, $subject_text,
         ':message_text' => $message_text,
     );
 
-    $new_message_id_query_template = "SELECT msg_id AS new_message_id FROM MESSAGES WHERE id = :new_message_record_id;";
+    $new_message_id_query_template = "SELECT msg_id AS message_id, sent_at AS sent_at_timestamp FROM MESSAGES WHERE id = :new_message_record_id;";
     $new_message_id_params = array(
         ':new_message_record_id' => NULL,
     );
@@ -83,17 +83,24 @@ function save_new_message($sender_id = 'default', $email_address, $subject_text,
     $data_access_layer = DataAccessLayerSingleton::getInstance();
     try {
         $data_access_layer->beginTransaction();
+        
         $data_access_layer->executeCommand($insert_new_message_template, $insert_new_message_params);
-        $data_access_layer->commit();
-
         $new_message_record_id = $data_access_layer->lastInsertId();
         $new_message_id_params[':new_message_record_id'] = $new_message_record_id;
+
+        $data_access_layer->commit();
         
-        $result = $data_access_layer->executeCommand($insert_user_record_template, $insert_user_record_params);
-        if (!isset($result['new_message_id'])) {
-            throw new Exception("[" . __FUNCTION__ . "] - Query result does not contain 'new_message_id'!");
+        $result = $data_access_layer->executeCommand($new_message_id_query_template, $new_message_id_params);
+        if (!isset($result['message_id'])) {
+            throw new Exception("[" . __FUNCTION__ . "] - Query result does not contain 'message_id'!");
         }
-        return $result['new_message_id'];
+        if (!isset($result['sent_at_timestamp'])) {
+            throw new Exception("[" . __FUNCTION__ . "] - Query result does not contain 'message_id'!");
+        }
+        if (count(array_keys($result)) !== 2) {
+            throw new Exception("[" . __FUNCTION__ . "] - Query result contains more keys than expected (" . print_r(array_keys($result)) . ")!");
+        }
+        return $result;
     } catch (Exception $e) {
         $data_access_layer->rollBack();
         throw $e;
