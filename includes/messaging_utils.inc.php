@@ -70,13 +70,17 @@ function get_user_id_by_username($username) {
     return $result['id'];
 }
 
-function save_new_message($sender_id = 'default', $email_address, $subject_text, $message_text): ?string {    
-    $insert_new_message_template = "INSERT INTO MESSAGES VALUES (default, default, :sender_id, UNIX_TIMESTAMP(NOW()), :email_address, :subject_text, :message_text);";
+function save_new_message($sender_id, $email_address, $message_subject, $message_body): ?string {    
+    if ($sender_id === NULL) {
+        $sender_id = 'default';
+    }
+    
+    $insert_new_message_template = "INSERT INTO MESSAGES VALUES (default, default, :sender_id, UNIX_TIMESTAMP(NOW()), :email_address, :message_subject, :message_body);";
     $insert_new_message_params = array(
         ':sender_id' => $sender_id,
         ':email_address' => $email_address,
-        ':subject_text' => $subject_text,
-        ':message_text' => $message_text,
+        ':message_subject' => $message_subject,
+        ':message_body' => $message_body,
     );
 
     $new_message_id_query_template = "SELECT msg_id AS message_id, sent_at AS sent_at_timestamp FROM MESSAGES WHERE id = :new_message_record_id;";

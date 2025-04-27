@@ -47,7 +47,7 @@ if (is_request_form_page($_GET, 'messaging') && isset($_GET['new'])) {
             $user_id = get_user_id_by_username($username);
         }
 
-        //TODO: save new message to database
+        $new_message_meta_data = save_new_message($user_id, $email_address, $message_subject, $message_body);
 
         //TODO: save message_id to session data
 
