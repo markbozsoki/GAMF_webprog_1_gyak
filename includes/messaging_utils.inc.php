@@ -15,12 +15,14 @@ function parse_email_address($DATA, $key = 'email') {
     if (!isset($DATA[$key])){
         return NULL;
     }
-    //TODO: validation is not implemented yet
     $value = $DATA[$key];
     if (strlen($value) === 0 || strlen($value) > MAXIMUM_EMAIL_LENGTH) {
         return NULL;
     }
-    return $value;
+    if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+        return NULL;
+    }
+    return "'" . $value . "'";
 }
 
 function parse_message_subject($DATA, $key = 'subject') {
@@ -50,7 +52,9 @@ function parse_message_id($DATA, $key = 'message') {
         return NULL;
     }
     $value = $DATA[$key];
-    //TODO: validation is not implemented yet
+    if (!preg_match("/^[a-z0-9]*$/", $value)) {
+        return NULL;
+    }
     return $value;
 }
 
