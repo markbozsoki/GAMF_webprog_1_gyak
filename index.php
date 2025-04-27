@@ -6,12 +6,14 @@ include('./includes/login_request_handler.inc.php');
 include('./includes/messaging_request_handler.inc.php');
 
 // '?error=' query param for presenting error pages, usage: ?error=418
-if (isset($_GET['error']) && count($_GET) == 1) {
-    $error_code = $_GET['error'];
+if (isset($_GET['error']) && ctype_digit($_GET['error']) && count($_GET) == 1) {
+    global $errors;
+
+    $error_code = (int)$_GET['error'];
     if (!isset($errors[$error_code])) {
-        load_error_page($errors['501'], 'the [' . $error_code . '] error page is not implemented!');
+        load_error_page(501, 'the [' . $error_code . '] error page is not implemented!');
     }
-    load_error_page($errors[$error_code], 'testing the [' . $error_code . '] error page');
+    load_error_page($error_code, 'testing the [' . $error_code . '] error page');
 }
 
 // retrieve page data by '?page=' query param

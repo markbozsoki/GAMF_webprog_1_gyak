@@ -2,7 +2,7 @@
 
 // load 403 page on '?logout', if user try to the logout while logged out
 if (isset($_GET['logout']) && !is_user_logged_in()) {
-    load_error_page($errors['403'], 'unauthorized logout request');
+    load_error_page(403, 'unauthorized logout request');
 }
 
 // logout user on '?logout' query param, if user logged in
@@ -14,14 +14,14 @@ if (isset($_GET['logout']) && is_user_logged_in()) {
 // logout user and load 403 page on '?page=login', if user try to load the login page while logged in 
 if (is_request_form_page($_GET, 'login') && is_user_logged_in()) {
     clear_user_login_session();
-    load_error_page($errors['403'], 'unauthorized access attempt to login page');
+    load_error_page(403, 'unauthorized access attempt to login page');
 }
 
 // login user on '?login' query param
 if (isset($_GET['login'])) {
     if (is_user_logged_in()) {
         clear_user_login_session();
-        load_error_page($errors['403'], 'unauthorized login request');
+        load_error_page(403, 'unauthorized login request');
     }
     try {
         $username = parse_username($_POST);
@@ -68,9 +68,9 @@ if (isset($_GET['login'])) {
         );
         redirect_to_main_page();
     } catch (PDOException $e) {
-        load_error_page($errors['500'], 'SQL error ' . $e->getMessage());
+        load_error_page(500, 'SQL error ' . $e->getMessage());
     } catch (Exception $e) {
-        load_error_page($errors['500'], $e->getMessage());
+        load_error_page(500, $e->getMessage());
     } finally {
         unset($username);
         unset($password_hash);
@@ -82,7 +82,7 @@ if (isset($_GET['login'])) {
 if (isset($_GET['register'])) {
     if (is_user_logged_in()) {
         clear_user_login_session();
-        load_error_page($errors['403'], 'unauthorized registration request');
+        load_error_page(403, 'unauthorized registration request');
     }
     try {
         $username = parse_username($_POST);
@@ -134,9 +134,9 @@ if (isset($_GET['register'])) {
             ],
         );
     } catch (PDOException $e) {
-        load_error_page($errors['500'], 'SQL error ' . $e->getMessage());
+        load_error_page(500, 'SQL error ' . $e->getMessage());
     } catch (Exception $e) {
-        load_error_page($errors['500'], $e->getMessage());
+        load_error_page(500, $e->getMessage());
     } finally {
         unset($username);
         unset($password_hash);

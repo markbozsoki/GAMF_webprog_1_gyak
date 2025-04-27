@@ -10,7 +10,7 @@ function load_main_page() {
 
     $current_page_data = $page_datas['/']; // get main page data
     if (!file_exists($current_page_data['html_template'])) {
-        load_error_page($errors['500'], 'missing index template'); // main page could not be loaded
+        load_error_page(500, 'missing index template'); // main page could not be loaded
     }
     include('./templates/index.tpl.php');
     exit();
@@ -21,10 +21,10 @@ function load_page($page_data_key, $extra_headers = NULL, $alert_message = NULL)
     global $errors;
 
     if (!isset($page_datas[$page_data_key])) {
-        load_error_page($errors['400'], "unregistered page");
+        load_error_page(400, 'unregistered page');
     }
     if(!file_exists($page_datas[$page_data_key]['html_template'])) {
-        load_error_page($errors['404'], "template could not be loaded");
+        load_error_page(404, 'template could not be loaded');
     }
 
     // appends additional headers for page load
