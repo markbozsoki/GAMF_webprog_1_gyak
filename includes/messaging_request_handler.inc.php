@@ -37,11 +37,7 @@ if (is_request_form_page($_GET, 'messaging') && isset($_GET['new'])) {
         if (isset($_POST['username'])) {
             $username = parse_username($_POST);
             if ($username === NULL) {
-                load_page('messaging', 
-                    extra_headers: [
-                        messaging_info_header('username parse error'),
-                    ],
-                );
+                load_error_page(500, 'username parse error');
             }
 
             if (!is_username_exists($username)) {
