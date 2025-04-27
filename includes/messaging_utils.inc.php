@@ -8,7 +8,7 @@ const MINIMUM_PAGINATION_PAGE_SIZE = 1;
 const DEFAULT_PAGINATION_PAGE_SIZE = 10;
 const MAXIMUM_PAGINATION_PAGE_SIZE = 100;
 
-const GET_MESSAGE_SQL_PROJECTION = "msg_id AS message_id, sender_id, from_unixtime(sent_at) AS sent_at, email_address, subject, msg_text AS body";
+const GET_MESSAGE_SQL_PROJECTION = "msg_id AS message_id, sender_id, from_unixtime(sent_at) AS sent_at, email_address, FROM_BASE64(subject), FROM_BASE64(msg_text AS body)";
 
 
 function parse_email_address($DATA, $key = 'email') {
@@ -71,7 +71,7 @@ function get_user_id_by_username($username) {
 }
 
 function save_new_message($sender_id, $email_address, $message_subject, $message_body): string {        
-    $insert_new_message_template = "INSERT INTO MESSAGES VALUES (default, default, :sender_id, UNIX_TIMESTAMP(NOW()), :email_address, :message_subject, :message_body);";
+    $insert_new_message_template = "INSERT INTO MESSAGES VALUES (default, default, :sender_id, UNIX_TIMESTAMP(NOW()), :email_address, TO_BASE64(:message_subject), TO_BASE64(:message_body));";
     $insert_new_message_params = array(
         ':sender_id' => $sender_id,
         ':email_address' => $email_address,
