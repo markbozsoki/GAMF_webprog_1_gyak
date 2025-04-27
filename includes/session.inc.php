@@ -22,7 +22,7 @@ function clear_message_auth_session() {
 }
 
 function _generate_message_id_auth_key($message_id): string {
-    return hash('md2', $message_id);
+    return hash('md2', 'salt' . $message_id . 'pepper');
 }
 
 function set_message_auth_session($message_id) {
