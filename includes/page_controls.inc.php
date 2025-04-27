@@ -20,6 +20,9 @@ function load_page($page_data_key, $extra_headers = NULL, $alert_message = NULL)
     global $page_datas;
     global $errors;
 
+    global $images;
+    global $URL;
+
     if (!isset($page_datas[$page_data_key])) {
         load_error_page(400, 'unregistered page');
     }
