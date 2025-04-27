@@ -30,6 +30,7 @@ if (isset($_GET['login'])) {
                 extra_headers: [
                     login_info_header('username parse error'),
                 ],
+                alert_message: 'A felhasználónév formátuma nem megfelelő!',
         );
         }
         $password_hash = parse_password_hash($_POST, 'current-password');
@@ -38,6 +39,7 @@ if (isset($_GET['login'])) {
                 extra_headers: [
                     login_info_header('password parse error'),
                 ],
+                alert_message: 'A jelszó formátuma nem megfelelő!',
         );
         }
 
@@ -46,6 +48,7 @@ if (isset($_GET['login'])) {
                 extra_headers: [
                     login_info_header('no registered username found'),
                 ],
+                alert_message: 'A megadott felhasználónév helytelen!',
             );
         }
 
@@ -55,6 +58,7 @@ if (isset($_GET['login'])) {
                 extra_headers: [
                     login_info_header('incorrect password'),
                 ],
+                alert_message: 'A megadott jelszó helytelen!',
             );
         }
         
@@ -91,6 +95,7 @@ if (isset($_GET['register'])) {
                 extra_headers: [
                     registration_info_header('username parse error'),
                 ],
+                alert_message: 'A felhasználónév formátuma nem megfelelő!',
             );
         }
         $password_hash = parse_password_hash($_POST, 'new-password');
@@ -99,6 +104,7 @@ if (isset($_GET['register'])) {
                 extra_headers: [
                     registration_info_header('password parse error'),
                 ],
+                alert_message: 'A jelszó formátuma nem megfelelő!',
             );
         }
         $surname = parse_surname($_POST);
@@ -107,6 +113,7 @@ if (isset($_GET['register'])) {
                 extra_headers: [
                     registration_info_header('surname parse error'),
                 ],
+                alert_message: 'A családnév formátuma nem megfelelő!',
             );
         }
         $forename = parse_forename($_POST);
@@ -115,6 +122,7 @@ if (isset($_GET['register'])) {
                 extra_headers: [
                     registration_info_header('forename parse error'),
                 ],
+                alert_message: 'Az utónév formátuma nem megfelelő!',
             );
         }
         
@@ -123,6 +131,7 @@ if (isset($_GET['register'])) {
                 extra_headers: [
                     registration_info_header('username already registered'),
                 ],
+                alert_message: 'Felhasználónév \"' . $username . '\" már foglalt!',
             );
         }
 
@@ -132,6 +141,7 @@ if (isset($_GET['register'])) {
                 registration_info_header('registration succeeded'),
                 create_custom_header('New-User-Registered', $username),
             ],
+            alert_message: 'Sikeres regisztráció!',
         );
     } catch (PDOException $e) {
         load_error_page(500, 'SQL error ' . $e->getMessage());
