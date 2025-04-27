@@ -8,7 +8,7 @@ const MINIMUM_PAGINATION_PAGE_SIZE = 1;
 const DEFAULT_PAGINATION_PAGE_SIZE = 10;
 const MAXIMUM_PAGINATION_PAGE_SIZE = 100;
 
-const GET_MESSAGE_SQL_PROJECTION = "msg_id AS message_id, sender_id, from_unixtime(sent_at) AS sent_at, email_address, FROM_BASE64(subject), FROM_BASE64(msg_text AS body)";
+const GET_MESSAGE_SQL_PROJECTION = "msg_id AS message_id, sender_id, from_unixtime(sent_at) AS sent_at, email_address, FROM_BASE64(subject) AS subject, FROM_BASE64(msg_text) AS body";
 
 
 function parse_email_address($DATA, $key = 'email') {
