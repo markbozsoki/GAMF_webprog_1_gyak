@@ -46,8 +46,7 @@ if (is_request_form_page($_GET, 'messaging') && isset($_GET['new'])) {
             $user_id = get_user_id_by_username($username);
         }
 
-        $new_message_meta_data = save_new_message($user_id, $email_address, $message_subject, $message_body);
-        $new_message_id = $new_message_meta_data['message_id'];
+        $new_message_id = save_new_message($user_id, $email_address, $message_subject, $message_body);
         set_message_auth_session($new_message_id);
         redirect_to('?page=messaging&message=' . $new_message_id);
     } catch (PDOException $e) {
