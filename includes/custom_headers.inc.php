@@ -34,4 +34,8 @@ function registration_info_header($message) {
     return create_custom_header('Register-Info', $message);
 }
 
+function messaging_info_header($message) {
+    return create_custom_header('Messaging-Info', $message);
+}
+
 ?>

@@ -1,16 +1,62 @@
 <?php include('messaging_utils.inc.php');
 
-// allow message sending only from the messaging page, '?page=messaging'
-if (is_request_form_page($_GET, 'messaging')) {
+// allow message sending only from the messaging page, '?page=messaging&new'
+if (is_request_form_page($_GET, 'messaging') && isset($_GET['new'])) {
+    try {
+        $email_address = parse_email_address($_POST);
+        if ($email_address === NULL) {
+            load_page('messaging', 
+                extra_headers: [
+                    messaging_info_header('email address parse error'),
+                ],
+            );
+        }
 
-    //TODO: parse and validate message data
+        $message_subject = parse_message_subject($_POST);
+        if ($message_subject === NULL) {
+            load_page('messaging', 
+                extra_headers: [
+                    messaging_info_header('subject parse error'),
+                ],
+            );
+        }
 
-    //TODO: save new message to database
+        $message_body = parse_message_body($_POST);
+        if ($message_body === NULL) {
+            load_page('messaging', 
+                extra_headers: [
+                    messaging_info_header('body parse error'),
+                ],
+            );
+        }
 
-    //TODO: save message_id to session data
+        $user_id = NULL;
+        if (isset($_POST['username'])) {
+            $username = parse_username($_POST);
+            if ($username === NULL) {
+                load_page('messaging', 
+                    extra_headers: [
+                        messaging_info_header('username parse error'),
+                    ],
+                );
+            }
 
-    //TODO: redirect to message viewer
+            if (!is_username_exists($username)) {
+                load_error_page(500, 'no user found with this username ' . $username);
+            }
+            $user_id = get_user_id_by_username($username);
+        }
 
+        //TODO: save new message to database
+
+        //TODO: save message_id to session data
+
+        //TODO: redirect to message viewer
+    } catch (PDOException $e) {
+        load_error_page(500, 'SQL error ' . $e->getMessage());
+    } catch (Exception $e) {
+        load_error_page(500, $e->getMessage());
+    }
 }
 
 // load message viewer page on '?message=' param if authorized

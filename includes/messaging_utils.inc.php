@@ -34,7 +34,7 @@ function parse_message_subject($DATA, $key = 'subject') {
     return $value;
 }
 
-function parse_message_text($DATA, $key = 'body') {
+function parse_message_body($DATA, $key = 'body') {
     if (!isset($DATA[$key])){
         return NULL;
     }
@@ -54,7 +54,19 @@ function parse_message_id($DATA, $key = 'message') {
     return $value;
 }
 
-function save_new_message($sender_id = NULL, $email_address, $subject_text, $message_text): ?string {    
+function get_user_id_by_username($username) {
+    $query_template = "SELECT id FROM USERS WHERE username = :username;";
+    $params = array(':username' => $username);
+
+    $result = DataAccessLayerSingleton::getInstance()->executeCommand($query_template, $params);
+    if (!isset($result['id'])) {
+        throw new Exception("[" . __FUNCTION__ . "] - Query result does not contain 'id'!");
+    }
+
+    return $result['id'];
+}
+
+function save_new_message($sender_id = 'default', $email_address, $subject_text, $message_text): ?string {    
     $insert_new_message_template = "INSERT INTO MESSAGES VALUES (default, default, :sender_id, UNIX_TIMESTAMP(NOW()), :email_address, :subject_text, :message_text);";
     $insert_new_message_params = array(
         ':sender_id' => $sender_id,
