@@ -113,7 +113,7 @@ if (isset($_GET['register'])) {
                 extra_headers: [
                     registration_info_header('surname parse error'),
                 ],
-                alert_message: 'A családnév formátuma nem megfelelő!',
+                alert_message: 'A vezetéknév formátuma nem megfelelő!',
             );
         }
         $forename = parse_forename($_POST);
