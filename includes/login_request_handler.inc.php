@@ -26,28 +26,36 @@ if (isset($_GET['login'])) {
     try {
         $username = parse_username($_POST);
         if ($username === NULL) {
-            load_page('login', [
-                login_info_header('username parse error'),
-            ]);
+            load_page('login', 
+                extra_headers: [
+                    login_info_header('username parse error'),
+                ],
+        );
         }
         $password_hash = parse_password_hash($_POST, 'current-password');
         if ($password_hash === NULL) {
-            load_page('login', [
-                login_info_header('password parse error'),
-            ]);
+            load_page('login', 
+                extra_headers: [
+                    login_info_header('password parse error'),
+                ],
+        );
         }
 
         if (!is_username_exists($username)) {
-            load_page('login', [
-                login_info_header('no registered username found'),
-            ]);
+            load_page('login', 
+                extra_headers: [
+                    login_info_header('no registered username found'),
+                ],
+            );
         }
 
         // password verification
         if (!is_password_correct($username, $password_hash)) {
-            load_page('login', [
-                login_info_header('incorrect password'),
-            ]);
+            load_page('login', 
+                extra_headers: [
+                    login_info_header('incorrect password'),
+                ],
+            );
         }
         
         // log in user (update session)
@@ -79,40 +87,52 @@ if (isset($_GET['register'])) {
     try {
         $username = parse_username($_POST);
         if ($username === NULL) {
-            load_page('login', [
-                registration_info_header('username parse error'),
-            ]);
+            load_page('login', 
+                extra_headers: [
+                    registration_info_header('username parse error'),
+                ],
+            );
         }
         $password_hash = parse_password_hash($_POST, 'new-password');
         if ($password_hash === NULL) {
-            load_page('login', [
-                registration_info_header('password parse error'),
-            ]);
+            load_page('login', 
+                extra_headers: [
+                    registration_info_header('password parse error'),
+                ],
+            );
         }
         $surname = parse_surname($_POST);
         if ($surname === NULL) {
-            load_page('login', [
-                registration_info_header('surname parse error'),
-            ]);
+            load_page('login', 
+                extra_headers: [
+                    registration_info_header('surname parse error'),
+                ],
+            );
         }
         $forename = parse_forename($_POST);
         if ($forename === NULL) {
-            load_page('login', [
-                registration_info_header('forename parse error'),
-            ]);
+            load_page('login', 
+                extra_headers: [
+                    registration_info_header('forename parse error'),
+                ],
+            );
         }
         
         if (is_username_exists($username)) {
-            load_page('login', [
-                registration_info_header('username already registered'),
-            ]);
+            load_page('login', 
+                extra_headers: [
+                    registration_info_header('username already registered'),
+                ],
+            );
         }
 
         register_new_user($username, $password_hash, $surname, $forename);
-        load_page('login', [
-            registration_info_header('registration succeeded'),
-            create_custom_header('New-User-Registered', $username),
-        ]);
+        load_page('login', 
+            extra_headers: [
+                registration_info_header('registration succeeded'),
+                create_custom_header('New-User-Registered', $username),
+            ],
+        );
     } catch (PDOException $e) {
         load_error_page($errors['500'], 'SQL error ' . $e->getMessage());
     } catch (Exception $e) {

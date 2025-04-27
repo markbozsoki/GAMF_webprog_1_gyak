@@ -16,7 +16,7 @@ function load_main_page() {
     exit();
 }
 
-function load_page($page_data_key, $extra_headers = NULL) {
+function load_page($page_data_key, $extra_headers = NULL, $alert_message = NULL) {
     global $page_datas;
     global $errors;
 
@@ -27,8 +27,7 @@ function load_page($page_data_key, $extra_headers = NULL) {
         load_error_page($errors['404'], "template could not be loaded");
     }
 
-    $current_page_data = $page_datas[$page_data_key]; // retrieve requested page data
-    
+    // appends additional headers for page load
     if ($extra_headers === NULL) {
         $extra_headers = array();
     }
@@ -36,6 +35,8 @@ function load_page($page_data_key, $extra_headers = NULL) {
     foreach($extra_headers as $extra_header) {
         header(load_string_from_custom_header($extra_header));
     }
+
+    $current_page_data = $page_datas[$page_data_key]; // retrieve requested page data
     include('./templates/index.tpl.php');
     exit();
 }
