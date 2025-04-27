@@ -9,6 +9,7 @@ if (is_request_form_page($_GET, 'messaging') && isset($_GET['new'])) {
                 extra_headers: [
                     messaging_info_header('email address parse error'),
                 ],
+                alert_message: 'Az email cím formátuma nem megfelelő!',
             );
         }
 
@@ -18,6 +19,7 @@ if (is_request_form_page($_GET, 'messaging') && isset($_GET['new'])) {
                 extra_headers: [
                     messaging_info_header('subject parse error'),
                 ],
+                alert_message: 'A tárgy formátuma nem megfelelő!',
             );
         }
 
@@ -27,6 +29,7 @@ if (is_request_form_page($_GET, 'messaging') && isset($_GET['new'])) {
                 extra_headers: [
                     messaging_info_header('body parse error'),
                 ],
+                alert_message: 'A szövegtörzs formátuma nem megfelelő!',
             );
         }
 
