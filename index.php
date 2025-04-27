@@ -2,7 +2,7 @@
 
 // feature level includes
 include('./includes/image_gallery.inc.php');
-include('./includes/login.inc.php');
+include('./includes/login_request_handler.inc.php');
 include('./includes/messaging_request_handler.inc.php');
 
 // '?error=' query param for presenting error pages, usage: ?error=418
@@ -12,131 +12,6 @@ if (isset($_GET['error']) && count($_GET) == 1) {
         load_error_page($errors['501'], 'the [' . $error_code . '] error page is not implemented!');
     }
     load_error_page($errors[$error_code], 'testing the [' . $error_code . '] error page');
-}
-
-// load 403 page on '?logout', if user try to the logout while logged out
-if (isset($_GET['logout']) && !is_user_logged_in()) {
-    load_error_page($errors['403'], 'unauthorized logout request');
-}
-
-// logout user on '?logout' query param, if user logged in
-if (isset($_GET['logout']) && is_user_logged_in()) {
-    clear_user_login_session();
-    redirect_to_main_page();
-}
-
-// logout user and load 403 page on '?page=login', if user try to load the login page while logged in 
-if (is_request_form_page($_GET, 'login') && is_user_logged_in()) {
-    clear_user_login_session();
-    load_error_page($errors['403'], 'unauthorized access attempt to login page');
-}
-
-// login user on '?login' query param
-if (isset($_GET['login'])) {
-    if (is_user_logged_in()) {
-        clear_user_login_session();
-        load_error_page($errors['403'], 'unauthorized login request');
-    }
-    try {
-        $username = parse_username($_POST);
-        if ($username === NULL) {
-            load_page('login', [
-                login_info_header('username parse error'),
-            ]);
-        }
-        $password_hash = parse_password_hash($_POST, 'current-password');
-        if ($password_hash === NULL) {
-            load_page('login', [
-                login_info_header('password parse error'),
-            ]);
-        }
-
-        if (!is_username_exists($username)) {
-            load_page('login', [
-                login_info_header('no registered username found'),
-            ]);
-        }
-
-        // password verification
-        if (!is_password_correct($username, $password_hash)) {
-            load_page('login', [
-                login_info_header('incorrect password'),
-            ]);
-        }
-        
-        // log in user (update session)
-        $name_details = get_name_details_for_user($username);
-        update_last_logged_in_time($username);
-        set_user_login_session(
-            $name_details['surname'], 
-            $name_details['forename'],
-            $username
-        );
-        redirect_to_main_page();
-    } catch (PDOException $e) {
-        load_error_page($errors['500'], 'SQL error ' . $e->getMessage());
-    } catch (Exception $e) {
-        load_error_page($errors['500'], $e->getMessage());
-    } finally {
-        unset($username);
-        unset($password_hash);
-        unset($name_details);
-    }
-}
-
-// register new user on '?register' query param
-if (isset($_GET['register'])) {
-    if (is_user_logged_in()) {
-        clear_user_login_session();
-        load_error_page($errors['403'], 'unauthorized registration request');
-    }
-    try {
-        $username = parse_username($_POST);
-        if ($username === NULL) {
-            load_page('login', [
-                registration_info_header('username parse error'),
-            ]);
-        }
-        $password_hash = parse_password_hash($_POST, 'new-password');
-        if ($password_hash === NULL) {
-            load_page('login', [
-                registration_info_header('password parse error'),
-            ]);
-        }
-        $surname = parse_surname($_POST);
-        if ($surname === NULL) {
-            load_page('login', [
-                registration_info_header('surname parse error'),
-            ]);
-        }
-        $forename = parse_forename($_POST);
-        if ($forename === NULL) {
-            load_page('login', [
-                registration_info_header('forename parse error'),
-            ]);
-        }
-        
-        if (is_username_exists($username)) {
-            load_page('login', [
-                registration_info_header('username already registered'),
-            ]);
-        }
-
-        register_new_user($username, $password_hash, $surname, $forename);
-        load_page('login', [
-            registration_info_header('registration succeeded'),
-            create_custom_header('New-User-Registered', $username),
-        ]);
-    } catch (PDOException $e) {
-        load_error_page($errors['500'], 'SQL error ' . $e->getMessage());
-    } catch (Exception $e) {
-        load_error_page($errors['500'], $e->getMessage());
-    } finally {
-        unset($username);
-        unset($password_hash);
-        unset($surname);
-        unset($forename);
-    }
 }
 
 // retrieve page data by '?page=' query param
