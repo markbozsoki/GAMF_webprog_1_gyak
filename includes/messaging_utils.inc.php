@@ -70,11 +70,7 @@ function get_user_id_by_username($username) {
     return $result['id'];
 }
 
-function save_new_message($sender_id, $email_address, $message_subject, $message_body): ?string {    
-    if ($sender_id === NULL) {
-        $sender_id = 'default';
-    }
-    
+function save_new_message($sender_id, $email_address, $message_subject, $message_body): array {        
     $insert_new_message_template = "INSERT INTO MESSAGES VALUES (default, default, :sender_id, UNIX_TIMESTAMP(NOW()), :email_address, :message_subject, :message_body);";
     $insert_new_message_params = array(
         ':sender_id' => $sender_id,
@@ -184,13 +180,13 @@ function extend_message_with_user_detail($message_data): array {
 
     $result = DataAccessLayerSingleton::getInstance()->executeCommand($query_template, $params);
     if (!isset($result['username'])) {
-        throw new Exception("[" . __FUNCTION__ . "] - Query result does not contain 'username'!");
+        $result['username'] = 'not_found';
     }
     if (!isset($result['surname'])) {
-        throw new Exception("[" . __FUNCTION__ . "] - Query result does not contain 'surname'!");
+        $result['surname'] = 'Removed';
     }
     if (!isset($result['forename'])) {
-        throw new Exception("[" . __FUNCTION__ . "] - Query result does not contain 'forename'!");
+        $result['forename'] = 'User';
     }
 
     $message_data[$user_detail_key] = $result['surname'] . " " . $result['forename'] . " (" . $result['username'] . ")";
