@@ -87,6 +87,26 @@ if (isset($_GET['register'])) {
         load_error_page(403, 'unauthorized registration request');
     }
     try {
+        $surname = parse_surname($_POST);
+        if ($surname === NULL) {
+            load_page('login', 
+                extra_headers: [
+                    registration_info_header('surname parse error'),
+                ],
+                alert_message: 'A vezetéknév formátuma nem megfelelő!',
+            );
+        }
+
+        $forename = parse_forename($_POST);
+        if ($forename === NULL) {
+            load_page('login', 
+                extra_headers: [
+                    registration_info_header('forename parse error'),
+                ],
+                alert_message: 'Az utónév formátuma nem megfelelő!',
+            );
+        }
+
         $username = parse_username($_POST);
         if ($username === NULL) {
             load_page('login', 
@@ -103,24 +123,6 @@ if (isset($_GET['register'])) {
                     registration_info_header('password parse error'),
                 ],
                 alert_message: 'A jelszó formátuma nem megfelelő!',
-            );
-        }
-        $surname = parse_surname($_POST);
-        if ($surname === NULL) {
-            load_page('login', 
-                extra_headers: [
-                    registration_info_header('surname parse error'),
-                ],
-                alert_message: 'A vezetéknév formátuma nem megfelelő!',
-            );
-        }
-        $forename = parse_forename($_POST);
-        if ($forename === NULL) {
-            load_page('login', 
-                extra_headers: [
-                    registration_info_header('forename parse error'),
-                ],
-                alert_message: 'Az utónév formátuma nem megfelelő!',
             );
         }
         
