@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `ACCESS` (
   `id` int(5) unsigned NOT NULL auto_increment,
   `created_at` int(10) NOT NULL,
   `last_logged_in` int(10) default '0',
-  `password_hash` varchar(64) default NULL,
+  `password_hash` varchar(256) default NULL,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
 
