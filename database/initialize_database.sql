@@ -91,7 +91,7 @@ SET @username = 'admin';
 SET @password = 'admin';
 SET @surname = 'The';
 SET @forename = 'Admin';
-INSERT IGNORE INTO `ACCESS` (`id`, `created_at`, `last_logged_in`, `password_hash`) VALUES (default, UNIX_TIMESTAMP(NOW()), default, SHA2(@password, 256));
+INSERT IGNORE INTO `ACCESS` (`id`, `created_at`, `last_logged_in`, `password_hash`) VALUES (default, UNIX_TIMESTAMP(NOW()), default, SHA2(CONCAT('pw_salt', @password, 'pw_pepper'), 256));
 SET @access_last_id = LAST_INSERT_ID();
 INSERT IGNORE INTO `DETAILS` (`id`, `surname`, `forename`) VALUES (default, @surname, @forename);
 SET @details_last_id = LAST_INSERT_ID();
