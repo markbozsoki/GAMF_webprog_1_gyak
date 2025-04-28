@@ -15,7 +15,7 @@
 
     <?php if (isset($current_page_data['style_file']) && file_exists($current_page_data['style_file'])) { ?>
     <!-- Page specific CSS -->
-    <?php echo '<link rel="stylesheet" href="' . $current_page_data['style_file'] . '">'; ?>
+    <link rel="stylesheet" href="<?= $current_page_data['style_file'] ?>">
     <?php } ?>
 </head>
 
@@ -76,7 +76,7 @@
     
     <?php if (isset($current_page_data['script_file']) && file_exists($current_page_data['script_file'])) { ?>
     <!-- Page specific JS -->
-    <?php echo '<script src="' . $current_page_data['script_file'] . '"></script>'; ?>
+    <script src="<?= $current_page_data['script_file'] ?>"></script>
     <?php } ?>
 
     <?php if (isset($current_page_data['popup'])) { ?>
