@@ -25,21 +25,19 @@ if (isset($_GET['login'])) {
     }
     try {
         $username = parse_username($_POST);
-        if ($username === NULL) {
-            load_page('login', 
-                extra_headers: [
-                    login_info_header('username parse error'),
-                ],
-                alert_message: 'A felhasználónév formátuma nem megfelelő!',
-            );
-        }
         $password_hash = parse_password_hash($_POST, 'current-password');
-        if ($password_hash === NULL) {
+
+        if ($username === NULL || $password_hash === NULL) {
+            $parse_error_headers = [];
+            if (!$password_hash) {
+                $parse_error_headers[] = login_info_header('password parse error');
+            }
+            if (!$username) {
+                $parse_error_headers[] = login_info_header('username parse error');
+            }
             load_page('login', 
-                extra_headers: [
-                    login_info_header('password parse error'),
-                ],
-                alert_message: 'A jelszó formátuma nem megfelelő!',
+                extra_headers: $parse_error_headers,
+                alert_message: 'A bejelnkezési adatok formátuma nem megfelelő!',
             );
         }
 
