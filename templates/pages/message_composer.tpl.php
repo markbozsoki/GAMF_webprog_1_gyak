@@ -7,7 +7,7 @@
 
         <div class="form-group">
 
-            <input type="email" class="form-control" id="email" name="email" placeholder="Email cím" required>
+            <input type="text" class="form-control" id="email" name="email" placeholder="Email cím">
             <div class="invalid-feedback">
                 Kérlek adj meg egy érvényes email címet!
             </div>
@@ -15,7 +15,7 @@
 
         <div class="form-group">
 
-            <input type="text" class="form-control" id="subject" name="subject" placeholder="Tárgy" required>
+            <input type="text" class="form-control" id="subject" name="subject" placeholder="Tárgy">
             <div class="invalid-feedback">
                 Kérlek add meg a tárgyat!
             </div>
@@ -23,7 +23,7 @@
 
         <div class="form-group">
 
-            <textarea class="form-control" id="body" name="body" placeholder="Üzenet..." rows="6" required></textarea>
+            <textarea class="form-control" id="body" name="body" placeholder="Üzenet..." rows="6"></textarea>
             <div class="invalid-feedback">
                 Kérlek írj egy rövid üzenetet!
             </div>
