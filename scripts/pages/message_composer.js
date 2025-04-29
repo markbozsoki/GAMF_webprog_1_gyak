@@ -12,8 +12,8 @@
       var valid = true;
 
       var emailValue = emailField.value;
-      var subjectValue = subjectField.value.trim();
-      var bodyValue = bodyField.value.trim();
+      var subjectValue = subjectField.value;
+      var bodyValue = bodyField.value;
 
       var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
 
@@ -31,7 +31,7 @@
         emailField.setCustomValidity("");
       }
 
-      if (subjectValue === "") {
+      if (subjectValue.trim() === "") {
         subjectField.setCustomValidity("A tárgy mező nem lehet üres.");
         valid = false;
       } else if (subjectValue.length > 400) {
@@ -41,7 +41,7 @@
         subjectField.setCustomValidity("");
       }
 
-      if (bodyValue === "") {
+      if (bodyValue.trim() === "") {
         bodyField.setCustomValidity("Az üzenet mező nem lehet üres.");
         valid = false;
       } else if (bodyValue.length > 7000) {
