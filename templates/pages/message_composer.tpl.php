@@ -25,7 +25,7 @@
 
         <div class="form-group">
 
-            <textarea class="form-control" id="body" name="body" placeholder="Üzenet..." rows="6"></textarea>
+            <textarea class="form-control" id="body" name="body" placeholder="Üzenet..." rows="12"></textarea>
             <div class="invalid-feedback">
                 Kérlek írj egy rövid üzenetet!
             </div>
