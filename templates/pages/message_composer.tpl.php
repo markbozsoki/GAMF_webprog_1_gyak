@@ -1,9 +1,11 @@
 <div class="container">
     <p>Üzenet küldés</p>
     <form id="messageComposerForm" class="needs-validation" action="?page=messaging&new" method="POST" novalidate>
+        <?php if (is_user_logged_in()) { ?>
         <div class="form-group">
-            <input type="hidden" name="username" value="">
+            <input type="hidden" name="username" value="<?= htmlspecialchars($_SESSION['username']) ?>">
         </div>
+        <?php }?>
 
         <div class="form-group">
 
