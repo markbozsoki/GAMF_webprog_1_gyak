@@ -11,7 +11,7 @@
 
       var valid = true;
 
-      var emailValue = emailField.value.trim();
+      var emailValue = emailField.value;
       var subjectValue = subjectField.value.trim();
       var bodyValue = bodyField.value.trim();
 
