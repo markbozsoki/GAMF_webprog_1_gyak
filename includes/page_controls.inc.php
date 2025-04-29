@@ -10,25 +10,27 @@ function load_main_page() {
 
     $current_page_data = $page_datas['/']; // get main page data
     if (!file_exists($current_page_data['html_template'])) {
-        load_error_page($errors['500'], 'missing index template'); // main page could not be loaded
+        load_error_page(500, 'missing index template'); // main page could not be loaded
     }
     include('./templates/index.tpl.php');
     exit();
 }
 
-function load_page($page_data_key, $extra_headers = NULL) {
+function load_page($page_data_key, $extra_headers = NULL, $alert_message = NULL) {
     global $page_datas;
     global $errors;
 
+    global $images;
+    global $URL;
+
     if (!isset($page_datas[$page_data_key])) {
-        load_error_page($errors['400'], "unregistered page");
+        load_error_page(400, 'unregistered page');
     }
     if(!file_exists($page_datas[$page_data_key]['html_template'])) {
-        load_error_page($errors['404'], "template could not be loaded");
+        load_error_page(404, 'template could not be loaded');
     }
 
-    $current_page_data = $page_datas[$page_data_key]; // retrieve requested page data
-    
+    // appends additional headers for page load
     if ($extra_headers === NULL) {
         $extra_headers = array();
     }
@@ -36,6 +38,13 @@ function load_page($page_data_key, $extra_headers = NULL) {
     foreach($extra_headers as $extra_header) {
         header(load_string_from_custom_header($extra_header));
     }
+
+    $current_page_data = $page_datas[$page_data_key]; // retrieve requested page data
+    
+    if ($alert_message) {
+        $current_page_data['popup']['alert'] = $alert_message;
+    }
+    
     include('./templates/index.tpl.php');
     exit();
 }

@@ -1,6 +1,5 @@
 <?php
 const USRMGT_MAX_USERNAME_LENGTH = 25;
-const USRMGT_PASSWORD_HASH_REQUIRED_LENGTH = 64;
 const USRMGT_MAX_SURNAME_LENGTH = 35;
 const USRMGT_MAX_FORENAME_LENGTH = 35;
 
@@ -35,10 +34,10 @@ function parse_password_hash($DATA, $key = 'password'): ?string {
         return NULL;
     }
     $password_hash = $DATA[$key];
-    if (strlen($password_hash) != USRMGT_PASSWORD_HASH_REQUIRED_LENGTH) {
-        return hash('sha256', $password_hash); // hash password if not hashed
+    if (getenv('PW_SALT') == NULL || getenv('PW_PEPPER') == NULL) {
+        throw new Exception('PW_SALT and PW_PEPPER must be set!');
     }
-    return $password_hash;
+    return hash('sha256', getenv('PW_SALT') . $password_hash . getenv('PW_PEPPER'));
 }
 
 function is_username_exists($username): bool {
