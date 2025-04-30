@@ -8,7 +8,7 @@
     <?php } ?>
 
     <div class="d-flex justify-content-center">
-        <div class="card w-50 p-3">
+        <div class="card w-75 p-3">
             <div class="card-body">
                 <h4 class="card-title">
                     <?= htmlspecialchars($message_data['subject']); ?>
