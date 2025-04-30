@@ -68,8 +68,6 @@ if (isset($_GET['message'])) {
         }
 
         $message_data = get_message_by_message_id($message_id);
-        $message_data = extend_message_with_user_detail($message_data);
-
         load_message_viewer_page_on($message_data);
     } catch (PDOException $e) {
         load_error_page(500, 'SQL error ' . $e->getMessage());

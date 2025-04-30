@@ -8,7 +8,7 @@ const MINIMUM_PAGINATION_PAGE_SIZE = 1;
 const DEFAULT_PAGINATION_PAGE_SIZE = 10;
 const MAXIMUM_PAGINATION_PAGE_SIZE = 100;
 
-const GET_MESSAGE_SQL_PROJECTION = "msg_id AS message_id, sender_id, from_unixtime(sent_at) AS sent_at, email_address, FROM_BASE64(subject) AS subject, FROM_BASE64(msg_text) AS body";
+const GET_MESSAGE_SQL_PROJECTION = "msg_id AS message_id, sender_id, from_unixtime(sent_at) AS sent_at, email_address, subject, msg_text AS body";
 
 
 function parse_email_address($DATA, $key = 'email') {
@@ -58,6 +58,21 @@ function parse_message_id($DATA, $key = 'message') {
     return $value;
 }
 
+function encrypt_message_content($text) {
+    return base64_encode($text); // base64 is is a weak encoding, not a encryption (it was choosed only to demo the functionality)
+}
+
+function decrypt_message_content($text) {
+    return base64_decode($text);
+} 
+
+function unpack_message_data($message_data) {
+    $message_data['email_address'] = trim($message_data['email_address'], "'");
+    $message_data['subject'] = decrypt_message_content($message_data['subject']);
+    $message_data['body'] = decrypt_message_content($message_data['body']);
+    return $message_data;
+}
+
 function get_user_id_by_username($username) {
     $query_template = "SELECT id FROM USERS WHERE username = :username;";
     $params = array(':username' => $username);
@@ -71,12 +86,12 @@ function get_user_id_by_username($username) {
 }
 
 function save_new_message($sender_id, $email_address, $message_subject, $message_body): string {        
-    $insert_new_message_template = "INSERT INTO MESSAGES VALUES (default, default, :sender_id, UNIX_TIMESTAMP(NOW()), :email_address, TO_BASE64(:message_subject), TO_BASE64(:message_body));";
+    $insert_new_message_template = "INSERT INTO MESSAGES VALUES (default, default, :sender_id, UNIX_TIMESTAMP(NOW()), :email_address, :message_subject, :message_body);";
     $insert_new_message_params = array(
         ':sender_id' => $sender_id,
-        ':email_address' => $email_address,
-        ':message_subject' => $message_subject,
-        ':message_body' => $message_body,
+        ':email_address' => $email_address, // email address should handled as sensitive data too (left uncrypted for presentation propuses)
+        ':message_subject' => encrypt_message_content($message_subject),
+        ':message_body' => encrypt_message_content($message_body),
     );
 
     $new_message_id_query_template = "SELECT msg_id AS new_message_id FROM MESSAGES WHERE id = :new_message_record_id;";
@@ -125,12 +140,8 @@ function get_message_by_message_id($message_id) {
     $params = array(':message_id' => $message_id);
 
     $result = DataAccessLayerSingleton::getInstance()->executeCommand($query_template, $params);
-    return format_message_data($result);
-}
-
-function format_message_data($message_data) {
-    $message_data['email_address'] = trim($message_data['email_address'], "'");
-    return $message_data;
+    $result = extend_message_with_user_detail($result);
+    return unpack_message_data($result);
 }
 
 function get_paginated_messages($start_index = DEFAULT_PAGINATION_START_INDEX, $page_size = DEFAULT_PAGINATION_PAGE_SIZE) {
