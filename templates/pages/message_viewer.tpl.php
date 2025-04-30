@@ -24,7 +24,7 @@
                         <?= htmlspecialchars($message_data['email_address']); ?>
                     </a>
                 </p>
-                <pre class="bg-light p-3 rounded"><?= htmlspecialchars($message_data['body']); ?></pre>
+                <pre class="bg-light p-3 rounded" style="white-space: pre-wrap;"><?= htmlspecialchars($message_data['body']); ?></pre>
                 <div class="text-center">
                     <a href="<?= ($parent_page_key === '/') ? '.' : ('?page=' . $parent_page_key); ?>"
                         class="btn btn-dark">
