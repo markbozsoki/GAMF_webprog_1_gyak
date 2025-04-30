@@ -41,6 +41,11 @@ function load_page($page_data_key, $extra_headers = NULL, $alert_message = NULL)
 
     $current_page_data = $page_datas[$page_data_key]; // retrieve requested page data
     
+    // disable page specific JS to test server side validations, &js=disabled
+    if (isset($_GET['js']) && $_GET['js'] === 'disabled') {
+        unset($current_page_data['script_file']);
+    }
+
     if ($alert_message) {
         $current_page_data['popup']['alert'] = $alert_message;
     }

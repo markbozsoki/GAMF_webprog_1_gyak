@@ -98,4 +98,4 @@ SET @details_last_id = LAST_INSERT_ID();
 INSERT IGNORE INTO `USERS` (`id`, `username`, `created_at`, `access_id`, `detail_id`) VALUES (default, @username, UNIX_TIMESTAMP(NOW()), @access_last_id, @details_last_id);
 
 -- ADD TEST MESSAGE: ?message=test
-INSERT IGNORE INTO `messages` (`id`, `msg_id`, `sender_id`, `sent_at`, `email_address`, `subject`, `msg_text`) VALUES (default, "test", default, UNIX_TIMESTAMP(NOW() - INTERVAL 5 MINUTE), "'guest.user@test.com'", "Test Subject", "Hello,&#92;&#110;I hope this email finds you well!&#92;&#110;&#92;&#110; 0===}::::::::::::::> &#92;&#110;&#92;&#110;Bye");
+INSERT IGNORE INTO `messages` (`id`, `msg_id`, `sender_id`, `sent_at`, `email_address`, `subject`, `msg_text`) VALUES (default, "test", default, UNIX_TIMESTAMP(NOW() - INTERVAL 5 MINUTE), "'guest.user@test.com'", TO_BASE64("Test Subject"), TO_BASE64("Hello,\nI hope this email finds you well!\n\n 0===}::::::::::::::> \n\nBye"));
