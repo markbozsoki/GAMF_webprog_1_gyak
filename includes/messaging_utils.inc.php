@@ -59,7 +59,7 @@ function parse_message_id($DATA, $key = 'message') {
 }
 
 function encrypt_message_content($text) {
-    return base64_encode($text); // base64 is is a weak encoding, not a encryption (it was choosed only to demo the functionality)
+    return base64_encode($text); // base64 is a weak encoding, not a encryption (it was choosed only to demo the functionality)
 }
 
 function decrypt_message_content($text) {
