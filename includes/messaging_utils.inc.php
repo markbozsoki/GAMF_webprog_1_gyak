@@ -233,6 +233,20 @@ function get_paginated_messages($start_index = DEFAULT_PAGINATION_START_INDEX, $
     return $results;
 }
 
+function _compose_message_pagination_link($start_index, $page_size) {
+    return '?page=messages&start=' . $start_index . '&size=' . $page_size;
+}
+
+function get_next_link_for_pagination($start, $size) {
+    return _compose_message_pagination_link($start + $size, $size);
+}
+
+function get_previous_link_for_pagination($start, $size) {
+    if ($start < $size) {
+        $start = $size;
+    }
+    return _compose_message_pagination_link($start - $size, $size);
+}
 
 function load_message_viewer_page_on($message_data) { 
     global $page_datas;
