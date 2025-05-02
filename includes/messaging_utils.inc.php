@@ -204,7 +204,7 @@ function get_message_by_message_id($message_id) {
     return unpack_message_data($result);
 }
 
-function get_paginated_messages($start_index = DEFAULT_PAGINATION_START_INDEX, $page_size = DEFAULT_PAGINATION_PAGE_SIZE) {
+function get_paginated_messages($start_index = DEFAULT_PAGINATION_START_INDEX, $page_size = DEFAULT_PAGINATION_PAGE_SIZE): array {
     if ($start_index < DEFAULT_PAGINATION_START_INDEX) {
         $start_index = DEFAULT_PAGINATION_START_INDEX;
     }
@@ -221,7 +221,15 @@ function get_paginated_messages($start_index = DEFAULT_PAGINATION_START_INDEX, $
     $prepared_statement->bindValue(':start_index', (int) $start_index, PDO::PARAM_INT);
     $prepared_statement->execute();
     $results = $prepared_statement->fetchAll(PDO::FETCH_ASSOC);
-
+    
+    if (empty($results)) {
+        return $results;
+    }
+    
+    for($i = 0; $i < count($results); $i++) {
+        $message_data = extend_message_with_user_detail($results[$i]);
+        $results[$i] = unpack_message_data($message_data);
+    }
     return $results;
 }
 
