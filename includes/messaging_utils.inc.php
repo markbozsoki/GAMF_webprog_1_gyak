@@ -58,6 +58,37 @@ function parse_message_id($DATA, $key = 'message') {
     return $value;
 }
 
+function parse_pagination_start($DATA, $key = 'start'): ?int {
+    if (!isset($DATA[$key])){
+        return DEFAULT_PAGINATION_START_INDEX;
+    }
+    if (!ctype_digit($DATA[$key])) {
+        return NULL;
+    }
+    $value = (int)$DATA[$key]
+    if ($value < 0) {
+        return DEFAULT_PAGINATION_START_INDEX;
+    }
+    return $value;
+}
+
+function parse_pagination_size($DATA, $key = 'size'): ?int {
+    if (!isset($DATA[$key])){
+        return DEFAULT_PAGINATION_PAGE_SIZE;
+    }
+    if (!ctype_digit($DATA[$key])) {
+        return NULL;
+    }
+    $value = (int)$DATA[$key]
+    if ($value < MINIMUM_PAGINATION_PAGE_SIZE) {
+        return MINIMUM_PAGINATION_PAGE_SIZE;
+    }
+    if ($value > MAXIMUM_PAGINATION_PAGE_SIZE) {
+        return MAXIMUM_PAGINATION_PAGE_SIZE;
+    }
+    return $value;
+}
+
 function encrypt_message_content($text) {
     return base64_encode($text); // base64 is a weak encoding, not a encryption (it was choosed only to demo the functionality)
 }
