@@ -1,5 +1,10 @@
 <?php include('messaging_utils.inc.php');
 
+// disallow the direct loading of the message viewer page, ?page=message_viewer
+if (is_request_form_page($_GET, 'message_viewer')) {
+    load_error_page(404, 'message viewer page should not be loaded directly');
+}
+
 // allow message sending only from the messaging page, '?page=messaging&new'
 if (is_request_form_page($_GET, 'messaging') && isset($_GET['new'])) {
     try {
