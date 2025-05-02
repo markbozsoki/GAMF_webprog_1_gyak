@@ -74,7 +74,17 @@ if (is_request_form_page($_GET, 'messages')) {
             load_error_page(500, 'unable to parse pagination query params');
         }
         
-        $raw_message_datas = get_paginated_messages($pagination_start, $pagination_size);
+        $message_datas = get_paginated_messages($pagination_start, $pagination_size);
+        $paginated_message_data = array(
+            'start' => $pagination_start,
+            'size' => $pagination_size,
+            'link' => array(
+                'next' => get_next_link_for_pagination($pagination_start, $pagination_size),
+                'prev' => get_previous_link_for_pagination($pagination_start, $pagination_size),
+            ),
+            'data' => $message_datas,
+        );
+        die(var_dump($paginated_message_data));
 
     } catch (PDOException $e) {
         load_error_page(500, 'SQL error ' . $e->getMessage());
