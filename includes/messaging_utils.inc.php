@@ -65,7 +65,7 @@ function parse_pagination_start($DATA, $key = 'start'): ?int {
     if (!ctype_digit($DATA[$key])) {
         return NULL;
     }
-    $value = (int)$DATA[$key]
+    $value = (int)$DATA[$key];
     if ($value < 0) {
         return DEFAULT_PAGINATION_START_INDEX;
     }
@@ -79,7 +79,7 @@ function parse_pagination_size($DATA, $key = 'size'): ?int {
     if (!ctype_digit($DATA[$key])) {
         return NULL;
     }
-    $value = (int)$DATA[$key]
+    $value = (int)$DATA[$key];
     if ($value < MINIMUM_PAGINATION_PAGE_SIZE) {
         return MINIMUM_PAGINATION_PAGE_SIZE;
     }
@@ -205,8 +205,8 @@ function get_message_by_message_id($message_id) {
 }
 
 function get_paginated_messages($start_index = DEFAULT_PAGINATION_START_INDEX, $page_size = DEFAULT_PAGINATION_PAGE_SIZE) {
-    if ($start_index < DEFAULT_PAGINATION_START) {
-        $start_index = DEFAULT_PAGINATION_START;
+    if ($start_index < DEFAULT_PAGINATION_START_INDEX) {
+        $start_index = DEFAULT_PAGINATION_START_INDEX;
     }
     if ($page_size < MINIMUM_PAGINATION_PAGE_SIZE) {
         $page_size = MINIMUM_PAGINATION_PAGE_SIZE;
