@@ -216,18 +216,15 @@ function get_paginated_messages($start_index = DEFAULT_PAGINATION_START_INDEX, $
     }
 
     $query_template = "SELECT " . GET_MESSAGE_SQL_PROJECTION . " FROM MESSAGES ORDER BY MESSAGES.sent_at DESC LIMIT :page_size OFFSET :start_index;";
-    $params = array(
-        ':page_size' => $page_size,
-        ':start_index' => $start_index,
-    );
+    $prepared_statement = DataAccessLayerSingleton::getInstance()->getPreparedStatement($query_template);
+    $prepared_statement->bindValue(':page_size', (int) $page_size, PDO::PARAM_INT);
+    $prepared_statement->bindValue(':start_index', (int) $start_index, PDO::PARAM_INT);
+    $prepared_statement->execute();
+    $results = $prepared_statement->fetchAll(PDO::FETCH_ASSOC);
 
-    $result = DataAccessLayerSingleton::getInstance()->executeCommand($query_template, $params);
-    die(var_dump($result));
-    if (FALSE) {
-        return NULL;
-    }
-    return $result;
+    return $results;
 }
+
 
 function load_message_viewer_page_on($message_data) { 
     global $page_datas;

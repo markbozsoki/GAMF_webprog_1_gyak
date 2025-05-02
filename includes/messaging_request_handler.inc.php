@@ -74,7 +74,7 @@ if (is_request_form_page($_GET, 'messages')) {
             load_error_page(500, 'unable to parse pagination query params');
         }
         
-
+        $raw_message_datas = get_paginated_messages($pagination_start, $pagination_size);
 
     } catch (PDOException $e) {
         load_error_page(500, 'SQL error ' . $e->getMessage());
