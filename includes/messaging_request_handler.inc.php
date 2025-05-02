@@ -61,6 +61,23 @@ if (is_request_form_page($_GET, 'messaging') && isset($_GET['new'])) {
     }
 }
 
+// load messages with paginations
+if (is_request_form_page($_GET, 'messages')) {
+    if (!is_user_logged_in()) {
+        clear_user_login_session();
+        load_error_page(403, 'unauthorized access attempt to messages page');
+    }
+    try {
+        
+
+
+    } catch (PDOException $e) {
+        load_error_page(500, 'SQL error ' . $e->getMessage());
+    } catch (Exception $e) {
+        load_error_page(500, $e->getMessage());
+    }
+}
+
 // load message viewer page on '?message=' param if authorized
 if (isset($_GET['message'])) {
     $message_id = parse_message_id($_GET);
