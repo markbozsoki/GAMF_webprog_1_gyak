@@ -68,8 +68,12 @@ class DataAccessLayerSingleton {
         return self::$_instance;
     }
 
+    public function getPreparedStatement($template): PDOStatement {
+        return $this->_connection->prepare($template);
+    }
+    
     public function executeCommand($template, $params): array | bool {
-        $prepared_statement = $this->_connection->prepare($template);
+        $prepared_statement = $this->getPreparedStatement($template);
         $prepared_statement->execute($params);
         return $prepared_statement->fetch(PDO::FETCH_ASSOC);
     }
