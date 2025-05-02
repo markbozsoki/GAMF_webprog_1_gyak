@@ -68,6 +68,11 @@ if (is_request_form_page($_GET, 'messages')) {
         load_error_page(403, 'unauthorized access attempt to messages page');
     }
     try {
+        $pagination_start = parse_pagination_start($_GET);
+        $pagination_size = parse_pagination_size($_GET);
+        if ($pagination_start === NULL || $pagination_size === NULL) {
+            load_error_page(500, 'unable to parse pagination query params');
+        }
         
 
 
