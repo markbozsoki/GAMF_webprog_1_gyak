@@ -104,6 +104,35 @@ function unpack_message_data($message_data) {
     return $message_data;
 }
 
+function extend_message_with_user_detail($message_data): array {
+    if (!array_key_exists('sender_id', $message_data)) {
+        throw new Exception("[" . __FUNCTION__ . "] - Missing sender_id key from message data");
+    }
+
+    $user_detail_key = 'user_detail';
+    if ($message_data['sender_id'] === NULL) {
+        $message_data[$user_detail_key] = 'Vendég';
+        return $message_data;
+    }
+
+    $query_template = "SELECT username, surname, forename FROM USER_DETAILS WHERE user_id = :user_id;";
+    $params = array(':user_id' => $message_data['sender_id']);
+
+    $result = DataAccessLayerSingleton::getInstance()->executeCommand($query_template, $params);
+    if (!isset($result['username'])) {
+        $result['username'] = 'not_found';
+    }
+    if (!isset($result['surname'])) {
+        $result['surname'] = 'Removed';
+    }
+    if (!isset($result['forename'])) {
+        $result['forename'] = 'User';
+    }
+
+    $message_data[$user_detail_key] = $result['surname'] . " " . $result['forename'] . " (" . $result['username'] . ")";
+    return $message_data;
+}
+
 function get_user_id_by_username($username) {
     $query_template = "SELECT id FROM USERS WHERE username = :username;";
     $params = array(':username' => $username);
@@ -198,35 +227,6 @@ function get_paginated_messages($start_index = DEFAULT_PAGINATION_START_INDEX, $
         return NULL;
     }
     return $result;
-}
-
-function extend_message_with_user_detail($message_data): array {
-    if (!array_key_exists('sender_id', $message_data)) {
-        throw new Exception("[" . __FUNCTION__ . "] - Missing sender_id key from message data");
-    }
-
-    $user_detail_key = 'user_detail';
-    if ($message_data['sender_id'] === NULL) {
-        $message_data[$user_detail_key] = 'Vendég';
-        return $message_data;
-    }
-
-    $query_template = "SELECT username, surname, forename FROM USER_DETAILS WHERE user_id = :user_id;";
-    $params = array(':user_id' => $message_data['sender_id']);
-
-    $result = DataAccessLayerSingleton::getInstance()->executeCommand($query_template, $params);
-    if (!isset($result['username'])) {
-        $result['username'] = 'not_found';
-    }
-    if (!isset($result['surname'])) {
-        $result['surname'] = 'Removed';
-    }
-    if (!isset($result['forename'])) {
-        $result['forename'] = 'User';
-    }
-
-    $message_data[$user_detail_key] = $result['surname'] . " " . $result['forename'] . " (" . $result['username'] . ")";
-    return $message_data;
 }
 
 function load_message_viewer_page_on($message_data) { 
