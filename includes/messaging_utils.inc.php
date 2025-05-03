@@ -69,7 +69,7 @@ function parse_pagination_start($DATA, $key = 'start'): ?int {
     if ($value < 0) {
         return DEFAULT_PAGINATION_START_INDEX;
     }
-    $messages_table_row_count = get_messages_table_row_count()
+    $messages_table_row_count = get_messages_table_row_count();
     if ($start_index > $messages_table_row_count) {
         return $messages_table_row_count;
     }
@@ -110,7 +110,7 @@ function unpack_message_data($message_data) {
 
 function get_messages_table_details() {
     $statement = DataAccessLayerSingleton::getInstance()->query('SHOW TABLE STATUS WHERE Name = "MESSAGES";');
-    $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+    $results = $statement->fetch(PDO::FETCH_ASSOC);
     return $results;
 }
 
@@ -232,7 +232,7 @@ function get_paginated_messages($start_index = DEFAULT_PAGINATION_START_INDEX, $
     if ($start_index < DEFAULT_PAGINATION_START_INDEX) {
         $start_index = DEFAULT_PAGINATION_START_INDEX;
     }
-    $messages_table_row_count = get_messages_table_row_count()
+    $messages_table_row_count = get_messages_table_row_count();
     if ($start_index > $messages_table_row_count) {
         // query the last page
         $start_index = $messages_table_row_count - $page_size;
@@ -261,7 +261,7 @@ function compose_message_pagination_link($start_index, $page_size) {
 }
 
 function get_next_link_for_pagination($start, $size) {
-    $messages_table_row_count = get_messages_table_row_count()
+    $messages_table_row_count = get_messages_table_row_count();
     if ($start > $messages_table_row_count) {
         $start = $messages_table_row_count - $size;
     }
