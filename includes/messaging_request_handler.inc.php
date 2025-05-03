@@ -79,6 +79,7 @@ if (is_request_form_page($_GET, 'messages')) {
             'start' => $pagination_start,
             'size' => $pagination_size,
             'link' => array(
+                'current' => compose_message_pagination_link($pagination_start, $pagination_size),
                 'next' => get_next_link_for_pagination($pagination_start, $pagination_size),
                 'previous' => get_previous_link_for_pagination($pagination_start, $pagination_size),
             ),

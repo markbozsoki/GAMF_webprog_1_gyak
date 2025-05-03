@@ -70,7 +70,7 @@ function parse_pagination_start($DATA, $key = 'start'): ?int {
         return DEFAULT_PAGINATION_START_INDEX;
     }
     $messages_table_row_count = get_messages_table_row_count();
-    if ($start_index > $messages_table_row_count) {
+    if ($value > $messages_table_row_count) {
         return $messages_table_row_count;
     }
     return $value;
@@ -279,9 +279,22 @@ function load_message_viewer_page_on($message_data) {
     global $page_datas;
     
     $parent_page_key  = '/';
+    $back_link = $parent_page_key;
     if (isset($_GET['page'])) {
-        $parent_page_key  = $_GET['page'];
+        $parent_page_key = $_GET['page'];
+        $back_link = "?page=" . $parent_page_key;
+
+        $start_qs = parse_pagination_start($_GET);
+        if ($start_qs) {
+            $back_link .= "&start=" . $start_qs;                ;
+        }
+
+        $size_qs = parse_pagination_size($_GET);
+        if ($size_qs) {
+            $back_link .= "&size=" . $size_qs;
+        }
     }
+
     $current_page_data = $page_datas['message_viewer'];
     include('./templates/index.tpl.php');
     exit();

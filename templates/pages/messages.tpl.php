@@ -36,13 +36,29 @@
         <tbody>
             <?php foreach ($PAGINATED_MESSAGE_DATA['data'] as $key => $message_data) { ?>
             <tr>
-                <th><?= $PAGINATED_MESSAGE_DATA['start'] + (int)$key + 1 ?></th>
-                <th><?= $message_data['sent_at'] ?></th>
-                <th><?= $message_data['user_detail'] ?></th>
-                <th><?= $message_data['email_address'] ?></th>
-                <th><?= substr($message_data['subject'], 0, 20) . '...' ?></th>
-                <th><?= substr($message_data['body'], 0, 20) . '...' ?></th>
-                <th><a href="?page=messages&message=<?= $message_data['message_id'] ?>">Megtekintés</a></th>
+                <th>
+                    <?php echo $PAGINATED_MESSAGE_DATA['start'] + (int)$key + 1 ?>
+                </th>
+                <th>
+                    <?php echo $message_data['sent_at'] ?>
+                </th>
+                <th>
+                    <?php echo $message_data['user_detail'] ?>
+                </th>
+                <th>
+                    <?php echo $message_data['email_address'] ?>
+                </th>
+                <th>
+                    <?php echo substr($message_data['subject'], 0, 20) . '...' ?>
+                </th>
+                <th>
+                    <?php echo substr($message_data['body'], 0, 20) . '...' ?>
+                </th>
+                <th>
+                    <a href="<?= $PAGINATED_MESSAGE_DATA['link']['current'] ?>&message=<?= $message_data['message_id'] ?>">
+                        Megtekintés
+                    </a>
+                </th>
             </tr>
             <?php } ?>
         </tbody>
