@@ -290,14 +290,18 @@ function load_message_viewer_page_on($message_data) {
         $parent_page_key = $_GET['page'];
         $back_link = "?page=" . $parent_page_key;
 
-        $start_qs = parse_pagination_start($_GET);
-        if ($start_qs) {
-            $back_link .= "&start=" . $start_qs;                ;
+        if (isset($_GET['start'])) {
+            $start_qs = parse_pagination_start($_GET);
+            if ($start_qs) {
+                $back_link .= "&start=" . $start_qs;                ;
+            }
         }
 
-        $size_qs = parse_pagination_size($_GET);
-        if ($size_qs) {
-            $back_link .= "&size=" . $size_qs;
+        if (isset($_GET['size'])) {
+            $size_qs = parse_pagination_size($_GET);
+            if ($size_qs) {
+                $back_link .= "&size=" . $size_qs;
+            }
         }
     }
 
