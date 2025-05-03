@@ -1,13 +1,16 @@
 <div class="container">
+    <?php $prev_page_button_disabled = $PAGINATED_MESSAGE_DATA['start'] === 0 ?>
+    <?php $next_page_button_disabled = count($PAGINATED_MESSAGE_DATA['data']) < $PAGINATED_MESSAGE_DATA['size'] ?>
+
     <nav>
         <ul class="pagination">
-            <li class="page-item <?= $PAGINATED_MESSAGE_DATA['start'] === 0 ? ' disabled' : '' ?>">
+            <li class="page-item <?= $prev_page_button_disabled ? ' disabled' : '' ?>">
                 <?php $prev_page_link = $PAGINATED_MESSAGE_DATA['link']['previous']; ?>
                 <a class="page-link" href="<?= $prev_page_link ?>">
                     Előző oldal
                 </a>
             </li>
-            <li class="page-item <?= count($PAGINATED_MESSAGE_DATA['data']) < $PAGINATED_MESSAGE_DATA['size'] ? ' disabled' : '' ?>">
+            <li class="page-item <?= $next_page_button_disabled ? ' disabled' : '' ?>">
                 <?php $next_page_link = $PAGINATED_MESSAGE_DATA['link']['next']; ?>
                 <a class="page-link" href="<?= $next_page_link ?>">
                     Következő oldal
@@ -64,13 +67,13 @@
 
     <nav class="md-3">
         <ul class="pagination">
-            <li class="page-item <?= $PAGINATED_MESSAGE_DATA['start'] === 0 ? ' disabled' : '' ?>">
+            <li class="page-item <?= $prev_page_button_disabled ? ' disabled' : '' ?>">
                 <?php $prev_page_link = $PAGINATED_MESSAGE_DATA['link']['previous']; ?>
                 <a class="page-link" href="<?= $prev_page_link ?>">
                     Előző oldal
                 </a>
             </li>
-            <li class="page-item <?= count($PAGINATED_MESSAGE_DATA['data']) < $PAGINATED_MESSAGE_DATA['size'] ? ' disabled' : '' ?>">
+            <li class="page-item <?= $next_page_button_disabled ? ' disabled' : '' ?>">
                 <?php $next_page_link = $PAGINATED_MESSAGE_DATA['link']['next']; ?>
                 <a class="page-link" href="<?= $next_page_link ?>">
                     Következő oldal
