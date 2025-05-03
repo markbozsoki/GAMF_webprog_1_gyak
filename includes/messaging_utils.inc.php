@@ -69,6 +69,10 @@ function parse_pagination_start($DATA, $key = 'start'): ?int {
     if ($value < 0) {
         return DEFAULT_PAGINATION_START_INDEX;
     }
+    $messages_table_row_count = get_messages_table_row_count()
+    if ($start_index > $messages_table_row_count) {
+        return $messages_table_row_count;
+    }
     return $value;
 }
 
@@ -102,6 +106,20 @@ function unpack_message_data($message_data) {
     $message_data['subject'] = decrypt_message_content($message_data['subject']);
     $message_data['body'] = decrypt_message_content($message_data['body']);
     return $message_data;
+}
+
+function get_messages_table_details() {
+    $statement = DataAccessLayerSingleton::getInstance()->query('SHOW TABLE STATUS WHERE Name = "MESSAGES";');
+    $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+    return $results;
+}
+
+function get_messages_table_row_count(): int {
+    $row_count = get_messages_table_details()['Rows'];
+    if ($row_count === NULL) {
+        return 0;
+    }
+    return $row_count;
 }
 
 function extend_message_with_user_detail($message_data): array {
@@ -205,14 +223,19 @@ function get_message_by_message_id($message_id) {
 }
 
 function get_paginated_messages($start_index = DEFAULT_PAGINATION_START_INDEX, $page_size = DEFAULT_PAGINATION_PAGE_SIZE): array {
-    if ($start_index < DEFAULT_PAGINATION_START_INDEX) {
-        $start_index = DEFAULT_PAGINATION_START_INDEX;
-    }
     if ($page_size < MINIMUM_PAGINATION_PAGE_SIZE) {
         $page_size = MINIMUM_PAGINATION_PAGE_SIZE;
     }
     if ($page_size > MAXIMUM_PAGINATION_PAGE_SIZE) {
         $page_size = MAXIMUM_PAGINATION_PAGE_SIZE;
+    }
+    if ($start_index < DEFAULT_PAGINATION_START_INDEX) {
+        $start_index = DEFAULT_PAGINATION_START_INDEX;
+    }
+    $messages_table_row_count = get_messages_table_row_count()
+    if ($start_index > $messages_table_row_count) {
+        // query the last page
+        $start_index = $messages_table_row_count - $page_size;
     }
 
     $query_template = "SELECT " . GET_MESSAGE_SQL_PROJECTION . " FROM MESSAGES ORDER BY MESSAGES.sent_at DESC LIMIT :page_size OFFSET :start_index;";
@@ -233,19 +256,23 @@ function get_paginated_messages($start_index = DEFAULT_PAGINATION_START_INDEX, $
     return $results;
 }
 
-function _compose_message_pagination_link($start_index, $page_size) {
+function compose_message_pagination_link($start_index, $page_size) {
     return '?page=messages&start=' . $start_index . '&size=' . $page_size;
 }
 
 function get_next_link_for_pagination($start, $size) {
-    return _compose_message_pagination_link($start + $size, $size);
+    $messages_table_row_count = get_messages_table_row_count()
+    if ($start > $messages_table_row_count) {
+        $start = $messages_table_row_count - $size;
+    }
+    return compose_message_pagination_link($start + $size, $size);
 }
 
 function get_previous_link_for_pagination($start, $size) {
     if ($start < $size) {
         $start = $size;
     }
-    return _compose_message_pagination_link($start - $size, $size);
+    return compose_message_pagination_link($start - $size, $size);
 }
 
 function load_message_viewer_page_on($message_data) { 
