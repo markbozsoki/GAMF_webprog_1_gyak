@@ -61,7 +61,7 @@ if (is_request_form_page($_GET, 'messaging') && isset($_GET['new'])) {
     }
 }
 
-// load messages with paginations
+// load messages with paginations, ?page=messages...
 if (is_request_form_page($_GET, 'messages')) {
     if (!is_user_logged_in()) {
         clear_user_login_session();

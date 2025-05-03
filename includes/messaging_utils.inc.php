@@ -71,7 +71,7 @@ function parse_pagination_start($DATA, $key = 'start'): ?int {
     }
     $messages_table_row_count = get_messages_table_row_count();
     if ($value > $messages_table_row_count) {
-        return $messages_table_row_count;
+        return (int) floor($messages_table_row_count / DEFAULT_PAGINATION_PAGE_SIZE) * 10 ;
     }
     return $value;
 }
@@ -263,7 +263,10 @@ function compose_message_pagination_link($start_index, $page_size) {
 function get_next_link_for_pagination($start, $size) {
     $messages_table_row_count = get_messages_table_row_count();
     if ($start > $messages_table_row_count) {
-        $start = $messages_table_row_count - $size;
+        $start = $messages_table_row_count;
+    }
+    if ($messages_table_row_count - $start < $size) {
+        return compose_message_pagination_link($start, $size);
     }
     return compose_message_pagination_link($start + $size, $size);
 }
@@ -271,6 +274,9 @@ function get_next_link_for_pagination($start, $size) {
 function get_previous_link_for_pagination($start, $size) {
     if ($start < $size) {
         $start = $size;
+    }
+    if ($start === 0) {
+        return compose_message_pagination_link($start, $size);
     }
     return compose_message_pagination_link($start - $size, $size);
 }
