@@ -293,7 +293,7 @@ function load_message_viewer_page_on($message_data) {
         if (isset($_GET['start'])) {
             $start_qs = parse_pagination_start($_GET);
             if ($start_qs) {
-                $back_link .= "&start=" . $start_qs;                ;
+                $back_link .= "&start=" . $start_qs;
             }
         }
 
