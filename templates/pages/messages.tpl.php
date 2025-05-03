@@ -21,15 +21,17 @@
         </thead>
 
         <tbody>
+            <?php foreach ($PAGINATED_MESSAGE_DATA['data'] as $key => $message_data) { ?>
             <tr>
-                <th>1</th>
-                <th>2025-04-26 17:26:46</th>
-                <th>Guest</th>
-                <th>guest.user@example.com</th>
-                <th>Test Subject</th>
-                <th>Hello, is your frigde running?\n\n\nBye</th>
-                <th><a href="?message=msg65a8262b5a826">Megtekintés</a></th>
+                <th><?= $PAGINATED_MESSAGE_DATA['start'] + (int)$key + 1 ?></th>
+                <th><?= $message_data['sent_at'] ?></th>
+                <th><?= $message_data['user_detail'] ?></th>
+                <th><?= $message_data['email_address'] ?></th>
+                <th><?= substr($message_data['subject'], 0, 20) . '...' ?></th>
+                <th><?= substr($message_data['body'], 0, 20) . '...' ?></th>
+                <th><a href="?page=messages&message=<?= $message_data['message_id'] ?>">Megtekintés</a></th>
             </tr>
+            <?php } ?>
         </tbody>
     </table>
 </div>

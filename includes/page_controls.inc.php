@@ -23,6 +23,8 @@ function load_page($page_data_key, $extra_headers = NULL, $alert_message = NULL)
     global $images;
     global $URL;
 
+    global $PAGINATED_MESSAGE_DATA;
+
     if (!isset($page_datas[$page_data_key])) {
         load_error_page(400, 'unregistered page');
     }
