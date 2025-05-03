@@ -45,10 +45,12 @@
                     <?php echo $message_data['email_address'] ?>
                 </td>
                 <td>
-                    <?php echo substr($message_data['subject'], 0, 20) . '...' ?>
+                    <?php $visible_subject_text_length = 20 ?>
+                    <?php echo substr($message_data['subject'], 0, $visible_subject_text_length) . (strlen($message_data['subject']) < $visible_subject_text_length ? '' : '...') ?>
                 </td>
                 <td>
-                    <?php echo substr($message_data['body'], 0, 20) . '...' ?>
+                    <?php $visible_body_text_length = 25 ?>
+                    <?php echo substr($message_data['body'], 0, $visible_body_text_length) . (strlen($message_data['body']) < $visible_body_text_length ? '' : '...') ?>
                 </td>
                 <td>
                     <a href="<?= $PAGINATED_MESSAGE_DATA['link']['current'] ?>&message=<?= $message_data['message_id'] ?>">
