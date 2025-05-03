@@ -19,7 +19,7 @@
     <?php } ?>
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <header>
         <h1><?= $current_page_data['title']; ?></h1>
 
@@ -62,7 +62,7 @@
         <?php include($current_page_data['html_template']); ?>
     </section>
 
-    <footer class="fixed-bottom text-center">
+    <footer class="mt-auto text-center">
         <a href="https://vaszilijedc.hu/" target="_blank">vaszilijedc.hu</a>
     </footer>
 
