@@ -19,7 +19,7 @@
         </ul>
     </nav>
 
-    <table class="table table- m-1">
+    <table class="table table-striped m-1">
         <thead>
             <tr>
                 <th scope="col">#</th>
