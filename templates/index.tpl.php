@@ -20,13 +20,19 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
-    <header>
-        <h1><?= $current_page_data['title']; ?></h1>
+    <header class="row">
+        <div class="col-sm-8">
+            <h1 class="ml-2">
+                <?php echo $current_page_data['title']; ?>
+            </h1>
+        </div>
 
         <?php if (is_user_logged_in()) { ?>
-        <p>
-            <?php echo "Bejelentkezett: " . htmlspecialchars($_SESSION['surname']) . " " . htmlspecialchars($_SESSION['forename']) . " (" . htmlspecialchars($_SESSION['username']) . ")"; ?>
-        </p>
+        <div class="col-sm-4">
+            <p class="ml-2">
+                <?php echo "Bejelentkezett: " . htmlspecialchars($_SESSION['surname']) . " " . htmlspecialchars($_SESSION['forename']) . " (" . htmlspecialchars($_SESSION['username']) . ")"; ?>
+            </p>
+        </div>
         <?php } ?>
     </header>
 
