@@ -72,7 +72,7 @@
         <?php include($current_page_data['html_template']); ?>
     </section>
 
-    <footer class="mt-auto text-center">
+    <footer class="fixed-bottom mt-auto text-center">
         <a href="https://vaszilijedc.hu/" target="_blank">vaszilijedc.hu</a>
     </footer>
 
