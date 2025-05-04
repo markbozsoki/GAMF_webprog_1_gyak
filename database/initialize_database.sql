@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `USERS` (
 
 CREATE TABLE IF NOT EXISTS `MESSAGES` (
   `id` int(5) unsigned NOT NULL auto_increment,
-  --`msg_id` VARCHAR(16) default CONCAT("msg", SUBSTRING(UUID(), 1, 8), SUBSTRING(UUID(), 2, 6)) unique,
+  -- `msg_id` VARCHAR(16) default CONCAT("msg", SUBSTRING(UUID(), 1, 8), SUBSTRING(UUID(), 2, 6)) unique,
   `msg_id` VARCHAR(16) NOT NULL unique,
   `sender_id` int(5) default NULL,
   `sent_at` int(10) NOT NULL,
