@@ -178,16 +178,8 @@ function save_new_message($sender_id, $email_address, $message_subject, $message
         ':message_body' => encrypt_message_content($message_body),
     );
 
-    $data_access_layer = DataAccessLayerSingleton::getInstance();
-    try {
-        $data_access_layer->beginTransaction();
-        $data_access_layer->executeCommand($insert_new_message_template, $insert_new_message_params);
-        $data_access_layer->commit();
-        return $new_message_id;
-    } catch (Exception $e) {
-        $data_access_layer->rollBack();
-        throw $e;
-    }
+    DataAccessLayerSingleton::getInstance()->executeCommand($insert_new_message_template, $insert_new_message_params);
+    return $new_message_id;
 }
 
 function message_exists($message_id): bool {
