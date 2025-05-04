@@ -1,4 +1,4 @@
--- removes all registered data and resets index counters
+---------- removes all registered data and resets index counters ----------
 
 USE `knives_database`;
 TRUNCATE `USERS`;

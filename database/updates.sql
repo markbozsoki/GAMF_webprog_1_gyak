@@ -1,6 +1,6 @@
 USE `knives_database`;
 
--- update login timestamp
+---------- update login timestamp ----------
 SET @username = "admin";
 UPDATE ACCESS
 SET last_logged_in = UNIX_TIMESTAMP(NOW())
