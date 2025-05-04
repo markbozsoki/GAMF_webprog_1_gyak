@@ -167,36 +167,23 @@ function get_user_id_by_username($username) {
     return $result['id'];
 }
 
-function save_new_message($sender_id, $email_address, $message_subject, $message_body): string {        
+function save_new_message($sender_id, $email_address, $message_subject, $message_body): string {
     $insert_new_message_template = "INSERT INTO MESSAGES VALUES (default, :message_id, :sender_id, UNIX_TIMESTAMP(NOW()), :email_address, :message_subject, :message_body);";
+    $new_message_id = generate_new_message_id()
     $insert_new_message_params = array(
-        ':message_id' => generate_new_message_id(),
+        ':message_id' => $new_message_id,
         ':sender_id' => $sender_id,
         ':email_address' => $email_address, // email address should handled as sensitive data too (left uncrypted for presentation propuses)
         ':message_subject' => encrypt_message_content($message_subject),
         ':message_body' => encrypt_message_content($message_body),
     );
 
-    $new_message_id_query_template = "SELECT msg_id AS new_message_id FROM MESSAGES WHERE id = :new_message_record_id;";
-    $new_message_id_params = array(
-        ':new_message_record_id' => NULL,
-    );
-
     $data_access_layer = DataAccessLayerSingleton::getInstance();
     try {
         $data_access_layer->beginTransaction();
-        
         $data_access_layer->executeCommand($insert_new_message_template, $insert_new_message_params);
-        $new_message_record_id = $data_access_layer->lastInsertId();
-        $new_message_id_params[':new_message_record_id'] = $new_message_record_id;
-
         $data_access_layer->commit();
-        
-        $result = $data_access_layer->executeCommand($new_message_id_query_template, $new_message_id_params);
-        if (!isset($result['new_message_id'])) {
-            throw new Exception("[" . __FUNCTION__ . "] - Query result does not contain 'message_id'!");
-        }
-        return $result['new_message_id'];
+        return $new_message_id;
     } catch (Exception $e) {
         $data_access_layer->rollBack();
         throw $e;
