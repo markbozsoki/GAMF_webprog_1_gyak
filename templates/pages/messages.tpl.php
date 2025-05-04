@@ -1,35 +1,85 @@
-<p>Üzenetek listázása</p>
+<div class="container">
+    <?php $prev_page_button_disabled = $PAGINATED_MESSAGE_DATA['start'] === 0 ?>
+    <?php $next_page_button_disabled = count($PAGINATED_MESSAGE_DATA['data']) < $PAGINATED_MESSAGE_DATA['size'] ?>
 
-<div>
-    <!-- TODO: dinamikus linkek -->
-    <a href="?page=messages&start=0&size=10">előző oldal</a>
-    <a href="?page=messages&start=10&size=10">következő oldal</a>
-</div>
+    <nav>
+        <ul class="pagination">
+            <li class="page-item <?= $prev_page_button_disabled ? ' disabled' : '' ?>">
+                <?php $prev_page_link = $PAGINATED_MESSAGE_DATA['link']['previous']; ?>
+                <a class="page-link" href="<?= $prev_page_link ?>">
+                    Előző oldal
+                </a>
+            </li>
+            <li class="page-item <?= $next_page_button_disabled ? ' disabled' : '' ?>">
+                <?php $next_page_link = $PAGINATED_MESSAGE_DATA['link']['next']; ?>
+                <a class="page-link" href="<?= $next_page_link ?>">
+                    Következő oldal
+                </a>
+            </li>
+        </ul>
+    </nav>
 
-<div>
-    <table>
+    <table class="table table-striped m-1">
         <thead>
             <tr>
-                <th>#</th>
-                <th>Küldve</th>
-                <th>Küldő</th>
-                <th>Email</th>
-                <th>Tárgy</th>
-                <th>Üzenet</th>
-                <th>Id</th>
+                <th scope="col">#</th>
+                <th scope="col">Küldve</th>
+                <th scope="col">Küldő</th>
+                <th scope="col">Email</th>
+                <th scope="col">Tárgy</th>
+                <th scope="col">Üzenet</th>
+                <th scope="col">Link</th>
             </tr>
         </thead>
 
         <tbody>
+            <?php foreach ($PAGINATED_MESSAGE_DATA['data'] as $key => $message_data) { ?>
             <tr>
-                <th>1</th>
-                <th>2025-04-26 17:26:46</th>
-                <th>Guest</th>
-                <th>guest.user@example.com</th>
-                <th>Test Subject</th>
-                <th>Hello, is your frigde running?\n\n\nBye</th>
-                <th><a href="?message=msg65a8262b5a826">Megtekintés</a></th>
+                <th scope="row">
+                    <?php echo $PAGINATED_MESSAGE_DATA['start'] + (int)$key + 1 ?>
+                </th>
+                <td>
+                    <?php echo $message_data['sent_at'] ?>
+                </td>
+                <td>
+                    <?php echo $message_data['user_detail'] ?>
+                </td>
+                <td>
+                    <?php echo $message_data['email_address'] ?>
+                </td>
+                <td>
+                    <?php $visible_subject_text_length = 20 ?>
+                    <?php echo substr($message_data['subject'], 0, $visible_subject_text_length) . (strlen($message_data['subject']) < $visible_subject_text_length ? '' : '...') ?>
+                </td>
+                <td>
+                    <?php $visible_body_text_length = 25 ?>
+                    <?php echo substr($message_data['body'], 0, $visible_body_text_length) . (strlen($message_data['body']) < $visible_body_text_length ? '' : '...') ?>
+                </td>
+                <td>
+                    <a href="<?= $PAGINATED_MESSAGE_DATA['link']['current'] ?>&message=<?= $message_data['message_id'] ?>">
+                        Megtekintés
+                    </a>
+                </td>
             </tr>
+            <?php } ?>
         </tbody>
     </table>
+
+    <nav class="md-3">
+        <ul class="pagination">
+            <li class="page-item <?= $prev_page_button_disabled ? ' disabled' : '' ?>">
+                <?php $prev_page_link = $PAGINATED_MESSAGE_DATA['link']['previous']; ?>
+                <a class="page-link" href="<?= $prev_page_link ?>">
+                    Előző oldal
+                </a>
+            </li>
+            <li class="page-item <?= $next_page_button_disabled ? ' disabled' : '' ?>">
+                <?php $next_page_link = $PAGINATED_MESSAGE_DATA['link']['next']; ?>
+                <a class="page-link" href="<?= $next_page_link ?>">
+                    Következő oldal
+                </a>
+            </li>
+        </ul>
+    </nav>
 </div>
+

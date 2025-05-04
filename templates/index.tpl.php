@@ -19,50 +19,60 @@
     <?php } ?>
 </head>
 
-<body>
-    <header>
-        <h1><?= $current_page_data['title']; ?></h1>
+<body class="d-flex flex-column min-vh-100">
+    <div class="container">
+        <header>
+            <div class="row">
+                <div class="col-sm-8">
+                    <h1>
+                        <?php echo $current_page_data['title']; ?>
+                    </h1>
+                </div>
 
-        <?php if (is_user_logged_in()) { ?>
-        <p>
-            <?php echo "Bejelentkezett: " . htmlspecialchars($_SESSION['surname']) . " " . htmlspecialchars($_SESSION['forename']) . " (" . htmlspecialchars($_SESSION['username']) . ")"; ?>
-        </p>
-        <?php } ?>
-    </header>
+                <?php if (is_user_logged_in()) { ?>
+                <div class="col-sm-4">
+                    <p>
+                        <?php echo "Bejelentkezett: " . htmlspecialchars($_SESSION['surname']) . " " . htmlspecialchars($_SESSION['forename']) . " (" . htmlspecialchars($_SESSION['username']) . ")"; ?>
+                    </p>
+                </div>
+                <?php } ?>
+            </div>
+        </header>
 
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <?php foreach($page_datas as $page_data_key => $page_data_value) { ?>
-                    <?php $menu_accessibility = $page_data_value['accessibility']; ?>
-                    <?php $on_logged_in_allowed = is_user_logged_in() && $menu_accessibility['show_when_logged_in'] ?>
-                    <?php $on_logged_out_allowed = !is_user_logged_in() && $menu_accessibility['show_when_logged_out'] ?>
-                    <?php $should_show_menu = $on_logged_in_allowed || $on_logged_out_allowed ?>
-                    <?php if ($should_show_menu) { ?>
-                    <li class="nav-item<?= (($page_data_value === $current_page_data) ? ' active' : ''); ?>"> 
-                        <a class="nav-link" href="<?= ($page_data_key === '/') ? '.' : ('?page=' . $page_data_key); ?>">
-                            <?php echo $page_data_value['title']; ?>
-                        </a>
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <?php foreach($page_datas as $page_data_key => $page_data_value) { ?>
+                        <?php $menu_accessibility = $page_data_value['accessibility']; ?>
+                        <?php $on_logged_in_allowed = is_user_logged_in() && $menu_accessibility['show_when_logged_in'] ?>
+                        <?php $on_logged_out_allowed = !is_user_logged_in() && $menu_accessibility['show_when_logged_out'] ?>
+                        <?php $should_show_menu = $on_logged_in_allowed || $on_logged_out_allowed ?>
+                        <?php if ($should_show_menu) { ?>
+                        <li class="nav-item<?= (($page_data_value === $current_page_data) ? ' active' : ''); ?>"> 
+                            <a class="nav-link" href="<?= ($page_data_key === '/') ? '.' : ('?page=' . $page_data_key); ?>">
+                                <?php echo $page_data_value['title']; ?>
+                            </a>
+                        </li>
+                        <?php } ?>
+                    <?php } ?>
+                    <?php if (is_user_logged_in()) { ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="?logout">Kijelentkezés</a>
                     </li>
                     <?php } ?>
-                <?php } ?>
-                <?php if (is_user_logged_in()) { ?>
-                <li class="nav-item">
-                    <a class="nav-link" href="?logout">Kijelentkezés</a>
-                </li>
-                <?php } ?>
-            </ul>
-        </div>
-    </nav>
+                </ul>
+            </div>
+        </nav>
+    </div>
 
     <section>
         <?php include($current_page_data['html_template']); ?>
     </section>
 
-    <footer class="fixed-bottom text-center">
+    <footer class="fixed-bottom mt-auto text-center">
         <a href="https://vaszilijedc.hu/" target="_blank">vaszilijedc.hu</a>
     </footer>
 

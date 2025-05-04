@@ -58,6 +58,41 @@ function parse_message_id($DATA, $key = 'message') {
     return $value;
 }
 
+function parse_pagination_start($DATA, $key = 'start'): ?int {
+    if (!isset($DATA[$key])){
+        return DEFAULT_PAGINATION_START_INDEX;
+    }
+    if (!ctype_digit($DATA[$key])) {
+        return NULL;
+    }
+    $value = (int)$DATA[$key];
+    if ($value < 0) {
+        return DEFAULT_PAGINATION_START_INDEX;
+    }
+    $messages_table_row_count = get_messages_table_row_count();
+    if ($value > $messages_table_row_count) {
+        return (int) floor($messages_table_row_count / DEFAULT_PAGINATION_PAGE_SIZE) * 10 ;
+    }
+    return $value;
+}
+
+function parse_pagination_size($DATA, $key = 'size'): ?int {
+    if (!isset($DATA[$key])){
+        return DEFAULT_PAGINATION_PAGE_SIZE;
+    }
+    if (!ctype_digit($DATA[$key])) {
+        return NULL;
+    }
+    $value = (int)$DATA[$key];
+    if ($value < MINIMUM_PAGINATION_PAGE_SIZE) {
+        return MINIMUM_PAGINATION_PAGE_SIZE;
+    }
+    if ($value > MAXIMUM_PAGINATION_PAGE_SIZE) {
+        return MAXIMUM_PAGINATION_PAGE_SIZE;
+    }
+    return $value;
+}
+
 function encrypt_message_content($text) {
     return base64_encode($text); // base64 is a weak encoding, not a encryption (it was choosed only to demo the functionality)
 }
@@ -70,6 +105,49 @@ function unpack_message_data($message_data) {
     $message_data['email_address'] = trim($message_data['email_address'], "'");
     $message_data['subject'] = decrypt_message_content($message_data['subject']);
     $message_data['body'] = decrypt_message_content($message_data['body']);
+    return $message_data;
+}
+
+function get_messages_table_details() {
+    $statement = DataAccessLayerSingleton::getInstance()->query('SHOW TABLE STATUS WHERE Name = "MESSAGES";');
+    $results = $statement->fetch(PDO::FETCH_ASSOC);
+    return $results;
+}
+
+function get_messages_table_row_count(): int {
+    $row_count = get_messages_table_details()['Rows'];
+    if ($row_count === NULL) {
+        return 0;
+    }
+    return $row_count;
+}
+
+function extend_message_with_user_detail($message_data): array {
+    if (!array_key_exists('sender_id', $message_data)) {
+        throw new Exception("[" . __FUNCTION__ . "] - Missing sender_id key from message data");
+    }
+
+    $user_detail_key = 'user_detail';
+    if ($message_data['sender_id'] === NULL) {
+        $message_data[$user_detail_key] = 'Vendég';
+        return $message_data;
+    }
+
+    $query_template = "SELECT username, surname, forename FROM USER_DETAILS WHERE user_id = :user_id;";
+    $params = array(':user_id' => $message_data['sender_id']);
+
+    $result = DataAccessLayerSingleton::getInstance()->executeCommand($query_template, $params);
+    if (!isset($result['username'])) {
+        $result['username'] = 'not_found';
+    }
+    if (!isset($result['surname'])) {
+        $result['surname'] = 'Removed';
+    }
+    if (!isset($result['forename'])) {
+        $result['forename'] = 'User';
+    }
+
+    $message_data[$user_detail_key] = $result['surname'] . " " . $result['forename'] . " (" . $result['username'] . ")";
     return $message_data;
 }
 
@@ -144,67 +222,89 @@ function get_message_by_message_id($message_id) {
     return unpack_message_data($result);
 }
 
-function get_paginated_messages($start_index = DEFAULT_PAGINATION_START_INDEX, $page_size = DEFAULT_PAGINATION_PAGE_SIZE) {
-    if ($start_index < DEFAULT_PAGINATION_START) {
-        $start_index = DEFAULT_PAGINATION_START;
-    }
+function get_paginated_messages($start_index = DEFAULT_PAGINATION_START_INDEX, $page_size = DEFAULT_PAGINATION_PAGE_SIZE): array {
     if ($page_size < MINIMUM_PAGINATION_PAGE_SIZE) {
         $page_size = MINIMUM_PAGINATION_PAGE_SIZE;
     }
     if ($page_size > MAXIMUM_PAGINATION_PAGE_SIZE) {
         $page_size = MAXIMUM_PAGINATION_PAGE_SIZE;
     }
+    if ($start_index < DEFAULT_PAGINATION_START_INDEX) {
+        $start_index = DEFAULT_PAGINATION_START_INDEX;
+    }
+    $messages_table_row_count = get_messages_table_row_count();
+    if ($start_index > $messages_table_row_count) {
+        // query the last page
+        $start_index = $messages_table_row_count - $page_size;
+    }
 
     $query_template = "SELECT " . GET_MESSAGE_SQL_PROJECTION . " FROM MESSAGES ORDER BY MESSAGES.sent_at DESC LIMIT :page_size OFFSET :start_index;";
-    $params = array(
-        ':page_size' => $page_size,
-        ':start_index' => $start_index,
-    );
-
-    $result = DataAccessLayerSingleton::getInstance()->executeCommand($query_template, $params);
-    die(var_dump($result));
-    if (FALSE) {
-        return NULL;
+    $prepared_statement = DataAccessLayerSingleton::getInstance()->getPreparedStatement($query_template);
+    $prepared_statement->bindValue(':page_size', (int) $page_size, PDO::PARAM_INT);
+    $prepared_statement->bindValue(':start_index', (int) $start_index, PDO::PARAM_INT);
+    $prepared_statement->execute();
+    $results = $prepared_statement->fetchAll(PDO::FETCH_ASSOC);
+    
+    if (empty($results)) {
+        return $results;
     }
-    return $result;
+    
+    for($i = 0; $i < count($results); $i++) {
+        $message_data = extend_message_with_user_detail($results[$i]);
+        $results[$i] = unpack_message_data($message_data);
+    }
+    return $results;
 }
 
-function extend_message_with_user_detail($message_data): array {
-    if (!array_key_exists('sender_id', $message_data)) {
-        throw new Exception("[" . __FUNCTION__ . "] - Missing sender_id key from message data");
-    }
+function compose_message_pagination_link($start_index, $page_size) {
+    return '?page=messages&start=' . $start_index . '&size=' . $page_size;
+}
 
-    $user_detail_key = 'user_detail';
-    if ($message_data['sender_id'] === NULL) {
-        $message_data[$user_detail_key] = 'Vendég';
-        return $message_data;
+function get_next_link_for_pagination($start, $size) {
+    $messages_table_row_count = get_messages_table_row_count();
+    if ($start > $messages_table_row_count) {
+        $start = $messages_table_row_count;
     }
+    if ($messages_table_row_count - $start < $size) {
+        return compose_message_pagination_link($start, $size);
+    }
+    return compose_message_pagination_link($start + $size, $size);
+}
 
-    $query_template = "SELECT username, surname, forename FROM USER_DETAILS WHERE user_id = :user_id;";
-    $params = array(':user_id' => $message_data['sender_id']);
-
-    $result = DataAccessLayerSingleton::getInstance()->executeCommand($query_template, $params);
-    if (!isset($result['username'])) {
-        $result['username'] = 'not_found';
+function get_previous_link_for_pagination($start, $size) {
+    if ($start < $size) {
+        $start = $size;
     }
-    if (!isset($result['surname'])) {
-        $result['surname'] = 'Removed';
+    if ($start === 0) {
+        return compose_message_pagination_link($start, $size);
     }
-    if (!isset($result['forename'])) {
-        $result['forename'] = 'User';
-    }
-
-    $message_data[$user_detail_key] = $result['surname'] . " " . $result['forename'] . " (" . $result['username'] . ")";
-    return $message_data;
+    return compose_message_pagination_link($start - $size, $size);
 }
 
 function load_message_viewer_page_on($message_data) { 
     global $page_datas;
     
     $parent_page_key  = '/';
+    $back_link = $parent_page_key;
     if (isset($_GET['page'])) {
-        $parent_page_key  = $_GET['page'];
+        $parent_page_key = $_GET['page'];
+        $back_link = "?page=" . $parent_page_key;
+
+        if (isset($_GET['start'])) {
+            $start_qs = parse_pagination_start($_GET);
+            if ($start_qs) {
+                $back_link .= "&start=" . $start_qs;
+            }
+        }
+
+        if (isset($_GET['size'])) {
+            $size_qs = parse_pagination_size($_GET);
+            if ($size_qs) {
+                $back_link .= "&size=" . $size_qs;
+            }
+        }
     }
+
     $current_page_data = $page_datas['message_viewer'];
     include('./templates/index.tpl.php');
     exit();

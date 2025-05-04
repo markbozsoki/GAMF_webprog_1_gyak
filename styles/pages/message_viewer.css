@@ -1,0 +1,6 @@
+pre {
+    white-space: pre-wrap;
+    min-height: 3em;
+    max-height: 30em;
+    overflow-y: auto;
+}

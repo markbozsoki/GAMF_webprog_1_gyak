@@ -1,5 +1,10 @@
 <?php include('messaging_utils.inc.php');
 
+// disallow the direct loading of the message viewer page, ?page=message_viewer
+if (is_request_form_page($_GET, 'message_viewer')) {
+    load_error_page(404, 'message viewer page should not be loaded directly');
+}
+
 // allow message sending only from the messaging page, '?page=messaging&new'
 if (is_request_form_page($_GET, 'messaging') && isset($_GET['new'])) {
     try {
@@ -49,6 +54,38 @@ if (is_request_form_page($_GET, 'messaging') && isset($_GET['new'])) {
         $new_message_id = save_new_message($user_id, $email_address, $message_subject, $message_body);
         set_message_auth_session($new_message_id);
         redirect_to('?page=messaging&message=' . $new_message_id);
+    } catch (PDOException $e) {
+        load_error_page(500, 'SQL error ' . $e->getMessage());
+    } catch (Exception $e) {
+        load_error_page(500, $e->getMessage());
+    }
+}
+
+// load messages with paginations, ?page=messages...
+if (is_request_form_page($_GET, 'messages')) {
+    if (!is_user_logged_in()) {
+        clear_user_login_session();
+        load_error_page(403, 'unauthorized access attempt to messages page');
+    }
+    try {
+        $pagination_start = parse_pagination_start($_GET);
+        $pagination_size = parse_pagination_size($_GET);
+        if ($pagination_start === NULL || $pagination_size === NULL) {
+            load_error_page(500, 'unable to parse pagination query params');
+        }
+        
+        $message_datas = get_paginated_messages($pagination_start, $pagination_size);
+        $PAGINATED_MESSAGE_DATA = array(
+            'start' => $pagination_start,
+            'size' => $pagination_size,
+            'link' => array(
+                'current' => compose_message_pagination_link($pagination_start, $pagination_size),
+                'next' => get_next_link_for_pagination($pagination_start, $pagination_size),
+                'previous' => get_previous_link_for_pagination($pagination_start, $pagination_size),
+            ),
+            'data' => $message_datas,
+        );
+
     } catch (PDOException $e) {
         load_error_page(500, 'SQL error ' . $e->getMessage());
     } catch (Exception $e) {
