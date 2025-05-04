@@ -93,6 +93,10 @@ function parse_pagination_size($DATA, $key = 'size'): ?int {
     return $value;
 }
 
+function generate_new_message_id(): string {
+    return uniqid(prefix: 'msg');
+}
+
 function encrypt_message_content($text) {
     return base64_encode($text); // base64 is a weak encoding, not a encryption (it was choosed only to demo the functionality)
 }
@@ -164,8 +168,9 @@ function get_user_id_by_username($username) {
 }
 
 function save_new_message($sender_id, $email_address, $message_subject, $message_body): string {        
-    $insert_new_message_template = "INSERT INTO MESSAGES VALUES (default, default, :sender_id, UNIX_TIMESTAMP(NOW()), :email_address, :message_subject, :message_body);";
+    $insert_new_message_template = "INSERT INTO MESSAGES VALUES (default, :message_id, :sender_id, UNIX_TIMESTAMP(NOW()), :email_address, :message_subject, :message_body);";
     $insert_new_message_params = array(
+        ':message_id' => generate_new_message_id(),
         ':sender_id' => $sender_id,
         ':email_address' => $email_address, // email address should handled as sensitive data too (left uncrypted for presentation propuses)
         ':message_subject' => encrypt_message_content($message_subject),
