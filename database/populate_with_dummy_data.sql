@@ -74,6 +74,7 @@ SET @details_last_id = LAST_INSERT_ID();
 INSERT INTO `users` (`id`, `username`, `created_at`, `access_id`, `detail_id`) VALUES (default, @username, UNIX_TIMESTAMP(NOW()), @access_last_id, @details_last_id);
 SET @test_user_fish_id = LAST_INSERT_ID();
 
+-- only works if msg_id is generated on the DB side
 INSERT INTO `messages` (`id`, `msg_id`, `sender_id`, `sent_at`, `email_address`, `subject`, `msg_text`) VALUES (default, default, default, UNIX_TIMESTAMP(NOW() - INTERVAL 5 MINUTE), "'guest.user@example.com'", TO_BASE64("Test Subject"), TO_BASE64("Hello, is your frigde running?\n\n\nBye"));
 INSERT INTO `messages` (`id`, `msg_id`, `sender_id`, `sent_at`, `email_address`, `subject`, `msg_text`) VALUES (default, default, default, UNIX_TIMESTAMP(NOW() - INTERVAL 10 MINUTE), "'guest.user@example.hu'", TO_BASE64("Test Subject"), TO_BASE64("Hello,\n\nhow are you?\n\nI'am a guest.\n\n\nBye"));
 INSERT INTO `messages` (`id`, `msg_id`, `sender_id`, `sent_at`, `email_address`, `subject`, `msg_text`) VALUES (default, default, @test_user_dummy_id, UNIX_TIMESTAMP(NOW() - INTERVAL 15 MINUTE), "'dummy.user@example.com'", TO_BASE64("Test Subject"), TO_BASE64("Hello,\n\nhow are you?\n\nI'am the dummy user.\n\n\nBye"));
