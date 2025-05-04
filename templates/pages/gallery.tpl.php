@@ -18,7 +18,7 @@
     </div>
 </div>
 
-
+<?php if (is_user_logged_in()): ?>
 <form id="imageUploadForm" enctype="multipart/form-data" class="p-4 border rounded shadow-sm bg-light"
     style="max-width: 500px; margin: auto;">
     <div class="form-group">
@@ -41,3 +41,4 @@
 
     <button type="submit" class="btn btn-primary btn-block btn-dark">Feltöltés</button>
 </form>
+<?php endif; ?>
