@@ -51,9 +51,11 @@ CREATE TABLE IF NOT EXISTS `MESSAGES` (
 
 -- VIEWS
 CREATE VIEW IF NOT EXISTS `USERNAMES` AS
+-- CREATE VIEW `USERNAMES` AS
 SELECT username FROM USERS;
 
 CREATE VIEW IF NOT EXISTS `USER_DETAILS` AS
+-- CREATE VIEW `USER_DETAILS` AS
 SELECT USERS.id AS user_id,
        USERS.username AS username, 
        DETAILS.surname AS surname, 
@@ -61,6 +63,7 @@ SELECT USERS.id AS user_id,
 FROM USERS LEFT JOIN DETAILS ON USERS.detail_id = DETAILS.id;
 
 CREATE VIEW IF NOT EXISTS `USER_LOGINS` AS
+-- CREATE VIEW `USER_LOGINS` AS
 SELECT USERS.username AS username, 
        from_unixtime(ACCESS.last_logged_in) AS last_logged_in,
        from_unixtime(ACCESS.created_at) AS access_created_at,
@@ -72,6 +75,7 @@ FROM USERS LEFT JOIN ACCESS ON USERS.access_id = ACCESS.id
 ORDER BY logged_in_epoch DESC, access_crtd_epoch DESC, user_crtd_epoch DESC;
 
 CREATE VIEW IF NOT EXISTS `ORPHAN_ACCESS_RECORDS` AS
+-- CREATE VIEW `ORPHAN_ACCESS_RECORDS` AS
 SELECT * 
 FROM ACCESS 
 WHERE id NOT IN (
@@ -80,6 +84,7 @@ WHERE id NOT IN (
   );
 
 CREATE VIEW IF NOT EXISTS `ORPHAN_DETAILS_RECORDS` AS
+-- CREATE VIEW `ORPHAN_DETAILS_RECORDS` AS
 SELECT * 
 FROM DETAILS 
 WHERE id NOT IN (
@@ -99,4 +104,4 @@ SET @details_last_id = LAST_INSERT_ID();
 INSERT IGNORE INTO `USERS` (`id`, `username`, `created_at`, `access_id`, `detail_id`) VALUES (default, @username, UNIX_TIMESTAMP(NOW()), @access_last_id, @details_last_id);
 
 -- ADD TEST MESSAGE: ?message=test
-INSERT IGNORE INTO `messages` (`id`, `msg_id`, `sender_id`, `sent_at`, `email_address`, `subject`, `msg_text`) VALUES (default, "test", default, UNIX_TIMESTAMP(NOW() - INTERVAL 5 MINUTE), "'guest.user@test.com'", TO_BASE64("Test Subject"), TO_BASE64("Hello,\nI hope this email finds you well!\n\n 0===}::::::::::::::> \n\nBye"));
+INSERT IGNORE INTO `MESSAGES` (`id`, `msg_id`, `sender_id`, `sent_at`, `email_address`, `subject`, `msg_text`) VALUES (default, "test", default, UNIX_TIMESTAMP(NOW() - INTERVAL 5 MINUTE), "'guest.user@test.com'", TO_BASE64("Test Subject"), TO_BASE64("Hello,\nI hope this email finds you well!\n\n 0===}::::::::::::::> \n\nBye"));
