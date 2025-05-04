@@ -169,7 +169,7 @@ function get_user_id_by_username($username) {
 
 function save_new_message($sender_id, $email_address, $message_subject, $message_body): string {
     $insert_new_message_template = "INSERT INTO MESSAGES VALUES (default, :message_id, :sender_id, UNIX_TIMESTAMP(NOW()), :email_address, :message_subject, :message_body);";
-    $new_message_id = generate_new_message_id()
+    $new_message_id = generate_new_message_id();
     $insert_new_message_params = array(
         ':message_id' => $new_message_id,
         ':sender_id' => $sender_id,
