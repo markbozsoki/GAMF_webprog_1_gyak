@@ -2,7 +2,7 @@
     <div class="row justify-content-center" id="gallery">
         <?php foreach($images as $file => $date) { ?>
         <div class="col-12 col-sm-6 col-md-4 mb-4 d-flex align-items-stretch">
-            <div class="card shadow-sm w-100">
+            <div class="card bg-dark shadow-sm w-100">
                 <a href="<?= $URL . $file ?>" target="_blank">
                     <img src="<?= $URL . $file ?>" class="card-img-top img-fluid" alt="<?= $file ?>"
                         style="height: 300px; object-fit: cover; object-position: center;">
@@ -19,8 +19,7 @@
 </div>
 
 <?php if (is_user_logged_in()): ?>
-<form id="imageUploadForm" enctype="multipart/form-data" class="p-4 border rounded shadow-sm bg-light"
-    style="max-width: 500px; margin: auto;">
+<form id="imageUploadForm" enctype="multipart/form-data" style="max-width: 500px; margin: auto;">
     <div class="form-group">
         <label for="filetitle">Kép címe</label>
         <input type="text" class="form-control" id="filetitle" name="filetitle" placeholder="Add meg a kép címét">
