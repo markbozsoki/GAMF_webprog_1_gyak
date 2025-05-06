@@ -4,8 +4,7 @@
         <div class="col-12 col-sm-6 col-md-4 mb-4 d-flex align-items-stretch">
             <div class="card bg-dark shadow-sm w-100">
                 <a href="<?= $URL . $file ?>" target="_blank">
-                    <img src="<?= $URL . $file ?>" class="card-img-top img-fluid" alt="<?= $file ?>"
-                        style="height: 300px; object-fit: cover; object-position: center;">
+                    <img src="<?= $URL . $file ?>" class="card-img-top img-fluid custom-img" alt="<?= $file ?>">
                 </a>
                 <div class="card-body d-flex flex-column">
                     <p class="card-text small text-muted mb-2">
@@ -19,7 +18,7 @@
 </div>
 
 <?php if (is_user_logged_in()): ?>
-<form id="imageUploadForm" enctype="multipart/form-data" style="max-width: 500px; margin: auto;">
+<form id="imageUploadForm" enctype="multipart/form-data">
     <div class="form-group">
         <label for="filetitle">Kép címe</label>
         <input type="text" class="form-control" id="filetitle" name="filetitle" placeholder="Add meg a kép címét">

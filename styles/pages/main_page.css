@@ -7,3 +7,33 @@
     color: rgba(0, 0, 0, 0.664);
     text-decoration: none;
 }
+
+.content-img {
+    max-width: 60%;
+    height: auto;
+}
+
+.card-img {
+    max-height: 250px;
+    object-fit: contain;
+}
+
+@media (max-width: 768px) {
+    .content-img {
+        max-width: 100%;
+    }
+
+    .card-img {
+        max-width: 100%;
+    }
+}
+
+.card-contact {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.card-contact a {
+    margin-top: auto;
+}
