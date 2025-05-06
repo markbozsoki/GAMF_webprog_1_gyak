@@ -1,5 +1,4 @@
-<div class="container">
-    <p>Üzenet küldés</p>
+<div class="container mt-5">
     <form id="messageComposerForm" class="needs-validation" action="?page=messaging&new" method="POST" novalidate>
         <?php if (is_user_logged_in()) { ?>
         <div class="form-group">

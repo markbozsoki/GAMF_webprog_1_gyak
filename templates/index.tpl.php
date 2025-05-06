@@ -20,7 +20,7 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
-    <div class="container">
+    <div id="headernav" class="container">
         <header>
             <div class="row">
                 <div class="col-sm-8">
@@ -39,7 +39,7 @@
             </div>
         </header>
 
-        <nav class="navbar navbar-expand-lg navbar-light">
+        <nav class="navbar navbar-expand-lg navbar-dark">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -72,7 +72,7 @@
         <?php include($current_page_data['html_template']); ?>
     </section>
 
-    <footer class="fixed-bottom mt-auto text-center">
+    <footer class="wrapper text-center">
         <a href="https://vaszilijedc.hu/" target="_blank">vaszilijedc.hu</a>
     </footer>
 

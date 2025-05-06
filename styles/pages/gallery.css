@@ -1,0 +1,28 @@
+#imageUploadForm {
+    background-color: #2222225e;
+    padding: 2em;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+input[type="file"]::file-selector-button {
+    background-color: #343a40;
+    color: white;
+    border-radius: 10px;
+    border: none;
+}
+
+#imageUploadForm label {
+    color: #343a40;
+}
+
+.custom-img {
+    height: 300px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.upload-form {
+    max-width: 500px;
+    margin: auto;
+}

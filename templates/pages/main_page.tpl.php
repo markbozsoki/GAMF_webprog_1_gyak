@@ -15,7 +15,7 @@
                     váljon, és együtt adhassuk tovább ezek az értékeket. Tarts velünk te is!</p>
             </div>
             <div class="col-md-6">
-                <img class="rounded mx-auto d-block" style="max-width: 60%; height: auto;"
+                <img class="rounded mx-auto d-block content-img"
                     src="https://vaszilijedc.hu/wp-content/uploads/2018/06/IMG_20180614_163340_1.jpg.webp"
                     alt="Vaszilij" title="Vaszilij" />
             </div>
@@ -115,7 +115,7 @@
 
     <div class="row text-center mb-5">
         <div class="col-md-4">
-            <div class="card text-white bg-dark mb-3">
+            <div class="card text-white bg-dark mb-3 card-contact">
                 <h2>Facebook</h2>
                 <div>
                     <p>Vaszilij EDC a Facebookon.</p>
@@ -125,7 +125,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card text-white bg-dark mb-3">
+            <div class="card text-white bg-dark mb-3 card-contact">
                 <h2>Közösség</h2>
                 <div>
                     <p>Ahol te adod a tartalmat.</p>
@@ -135,7 +135,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card text-white bg-dark mb-3">
+            <div class="card text-white bg-dark mb-3 card-contact">
                 <h2>Üzenet</h2>
                 <div>
                     <p>Küldj üzenetet nekem!</p>
@@ -149,8 +149,8 @@
         <div class="row align-items-center">
             <div class="col-md-6">
                 <img src="https://vaszilijedc.hu/wp-content/uploads/2020/12/IMG_20200614_143419-01.jpeg.webp"
-                    alt="IMG 20200614 143419 01" title="IMG_20200614_143419-01" style="max-width: 60%; height: auto;"
-                    class="rounded mx-auto d-block">
+                    alt="IMG 20200614 143419 01" title="IMG_20200614_143419-01"
+                    class="rounded mx-auto d-block content-img">
             </div>
             <div class="col-md-6">
                 <h2>De mi az az EDC?</h2>
@@ -177,7 +177,7 @@
         <div class="col-12 col-md-4 mb-4">
             <div class="card h-100 text-center">
                 <img src="https://vaszilijedc.hu/wp-content/uploads/2021/12/29366421_1622414891184377_7218577531824242688_n.jpg.webp"
-                    class="card-img-top img-fluid" style="height: 250px; object-fit:contain;" alt="Bladeshop">
+                    class="card-img-top img-fluid card-image" alt="Bladeshop">
                 <div class="card-body">
                     <h5 class="card-title">Bladeshop</h5>
                     <p class="card-text">Késes webshop gyakori akciókkal és vevőbarát hozzáállással. Ha új kés kell, ne
@@ -192,7 +192,7 @@
         <div class="col-12 col-md-4 mb-4">
             <div class="card h-100 text-center">
                 <img src="https://vaszilijedc.hu/wp-content/uploads/2021/12/162854478_131232062335812_8008164456523881828_n.jpg.webp"
-                    class="card-img-top img-fluid" style="height: 250px; object-fit:contain;" alt="Elemlámpa blog">
+                    class="card-img-top img-fluid card-image" alt="Elemlámpa blog">
                 <div class="card-body">
                     <h5 class="card-title">Elemlámpa blog</h5>
                     <p class="card-text">Minden, amit az elemlámpákról tudni szeretnél. Cikkek, bemutatók, illetve
@@ -207,7 +207,7 @@
         <div class="col-12 col-md-4 mb-4">
             <div class="card h-100 text-center">
                 <img src="https://vaszilijedc.hu/wp-content/uploads/2021/12/Kesvilag.jpg.webp"
-                    class="card-img-top img-fluid" style="height: 250px; object-fit:contain;" alt="Késvilág">
+                    class="card-img-top img-fluid card-image" alt="Késvilág">
                 <div class="card-body">
                     <h5 class="card-title">Késvilág</h5>
                     <p class="card-text">Hazai bolt és webáruház, rendkívül széles termékválasztékkal. Debrecenben
@@ -222,7 +222,7 @@
         <div class="col-12 col-md-4 mb-4">
             <div class="card h-100 text-center">
                 <img src="https://vaszilijedc.hu/wp-content/uploads/2021/12/mkszoveglogo.png.webp"
-                    class="card-img-top img-fluid" style="height: 250px; object-fit:contain;" alt="mkszoveglogo">
+                    class="card-img-top img-fluid card-image" alt="mkszoveglogo">
                 <div class="card-body">
                     <h5 class="card-title">Magyar kések</h5>
                     <p class="card-text">Webshop és közösség. Elsősorban a hazai készítők termékeivel foglalkozik,
@@ -238,7 +238,7 @@
         <div class="col-12 col-md-4 mb-4">
             <div class="card h-100 text-center">
                 <img src="https://vaszilijedc.hu/wp-content/uploads/2021/12/993918_421456207969831_2037177305_n.jpg.webp"
-                    class="card-img-top img-fluid" style="height: 250px; object-fit:contain;"
+                    class="card-img-top img-fluid card-image"
                     alt="993918 421456207969831 2037177305 n">
                 <div class="card-body">
                     <h5 class="card-title">Késportál</h5>
@@ -254,7 +254,7 @@
         <div class="col-12 col-md-4 mb-4">
             <div class="card h-100 text-center">
                 <img src="https://vaszilijedc.hu/wp-content/uploads/2021/12/ZBOSSweb_fekete_hatterrel-kicsi.jpg.webp"
-                    class="card-img-top img-fluid" style="height: 250px; object-fit:contain;"
+                    class="card-img-top img-fluid card-image"
                     alt="ZBOSSweb fekete hatterrel kicsi">
                 <div class="card-body">
                     <h5 class="card-title">ZBOSS</h5>

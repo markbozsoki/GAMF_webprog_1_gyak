@@ -4,3 +4,13 @@ pre {
     max-height: 30em;
     overflow-y: auto;
 }
+
+.card {
+    background-color: #2222225e;
+    color: #343a40;
+}
+
+a {
+    color: rgba(0, 0, 0, 0.664);
+    text-decoration: none;
+}

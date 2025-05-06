@@ -1,0 +1,10 @@
+legend {
+    color: #343a40;
+}
+
+input[type="submit"] {
+    background-color: #343a40;
+    color: white;
+    border-radius: 10px;
+    border: none;
+}
