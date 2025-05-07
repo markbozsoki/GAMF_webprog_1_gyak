@@ -24,7 +24,7 @@ if (isset($_FILES['file'])) {
             $message = "Már létezik: " . $file['name'];
         } else {
             if (move_uploaded_file($file['tmp_name'], $new_image_file_path)) {
-                $message = "Sikeres feltöltés: " . $file['name'];
+                $message = "Sikeres feltöltés: " . $file['name'] . " A kép megtekintéséhez frissítse az oldalt!";
             } else {
                 $message = "Hiba történt a feltöltéskor.";
             }
