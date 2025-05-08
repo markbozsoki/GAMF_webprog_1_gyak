@@ -5,6 +5,26 @@ if (is_request_form_page($_GET, 'message_viewer')) {
     load_error_page(404, 'message viewer page should not be loaded directly');
 }
 
+// load message viewer page on '?message=' param if authorized
+if (isset($_GET['message'])) {
+    $message_id = parse_message_id($_GET);
+    if (!is_user_logged_in() && !is_message_auth_session_valid($message_id)) {
+        load_error_page(401, 'not authorized to view messages');
+    }
+    try {
+        if (!message_exists($message_id)) {
+            load_error_page(404, 'no message found with id ' . $message_id);
+        }
+
+        $message_data = get_message_by_message_id($message_id);
+        load_message_viewer_page_on($message_data);
+    } catch (PDOException $e) {
+        load_error_page(500, 'SQL error ' . $e->getMessage());
+    } catch (Exception $e) {
+        load_error_page(500, $e->getMessage());
+    }
+}
+
 // allow message sending only from the messaging page, '?page=messaging&new'
 if (is_request_form_page($_GET, 'messaging') && isset($_GET['new'])) {
     try {
@@ -86,26 +106,6 @@ if (is_request_form_page($_GET, 'messages')) {
             'data' => $message_datas,
         );
 
-    } catch (PDOException $e) {
-        load_error_page(500, 'SQL error ' . $e->getMessage());
-    } catch (Exception $e) {
-        load_error_page(500, $e->getMessage());
-    }
-}
-
-// load message viewer page on '?message=' param if authorized
-if (isset($_GET['message'])) {
-    $message_id = parse_message_id($_GET);
-    if (!is_user_logged_in() && !is_message_auth_session_valid($message_id)) {
-        load_error_page(401, 'not authorized to view messages');
-    }
-    try {
-        if (!message_exists($message_id)) {
-            load_error_page(404, 'no message found with id ' . $message_id);
-        }
-
-        $message_data = get_message_by_message_id($message_id);
-        load_message_viewer_page_on($message_data);
     } catch (PDOException $e) {
         load_error_page(500, 'SQL error ' . $e->getMessage());
     } catch (Exception $e) {

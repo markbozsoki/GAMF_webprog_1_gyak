@@ -1,16 +1,16 @@
----------- DEBUG USER FOR CONNECTION ----------
+-- -------- DEBUG USER FOR CONNECTION -------- --
 CREATE USER IF NOT EXISTS 'debug_user'@'localhost' IDENTIFIED BY 'password';
 GRANT SELECT, INSERT, UPDATE ON *.* TO 'debug_user'@'localhost' 
 REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 3600 MAX_CONNECTIONS_PER_HOUR 3600 MAX_UPDATES_PER_HOUR 3600 MAX_USER_CONNECTIONS 3600;
 GRANT SELECT, INSERT, UPDATE ON `knives\_database`.* TO 'debug_user'@'localhost';
 
----------- DATABASE ----------
+-- -------- DATABASE -------- --
 CREATE DATABASE IF NOT EXISTS `knives_database`
 CHARACTER SET utf8 COLLATE utf8_hungarian_ci;
 
 USE `knives_database`;
 
----------- CREATE TABLES ----------
+-- -------- CREATE TABLES -------- --
 CREATE TABLE IF NOT EXISTS `ACCESS` (
   `id` int(5) unsigned NOT NULL auto_increment,
   `created_at` int(10) NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `MESSAGES` (
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
 
----------- CREATE VIEWS ----------
+-- -------- CREATE VIEWS -------- --
 CREATE VIEW IF NOT EXISTS `USERNAMES` AS
 -- CREATE VIEW `USERNAMES` AS
 SELECT username FROM USERS;
@@ -92,7 +92,7 @@ WHERE id NOT IN (
   FROM USERS
   );
 
----------- REGISTER ADMIN USER ----------
+-- -------- REGISTER ADMIN USER -------- --
 SET @username = 'admin';
 SET @password = 'admin';
 SET @surname = 'The';
@@ -103,5 +103,5 @@ INSERT IGNORE INTO `DETAILS` (`id`, `surname`, `forename`) VALUES (default, @sur
 SET @details_last_id = LAST_INSERT_ID();
 INSERT IGNORE INTO `USERS` (`id`, `username`, `created_at`, `access_id`, `detail_id`) VALUES (default, @username, UNIX_TIMESTAMP(NOW()), @access_last_id, @details_last_id);
 
----------- ADD TEST MESSAGE: ?message=test ----------
+-- -------- ADD TEST MESSAGE: ?message=test -------- --
 INSERT IGNORE INTO `MESSAGES` (`id`, `msg_id`, `sender_id`, `sent_at`, `email_address`, `subject`, `msg_text`) VALUES (default, "test", default, UNIX_TIMESTAMP(NOW() - INTERVAL 5 MINUTE), "'guest.user@test.com'", TO_BASE64("Test Subject"), TO_BASE64("Hello,\nI hope this email finds you well!\n\n 0===}::::::::::::::> \n\nBye"));
